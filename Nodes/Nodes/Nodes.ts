@@ -11,7 +11,7 @@ class Nodes {
     WIDTH: number = 800;
     HEIGHT: number = 600;
 
-     ////----- Surface Arrays -----
+    ////----- Surface Arrays -----
     upperRocks: Array<number[]>;
     holes1: Array<number>;
     holes2: Array<number>;
@@ -186,7 +186,7 @@ class Nodes {
         //    holes2 = ResourceManager.mHoleArray1;
 
         // Create the Actors
-        this.charlie = new Charlie(150, 350, 3, this.gameSprites, this.walls);
+        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls);//350
         this.earth = new Earth(this.gameSprites);
 
         //    //    gameSprites = Content.Load < Texture2D > ("sprites");
@@ -233,6 +233,7 @@ class Nodes {
     onKeyboardPress(event: Event, touchDevice: boolean) {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
+                this.somersault = true;
                 break;
             case 37:
                 this.moveLeft = true;
@@ -244,12 +245,17 @@ class Nodes {
                 break;
             case 40:
                 break;
+            case 113:
+                this.belowMoon = false;
+                this.charlie.Y = 320;
+                break;
         }
     }
 
     onKeyboardRelease(event: Event, touchDevice: boolean) {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
+                this.somersault = false;
                 break;
             case 37:
                 this.moveLeft = false;
@@ -268,12 +274,30 @@ class Nodes {
 
     private update(): void {
 
-        if (this.moveLeft) {// && !this.charlie.msomersaultJump) {
+        if (this.moveLeft && !this.charlie.Falling) {// && !this.charlie.msomersaultJump) {
             this.charlie.Update(0);
         }
-        if (this.moveRight) {// && !this.charlie.msomersaultJump) {
+
+        if (this.moveRight && !this.charlie.Falling) {// && !this.charlie.msomersaultJump) {
             this.charlie.Update(1);
         }
+
+        // Trigger the somersault
+        if (this.somersault) {
+            this.charlie.Somersault = true;
+            //this.charlie.Update(1);
+            //this.somersault = false;
+            //this.charlie.Summersault = false;
+        }
+
+        if (this.charlie.Somersault && !this.charlie.Direction) {
+            this.charlie.Update(0);
+        }
+
+        if (this.charlie.Somersault && this.charlie.Direction) {
+            this.charlie.Update(1);
+        }
+
         //    //
         //    if (somersault) {
         //        Charlie.msomersaultJump = true;
@@ -296,14 +320,14 @@ class Nodes {
         if (this.charlie.X < 50) {
             if (this.screenCounter > 0) {
                 this.screenCounter = (this.screenCounter - 1) % 15;
-                //belowScreenCounter -= 1;
-                //belowScreenCounter = (belowScreenCounter - 1) % 15;
+                this.belowScreenCounter -= 1;
+                this.belowScreenCounter = (this.belowScreenCounter - 1) % 15;
                 //Charlie.mBelowScreenCounter -= 1;
                 //Charlie.mBelowScreenCounter = (Charlie.mBelowScreenCounter - 1) % 15;
             }
             else {
                 this.screenCounter = 15; //8
-                //belowScreenCounter += 15;
+                this.belowScreenCounter += 15;
                 //Charlie.mBelowScreenCounter += 1;
             }
 
@@ -336,7 +360,7 @@ class Nodes {
             //Charlie.mBelowScreenCounter = screenCounter;
             //belowScreenCounter = screenCounter;
 
-            // Move the hole out of the way...		
+            // Move the hole out of the way...         
             //holeRect0.left = 0;
             //holeRect0.top = 0;
             //holeRect0.right = 0;
@@ -348,11 +372,13 @@ class Nodes {
         if (!this.belowMoon) {
 
             if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
-                this.holeRect0 = new Rectangle(this.hole0X, this.holesY, 100, 40)
-
+                this.holeRect0 = new Rectangle(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
+                //this.holeRect0 = new Rectangle(this.hole0X, this.holesY+20, this.hole0X + 100, this.holesY + 40)
+                //this.holeRect0 = new Rectangle(this.hole0X, this.holesY, 100, 40)
                 if (this.charlie.Rectangle.Intersects(this.holeRect0)) {
                     this.belowMoon = true;
                     this.charlie.Falling = true;
+                    this.charlie.Y = 10;
                     //this.onGround = true;
                     //this.y -= 1;
                     //if (this.tripSwitch == false) {
@@ -375,6 +401,46 @@ class Nodes {
             this.earth.Update();
         }
         else {
+
+            if (this.charlie.Falling) {
+                if (this.charlie.Y < 12) {
+                    //graphicsMan.configureEnemies(belowScreenCounter);
+                    this.resourceManager.configureEnemies(this.screenCounter);
+                }
+                this.charlie.Y += 2;
+                if (this.charlie.Y >= 425) {
+                    this.charlie.Y = 20; //man.YPosition = 20;
+                    this.charlie.Walking = false;
+                    this.belowScreenCounter += 16;
+                    this.clearAll();
+                    this.resourceManager.configureEnemies(this.belowScreenCounter);
+                }
+                if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
+                    this.charlie.Y = 400;
+                    this.belowScreenCounter -= 16;
+                    this.charlie.Jump = false;
+                    this.clearAll();
+                }
+            }
+            if (!this.charlie.Falling) {
+                // Allow us to jump out from under the moon surface....
+                if (this.charlie.Y <= 30 && this.belowScreenCounter < 15) {
+                    this.charlie.Falling = false;
+                    this.charlie.Walking = false;
+                    this.belowMoon = false;
+                    this.charlie.Y = 250;
+                    this.clearAll();
+                    this.belowScreenCounter = 0;
+                    this.resourceManager.configureEnemies(this.belowScreenCounter);
+                }
+                if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
+                    this.charlie.Y = 400;
+                    this.belowScreenCounter -= 16;
+                    this.charlie.Jump = false;
+                    this.clearAll();
+                }
+            }
+
 
         }
         this.draw();
@@ -415,7 +481,8 @@ class Nodes {
                 this.ctx.beginPath();
                 this.ctx.lineWidth = 2;
                 this.ctx.strokeStyle = "blue";
-                this.ctx.rect(this.hole0X, this.holesY, this.rockWidth, 30);
+                //this.ctx.rect(this.hole0X, this.holesY, this.rockWidth, 30);
+                this.ctx.rect(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
                 this.ctx.stroke();
 
             }
@@ -467,7 +534,7 @@ class Nodes {
                     switch (this.platform[jj]) {
                         // Walls
                         case 0:
-                            // this.ctx.drawImage(moonRocks, x, y, rockWidth, rockHeight, screenPositionX, screenPositionY, rockWidth, rockHeight);					
+                            // this.ctx.drawImage(moonRocks, x, y, rockWidth, rockHeight, screenPositionX, screenPositionY, rockWidth, rockHeight);                             
                             this.ctx.drawImage(this.unGroundLedges, 0 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
                             break;
 
@@ -626,7 +693,6 @@ class Nodes {
         //    this.ctx.fill();
     }
 
-
     //// Simple collsion detection
     doCollision() {
         //    if (Charlie.mPositionX == 160 && !belowMoon) {
@@ -664,5 +730,17 @@ class Nodes {
         //    }
     }
 
+    private clearAll(): void {
+        this.enemies = [];//  .Clear();
+        //this.rects = [];//.Clear();
+        this.walls = [];//.Clear();
+        this.platform = [];//.Clear();
+        this.edibleWalls = [];//.Clear();
+        this.alchiems = [];//.Clear();
+        //this.testList = [];//.Clear();
+        //if (this.roof.length > 0) {
+        //    this.roof = [];//.Clear();
+        //}
+    }
 }
 export = Nodes;
