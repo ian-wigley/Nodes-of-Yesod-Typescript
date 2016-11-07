@@ -7,6 +7,7 @@
     protected m_height: number;
     protected m_frameX: number;
     protected m_frameY: number;
+    protected m_animTimer: number;
 
     constructor(texture: HTMLCanvasElement) {
         this.m_texture = texture;
@@ -15,7 +16,8 @@
         this.m_width = 0;
         this.m_height = 0;
         this.m_frameX = 0;
-        this.m_frameX = 0;
+        this.m_frameY = 0;
+        this.m_animTimer = 0;
     }
 
     Update(value: number): void {

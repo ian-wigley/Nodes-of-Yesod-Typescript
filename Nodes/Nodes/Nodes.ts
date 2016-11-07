@@ -2,19 +2,33 @@
 import Earth = require("Earth");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
+import Rocket = require("Rocket");
 
 class Nodes {
 
-    canvas: HTMLCanvasElement;
-    ctx: CanvasRenderingContext2D;
-
-    WIDTH: number = 800;
-    HEIGHT: number = 600;
+    private canvas: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D;
+    private width: number = 800;
+    private height: number = 600;
 
     ////----- Surface Arrays -----
-    upperRocks: Array<number[]>;
-    holes1: Array<number>;
-    holes2: Array<number>;
+    private upperRocks: Array<number[]>;
+    private holes1: Array<number>;
+    private holes2: Array<number>;
+
+    //private List<Enemy> enemies = new List<Enemy>();
+    //// Floor textures
+    //private List<Rectangle> rects = new List<Rectangle>();
+    //// Platforms & Ledges
+    //private List<Rectangle> platform = new List<Rectangle>();
+    //// Standard Walls
+    //private List<Rectangle> walls = new List<Rectangle>();
+    //// Mole edible
+    //private List<Rectangle> edibleWalls = new List<Rectangle>();
+    //// Alcheims
+    //private List<Rectangle> alchiems = new List<Rectangle>();
+    //// Roof rocks
+    //private List<Rectangle> roof = new List<Rectangle>();
 
     //// Enemies
     enemies: Array<number>;
@@ -23,10 +37,10 @@ class Nodes {
     floor: Array<number>;
 
     ////Platforms & Ledges
-    platform: Array<number>;
+    platformz: Array<Rectangle> = new Array<Rectangle>();//number>;
 
     //// Standard Walls
-    walls: Array<number>;
+    walls: Array<Rectangle> = new Array<Rectangle>();    //walls: Array<number>;
 
     //// Mole edible
     edibleWalls: Array<number>;
@@ -36,6 +50,7 @@ class Nodes {
 
     //// Roof rocks
     roof: Array<number>;
+
     platformList: Array<number>;
 
     //// Images
@@ -70,7 +85,7 @@ class Nodes {
     elapsedSecs: number = 0.1;
 
     //tempY;
-    //platforms;
+    platforms: Array<number>;// = 0;
 
     spriteWidth: number = 64;
     spriteHeight: number = 69;
@@ -100,42 +115,22 @@ class Nodes {
     jumpRight: boolean = false;
     belowMoon: boolean = false;
 
+
+    private screenChange: boolean = false;
+
     //var alchiem = 0;
     //var startTime = new Date().getTime();
     //var currentTime;
 
     //// Objects
     //var Alf;
-    resourceManager: ResourceManager;
-    charlie: Charlie;
-    earth: Earth;
-    //earth: Earth;
-
+    private resourceManager: ResourceManager;
+    private charlie: Charlie;
+    private earth: Earth;
+    private rocket: Rocket;
     //// Set the screen position for the Y-value
     //var yScreenPosition = 100;
     //var spacing = 30;
-
-
-    //this.holeRect0 = {
-    //    left: 0,
-    //    top: 0,
-    //    right: 69,
-    //    bottom: 18
-    //};
-
-    //this.holeRect1 = {
-    //    left: 0,
-    //    top: 0,
-    //    right: 69,
-    //    bottom: 18
-    //};
-
-    //this.plats = {
-    //    left: 0,
-    //    top: 0,
-    //    right: 69,
-    //    bottom: 18
-    //};
 
     constructor() {
         var construct = 0;
@@ -160,7 +155,7 @@ class Nodes {
 
 
     private clear(): void {
-        this.ctx.clearRect(0, 0, this.WIDTH, this.HEIGHT);
+        this.ctx.clearRect(0, 0, this.width, this.height);
     }
 
     public Run(): void {
@@ -179,16 +174,16 @@ class Nodes {
         //    frontScreen = new Image;
         //    frontScreen.src = "images/nodes_front_Screen.png";
 
-        this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platform, this.ctx);
+        this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx);
         this.upperRocks = this.resourceManager.mUpperRockArray;
 
         //    holes1 = ResourceManager.mHoleArray0;
         //    holes2 = ResourceManager.mHoleArray1;
 
         // Create the Actors
-        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls);//350
+        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.platformz);//350
         this.earth = new Earth(this.gameSprites);
-
+        this.rocket = new Rocket(this.gameSprites);
         //    //    gameSprites = Content.Load < Texture2D > ("sprites");
         //    //    intface = new ResourceManager(gameSprites, enemies, walls, platform);
         //    //    //Debugging Image
@@ -248,6 +243,8 @@ class Nodes {
             case 113:
                 this.belowMoon = false;
                 this.charlie.Y = 320;
+                this.belowScreenCounter = 0;
+                this.screenCounter = 0;
                 break;
         }
     }
@@ -274,6 +271,9 @@ class Nodes {
 
     private update(): void {
 
+
+        this.screenChange = false;
+
         if (this.moveLeft && !this.charlie.Falling) {// && !this.charlie.msomersaultJump) {
             this.charlie.Update(0);
         }
@@ -298,6 +298,7 @@ class Nodes {
             this.charlie.Update(1);
         }
 
+
         //    //
         //    if (somersault) {
         //        Charlie.msomersaultJump = true;
@@ -321,7 +322,7 @@ class Nodes {
             if (this.screenCounter > 0) {
                 this.screenCounter = (this.screenCounter - 1) % 15;
                 this.belowScreenCounter -= 1;
-                this.belowScreenCounter = (this.belowScreenCounter - 1) % 15;
+                //this.belowScreenCounter = (this.belowScreenCounter - 1) % 15;
                 //Charlie.mBelowScreenCounter -= 1;
                 //Charlie.mBelowScreenCounter = (Charlie.mBelowScreenCounter - 1) % 15;
             }
@@ -331,62 +332,50 @@ class Nodes {
                 //Charlie.mBelowScreenCounter += 1;
             }
 
-            this.charlie.X = 770;
-
-            // Move the hole out of the way...
-            //holeRect0.left = 0;
-            //holeRect0.top = 0;
-            //holeRect0.right = 0;
-            //holeRect0.bottom = 0;
+            this.charlie.X = 680;
+            this.screenChange = true;
         }
 
         else if (this.charlie.X > 770) {
             if (this.screenCounter < 15) //8
             {
                 this.screenCounter += 1;
-                //belowScreenCounter += 1;
+                this.belowScreenCounter += 1;
                 //Charlie.mBelowScreenCounter += 1;
-                this.charlie.X = 0;
+                //this.charlie.X = 0;
             }
             else {
                 this.screenCounter = 0;
-                //belowScreenCounter -= 15;//0
+                this.belowScreenCounter -= 15;
                 //Charlie.mBelowScreenCounter -= 15;
-                this.charlie.X = 55;
+                //this.charlie.X = 55;
             }
 
             //screenCounter = (screenCounter + 1) % 15;
-            this.charlie.X = 51;
+            this.charlie.X = 100;
+            this.screenChange = true;
             //Charlie.mBelowScreenCounter = screenCounter;
             //belowScreenCounter = screenCounter;
-
-            // Move the hole out of the way...         
-            //holeRect0.left = 0;
-            //holeRect0.top = 0;
-            //holeRect0.right = 0;
-            //holeRect0.bottom = 0;
         }
 
 
 
         if (!this.belowMoon) {
 
+            // if there is a hole position the rectangle 
             if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
-                this.holeRect0 = new Rectangle(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
-                //this.holeRect0 = new Rectangle(this.hole0X, this.holesY+20, this.hole0X + 100, this.holesY + 40)
-                //this.holeRect0 = new Rectangle(this.hole0X, this.holesY, 100, 40)
-                if (this.charlie.Rectangle.Intersects(this.holeRect0)) {
-                    this.belowMoon = true;
-                    this.charlie.Falling = true;
-                    this.charlie.Y = 10;
-                    //this.onGround = true;
-                    //this.y -= 1;
-                    //if (this.tripSwitch == false) {
-                    //    this.currentFrame += 1;
-                    //    this.tripSwitch = true;
-                    //}
-                }
+                this.charlie.HoleRectangle1 = new Rectangle(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
             }
+
+            // other wise move it out of the way...
+            else {
+                this.charlie.HoleRectangle1 = new Rectangle(0, 0, 0, 0);
+            }
+
+            if (this.charlie.Falling) {
+                this.belowMoon = true;
+            }
+
 
             //    if (Charlie.mFalling) {
             //        Charlie.updateFall();
@@ -440,9 +429,11 @@ class Nodes {
                     this.clearAll();
                 }
             }
-
-
         }
+        this.rocket.Update();
+        this.charlie.Collisions(this.belowMoon, this.screenChange);
+        //var test = this.charlie.BelowMoonSurface;
+
         this.draw();
     }
 
@@ -450,10 +441,14 @@ class Nodes {
     private draw(): void {
 
         this.ctx.fillStyle = "black";
-        this.rect(0, 0, this.WIDTH, this.HEIGHT);
+        this.rect(0, 0, this.width, this.height);
         this.ctx.beginPath();
 
         if (!this.belowMoon) {
+
+            if (this.rocket.RocketScreen == this.screenCounter) {
+                this.rocket.Draw(this.ctx);
+            }
 
             this.earth.Draw(this.ctx);
 
@@ -467,15 +462,7 @@ class Nodes {
 
             // Draw the holes
             if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
-                this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole0X, this.holesY, this.rockWidth, this.rockHeight);
-
-                //draw the collisionTile
-                //Not defined yet..                   this.ctx.drawImage(this.collisionTile, this.hole0X, this.holesY);
-                //Update the rectangle used for collision
-                //this.holeRect0.left = this.hole0X;
-                //this.holeRect0.top = holesY;
-                //this.holeRect0.right = hole0X + 69;
-                //this.holeRect0.bottom = holesY + 18;
+                ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole0X, this.holesY, this.rockWidth, this.rockHeight);
 
                 // Blue rectangle
                 this.ctx.beginPath();
@@ -487,13 +474,7 @@ class Nodes {
 
             }
             if (this.resourceManager.mHoleArray1[this.screenCounter] == 1) {
-                this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole1X, this.holesY, this.rockWidth, this.rockHeight);
-                //    //draw the collisionTile
-                //    this.ctx.drawImage(this.collisionTile, this.hole1X, this.holesY);
-                //    //this.holeRect1.left = hole1X;
-                //    //this.holeRect1.top = holesY;
-                //    //this.holeRect1.right = hole1X + 69;
-                //    //this.holeRect1.bottom = holesY + 18;
+                ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole1X, this.holesY, this.rockWidth, this.rockHeight);
 
                 this.ctx.beginPath();
                 this.ctx.lineWidth = 2;
@@ -509,19 +490,20 @@ class Nodes {
             //var imagePosX = 0;
             //var imagePosY = 0;
 
+
+            this.platformz = [];
+            this.walls = [];
+
             for (var ii = 0; ii < 10; ii++) {
 
 
                 // Clear the array of ledges
                 this.platformList = [];
-                this.platform = [];
+                this.platforms = [];
                 var temp;
 
                 // Get the repective level row
-                //var platforms = (ResourceManager.levels[(belowScreenCounter * 10) + ii]);
-                this.platform = (this.resourceManager.levels[(this.belowScreenCounter * 10) + ii]);
-                //var platforms = (ResourceManager.ToTheUnderGround[(belowScreenCounter * 10) + ii]);
-                ////var platforms = (ResourceManager.ToTheUnderGround[(screenCounter * 10) + ii]);
+                this.platforms = (this.resourceManager.levels[(this.belowScreenCounter * 10) + ii]);
 
                 for (var jj = 0; jj < 13; jj++) {
 
@@ -531,23 +513,47 @@ class Nodes {
                     //var platforms = (ResourceManager.levels[(belowScreenCounter * 10) + ii, jj]); 
                     //var platforms = (ResourceManager.ToTheUnderGround[(belowScreenCounter * 10) + ii, jj]); 
 
-                    switch (this.platform[jj]) {
+                    switch (this.platforms[jj]) {
                         // Walls
                         case 0:
                             // this.ctx.drawImage(moonRocks, x, y, rockWidth, rockHeight, screenPositionX, screenPositionY, rockWidth, rockHeight);                             
                             this.ctx.drawImage(this.unGroundLedges, 0 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "yellow";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 1:
                             this.ctx.drawImage(this.unGroundLedges, 1 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "yellow";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 2:
                             this.ctx.drawImage(this.unGroundLedges, 2 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "yellow";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 3:
                             this.ctx.drawImage(this.unGroundLedges, 3 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "yellow";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         //Empty space - no need to draw...
@@ -556,47 +562,84 @@ class Nodes {
                         // Floor 
                         case 5:
                             this.ctx.drawImage(this.unGroundLedges, 5 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width * jj + width, bottom: height * ii + height };
-                            this.platformList.push(temp);
-                            // populate the pla
-                            //this.plats.left = width * jj;
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width * jj + width, bottom: height * ii + height };
+                            //this.platformList.push(temp);
+                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "blue";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
+
                             break
 
                         case 6:
                             this.ctx.drawImage(this.unGroundLedges, 6 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "blue";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break
 
                         case 7:
                             this.ctx.drawImage(this.unGroundLedges, 7 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "blue";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break
 
                         case 8:
                             this.ctx.drawImage(this.unGroundLedges, 8 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "green";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break
 
                         // Ledges
                         case 9:
                             this.ctx.drawImage(this.unGroundLedges, 9 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //temp = new Rectangle(width * jj, 50 + (height * ii), width, height);
+                            //this.platformList.push(temp);
+                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "green";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 10:
                             this.ctx.drawImage(this.unGroundLedges, 10 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 1;
+                            this.ctx.strokeStyle = "green";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 11:
                             this.ctx.drawImage(this.unGroundLedges, 11 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+
                             break;
 
                         case 12:
@@ -605,28 +648,55 @@ class Nodes {
                             this.platformList.push(temp);
                             break;
 
+                        // edible walls
                         case 16:
                             this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 2;
+                            this.ctx.strokeStyle = "orange";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 17:
-                            this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 2;
+                            this.ctx.strokeStyle = "blue";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
+
+                            break;
+
+                        case 15://18
+                            //this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 2;
+                            this.ctx.strokeStyle = "pink";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         case 18:
                             this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        case 19:
-                            this.ctx.drawImage(this.unGroundLedges, 19 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
+                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                            //this.platformList.push(temp);
+                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                            this.ctx.beginPath();
+                            this.ctx.lineWidth = 2;
+                            this.ctx.strokeStyle = "yellow";
+                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                            this.ctx.stroke();
                             break;
 
                         // Orbs    
@@ -669,72 +739,33 @@ class Nodes {
                     }
                 }
             }
+
+            this.charlie.Ledges = this.platformz;
+            this.charlie.Walls = this.walls;
+
         }
 
-        //    //    doCollision();
         this.charlie.Draw(this.ctx);
 
-        //    //this.ctx.restore();
-        //    this.ctx.drawImage(colRect, 100, 100);
-        //    this.ctx.drawImage(panel, 40, 520);
-        //    ctx.fillStyle = "Yellow";
-        //    //this.ctx.font = "30px Arial";
 
-        //    this.ctx.fillText("Charlie Collision Rectangle Pos x= " + Charlie.charlieRect.left.toString(), 10, 20);
-        //    this.ctx.fillText("Charlie Collision Rectangle Pos Y= " + Charlie.charlieRect.top.toString(), 10, 30);
-        //    this.ctx.fillText("Charlie X = " + Charlie.mPositionX.toString(), 10, 40);
-        //    this.ctx.fillText("Charlie Y = " + Charlie.mPositionY.toString(), 10, 50);
-        //    this.ctx.fillText("Screen Counter = " + screenCounter.toString(), 10, 60);
-        //    this.ctx.fillText("Below Screen Counter = " + belowScreenCounter.toString(), 10, 70);
-        //    this.ctx.fillText("somersault = " + somersault, 10, 80);
-        //    //    this.ctx.fillText("Num of Ledges = " + this.platform.length.toString(), 10, 30);
-        //    //    this.ctx.fillText("Collision = " + collision.toString(), 10, 80);
 
-        //    this.ctx.fill();
-    }
 
-    //// Simple collsion detection
-    doCollision() {
-        //    if (Charlie.mPositionX == 160 && !belowMoon) {
-        //        //collision = true;
-        //        //belowMoon = true;
-        //        //falling = true;
-        //        Charlie.initFalling(screenCounter);
-        //        belowMoon = true;
-        //    }
-        //    else {
-        //        collision = false;
-        //    }
 
-        //    for (var i = 0; i < this.platform.length; i++) {
+        this.ctx.font = "12px Arial";
+        this.ctx.fillStyle = "yellow";
 
-        //        var val1 = Charlie.mFeet;
-        //        var val2 = this.platform[i].y;
-        //        var val3 = Charlie.mPositionX + Charlie.mWidth;
-        //        var val4 = this.platform[i].x;
-        //        var val5 = this.platform[i].x + this.platform[i].rectWidth;
+        this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
+        this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
+        this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
+        this.ctx.drawImage(this.panel, 40, 520);
 
-        //        //var meTest = this.platform[i].y;
-
-        //        if (Charlie.mFeet == this.platform[i].y &&
-        //            (Charlie.mPositionX + Charlie.mWidth) >= this.platform[i].x &&
-        //            Charlie.mPositionX <= (this.platform[i].x + this.platform[i].rectWidth)) {
-
-        //            Charlie.mFalling = false;
-        //            //Charlie.mPositionY -= 30;
-        //            break;
-        //        }
-        //        else {
-        //            Charlie.mFalling = true;
-        //        }
-        //    }
     }
 
     private clearAll(): void {
         this.enemies = [];//  .Clear();
         //this.rects = [];//.Clear();
         this.walls = [];//.Clear();
-        this.platform = [];//.Clear();
+        this.platformz = [];//.Clear();
         this.edibleWalls = [];//.Clear();
         this.alchiems = [];//.Clear();
         //this.testList = [];//.Clear();
