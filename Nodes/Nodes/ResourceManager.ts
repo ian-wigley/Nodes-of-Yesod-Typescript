@@ -1,16 +1,22 @@
-﻿class ResourceManager {
+﻿import BlueThingy = require("BlueThingy");
+import ChasingEnemy = require("ChasingEnemy");
+import SpringBear = require("SpringBear");
+
+import Enemy = require("Enemy");
+
+class ResourceManager {
 
     ctx: HTMLCanvasElement;
     gameSprites: HTMLCanvasElement;
     mSprites: HTMLCanvasElement;
     //mEnemies: HTMLCanvasElement;
-    mWalls: HTMLCanvasElement;
+    mWalls: Array<number>;//HTMLCanvasElement;
     mUpperRockArray: Array<number[]>;
     mMoundArray: Array<number>;
     mHoleArray0: Array<number>;
     mHoleArray1: Array<number>;
     mLowerRockArray: Array<number>;
-    mEnemies: Array<Object>;
+    mEnemies: Array<Enemy>;//Object>;
     levels: Array<number[]>;
     test1: Array<number>;
     mToTheEnemies: Array<number>
@@ -2654,7 +2660,7 @@
         this.levels[2558] = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; //255
         this.levels[2559] = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; //255
 
-        this.configureEnemies(1);
+        this.ConfigureEnemies(1);
     }
 
 
@@ -2835,7 +2841,7 @@
     }
 
 
-    configureEnemies(belowScreenCounter) : void{
+    public ConfigureEnemies(belowScreenCounter): void {
 
         //        var index;
         //        var floatingEnemies;
@@ -2898,36 +2904,42 @@
         //                    break;
         //            }
         //        }
-        //    for (var j = 0; j < 3; j++) {
-        //        floatingEnemies = (Math.random() * 6);
-        //        switch (floatingEnemies) {
-        //            case 1:
-        //                var springBear = (new SpringBear(this.ctx, (Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-        //                this.mEnemies.push(springBear);
-        //                break;
-        //            case 2:
-        //                var blueThingy = (new BlueThingy(this.ctx, (Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-        //                this.mEnemies.push(blueThingy);
-        //                break;
-        //            case 3:
-        //                var cloud = new ChasingEnemy(this.ctx, 300, 300, 1, this.mSprites, this.mWalls);
-        //                this.mEnemies.push(cloud);
-        //                break;
-        //            case 4:
-        //                var springBear = (new SpringBear(this.ctx, (Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-        //                this.mEnemies.push(springBear);
-        //                break;
-        //            case 5:
-        //                var blueThingy = (new BlueThingy(this.ctx, (Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-        //                this.mEnemies.push(blueThingy);
-        //                break;
-        //            case 6:
-        //                var cloud = new ChasingEnemy(this.ctx, 300, 300, 1, this.mSprites, this.mWalls);
-        //                this.mEnemies.push(cloud);
-        //                break;
-        //        }
-        //    }
+        for (var j = 0; j < 3; j++) {
+            var floatingEnemies = Math.ceil(Math.random() * 6);
+            switch (floatingEnemies) {
+                case 1:
+                    //var springBear = (new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//(springBear);
+                    break;
+                case 2:
+                    var blueThingy = (new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(blueThingy);
+                    break;
+                case 3:
+                    var cloud = new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls);
+                    this.mEnemies.push(cloud);
+                    break;
+                case 4:
+                    var springBear = (new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(springBear);
+                    break;
+                case 5:
+                    var blueThingy = (new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(blueThingy);
+                    break;
+                case 6:
+                    var cloud = new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls);
+                    this.mEnemies.push(cloud);
+                    break;
+            }
+        }
     }
+
+    
+    public get EnemyList(): Array<Object> { return this.mEnemies; }
+
+
+
 }
 
 export = ResourceManager;

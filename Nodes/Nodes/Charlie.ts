@@ -40,7 +40,7 @@ class Charlie extends BaseObject {
         this.m_platforms = new Array<Rectangle>();//platforms;
     }
 
-    Update(value: number): void {
+   public Update(value: number): void {
         this.m_animTimer += 0.1;
 
         // Walk Left
@@ -187,24 +187,19 @@ class Charlie extends BaseObject {
 
         // Draw Charlie facing left
         if (!this.m_direction && !this.m_somerSaultJump) {
-            ctx.drawImage(this.m_texture, this.m_frameX * 64 + (11 * 64), this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
-            //ctx.fill();
+////            ctx.drawImage(this.m_texture, this.m_frameX * 64 + (11 * 64), this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
         if (!this.m_direction && this.m_somerSaultJump) {
-            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
-            //ctx.fill();
+////            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
         if (this.m_direction && this.m_somerSaultJump) {
-            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /* this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
-            //ctx.fill();
+////            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /* this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
         // Draw Charlie facing right
         else if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
-            // ctx.drawImage(this.m_texture, this.m_frameX * 64 + (11 * 64), this.summerSaultFrame, 64, 64, this.m_x, this.m_y, 64, 64);
-            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
-            //ctx.fill();
+////            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
         ctx.fill();
 
@@ -213,20 +208,14 @@ class Charlie extends BaseObject {
         ctx.strokeStyle = "green";
         ctx.rect(this.m_x + 10, this.m_y, this.m_width, this.m_height);
         ctx.stroke();
-
         ctx.font = "12px Arial";
         ctx.fillStyle = "yellow";
-
         ctx.fillText("X" + this.m_x, 10, 50);
         ctx.fillText("Y" + this.m_y, 10, 70);
         //ctx.fillText("sine" + this.m_shift, 10, 70);
     }
 
     public Collisions(belowMoon: boolean, screenChange: boolean): void {
-
-
-
-
         if (!belowMoon) {
             if (this.Rectangle.Intersects(this.m_holeRectangle1)) {// || this.Rectangle.Intersects(this.m_holeRectangle2)) {
                 //Yesod.belowScreenCounter = Yesod.screenCounter;

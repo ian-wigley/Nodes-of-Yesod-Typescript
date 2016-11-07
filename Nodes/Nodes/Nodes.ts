@@ -1,4 +1,8 @@
-﻿import Charlie = require("Charlie");
+﻿import BlueThingy = require("BlueThingy");
+import ChasingEnemy = require("ChasingEnemy");
+import SpringBear = require("SpringBear");
+
+import Charlie = require("Charlie");
 import Earth = require("Earth");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
@@ -37,10 +41,10 @@ class Nodes {
     floor: Array<number>;
 
     ////Platforms & Ledges
-    platformz: Array<Rectangle> = new Array<Rectangle>();//number>;
+    platformz: Array<Rectangle> = new Array<Rectangle>();
 
     //// Standard Walls
-    walls: Array<Rectangle> = new Array<Rectangle>();    //walls: Array<number>;
+    walls: Array<Rectangle> = new Array<Rectangle>();
 
     //// Mole edible
     edibleWalls: Array<number>;
@@ -84,7 +88,6 @@ class Nodes {
     elapsedClockSecs: number = 1.0;
     elapsedSecs: number = 0.1;
 
-    //tempY;
     platforms: Array<number>;// = 0;
 
     spriteWidth: number = 64;
@@ -111,7 +114,7 @@ class Nodes {
 
     moleManAlive: boolean = false;
     trip: boolean = false;
-    gameOn: boolean = true; false;
+    gameOn: boolean = true; //false;
     jumpRight: boolean = false;
     belowMoon: boolean = false;
 
@@ -123,7 +126,7 @@ class Nodes {
     //var currentTime;
 
     //// Objects
-    //var Alf;
+    //private alf: Alf;
     private resourceManager: ResourceManager;
     private charlie: Charlie;
     private earth: Earth;
@@ -171,8 +174,7 @@ class Nodes {
         this.moonRocks = <HTMLCanvasElement>document.getElementById("MoonRocks");
         this.colRect = <HTMLCanvasElement>document.getElementById("ColRect");
         this.unGroundLedges = <HTMLCanvasElement>document.getElementById("UnGroundLedges");
-        //    frontScreen = new Image;
-        //    frontScreen.src = "images/nodes_front_Screen.png";
+        this.frontScreen = <HTMLCanvasElement>document.getElementById("FrontScreen");
 
         this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx);
         this.upperRocks = this.resourceManager.mUpperRockArray;
@@ -184,21 +186,9 @@ class Nodes {
         this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.platformz);//350
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
-        //    //    gameSprites = Content.Load < Texture2D > ("sprites");
-        //    //    intface = new ResourceManager(gameSprites, enemies, walls, platform);
-        //    //    //Debugging Image
-        //    //    colRect = Content.Load < Texture2D > ("charlieBlock");
-        //    //    man = new Charlie(150, 350, 3, gameSprites, colRect, walls, rects, platform, edibleWalls, alchiems, roof, intface.ToTheUnderGround);
-        //    //    rocket = new Rocket(gameSprites);
-        //    //    earth = new Earth(gameSprites);
-        //    //    mole = new Mole(gameSprites, walls, edibleWalls, intface.ToTheUnderGround);
-        //    //    panel = Content.Load < Texture2D > ("panel");
-        //    //    moonRocks = Content.Load < Texture2D > ("aboverground_tiles");
-        //    //    unGroundLedges = Content.Load < Texture2D > ("underground_tiles_small");
-        //    //    collisionTile = Content.Load < Texture2D > ("collision_tile");
-        //    //    frontScreen = Content.Load < Texture2D > ("nodes_front_Screen");
-        //    //    hudFont = Content.Load < SpriteFont > ("Hud");
-        //    //    intface.LoadLevels();
+
+        //  mole = new Mole(gameSprites, walls, edibleWalls, intface.ToTheUnderGround);
+
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
     }
@@ -239,6 +229,9 @@ class Nodes {
                 this.moveRight = true;
                 break;
             case 40:
+                break;
+            case 88:
+                this.gameOn = true;
                 break;
             case 113:
                 this.belowMoon = false;
@@ -394,7 +387,7 @@ class Nodes {
             if (this.charlie.Falling) {
                 if (this.charlie.Y < 12) {
                     //graphicsMan.configureEnemies(belowScreenCounter);
-                    this.resourceManager.configureEnemies(this.screenCounter);
+                    this.resourceManager.ConfigureEnemies(this.screenCounter);
                 }
                 this.charlie.Y += 2;
                 if (this.charlie.Y >= 425) {
@@ -402,7 +395,7 @@ class Nodes {
                     this.charlie.Walking = false;
                     this.belowScreenCounter += 16;
                     this.clearAll();
-                    this.resourceManager.configureEnemies(this.belowScreenCounter);
+                    this.resourceManager.ConfigureEnemies(this.belowScreenCounter);
                 }
                 if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
                     this.charlie.Y = 400;
@@ -420,7 +413,7 @@ class Nodes {
                     this.charlie.Y = 250;
                     this.clearAll();
                     this.belowScreenCounter = 0;
-                    this.resourceManager.configureEnemies(this.belowScreenCounter);
+                    this.resourceManager.ConfigureEnemies(this.belowScreenCounter);
                 }
                 if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
                     this.charlie.Y = 400;
@@ -429,10 +422,39 @@ class Nodes {
                     this.clearAll();
                 }
             }
+
+
+            for (var i = 0; i < this.resourceManager.mEnemies.length; i++) {
+
+                this.resourceManager.mEnemies[i].Update();
+
+
+                //var bobj = this.resourceManager.mEnemies[i];
+
+
+
+
+                //if (bobj.Name == "BlueThingy") {
+                //    var test = true;
+                //}
+
+                //  if (this.resourceManager.mEnemies[i].Name .//hasOwnProperty("BlueThingy")) {
+                //      var yes = true;
+                //  }
+                //foreach(Enemy en in enemies)
+                //{
+                //    if (en is Alf)
+                //    {
+                //        Alf alf = (Alf)en;
+                //        alf.Update(gameTime);
+                //    }
+                //}
+            }
+
+
         }
         this.rocket.Update();
         this.charlie.Collisions(this.belowMoon, this.screenChange);
-        //var test = this.charlie.BelowMoonSurface;
 
         this.draw();
     }
@@ -444,331 +466,353 @@ class Nodes {
         this.rect(0, 0, this.width, this.height);
         this.ctx.beginPath();
 
-        if (!this.belowMoon) {
-
-            if (this.rocket.RocketScreen == this.screenCounter) {
-                this.rocket.Draw(this.ctx);
-            }
-
-            this.earth.Draw(this.ctx);
-
-            for (var j = 0; j < 8; j++) {
-
-                var rock = this.upperRocks[this.screenCounter][j];
-                var rocks = this.upperRocks[j];
-                this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), 0, this.rockWidth, this.rockHeight, (j * this.rockWidth), 170, this.rockWidth, this.rockHeight);
-                this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), this.rockHeight, this.rockWidth, this.rockHeight, (j * this.rockWidth), 400, this.rockWidth, this.rockHeight);
-            }
-
-            // Draw the holes
-            if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
-                ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole0X, this.holesY, this.rockWidth, this.rockHeight);
-
-                // Blue rectangle
-                this.ctx.beginPath();
-                this.ctx.lineWidth = 2;
-                this.ctx.strokeStyle = "blue";
-                //this.ctx.rect(this.hole0X, this.holesY, this.rockWidth, 30);
-                this.ctx.rect(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
-                this.ctx.stroke();
-
-            }
-            if (this.resourceManager.mHoleArray1[this.screenCounter] == 1) {
-                ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole1X, this.holesY, this.rockWidth, this.rockHeight);
-
-                this.ctx.beginPath();
-                this.ctx.lineWidth = 2;
-                this.ctx.strokeStyle = "blue";
-                this.ctx.rect(this.hole1X, this.holesY, this.rockWidth, 30);
-                this.ctx.stroke();
-            }
+        if (!this.gameOn) {
+            this.ctx.font = "12px Arial";
+            this.ctx.fillStyle = "yellow";
+            //this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
+            this.ctx.drawImage(this.frontScreen, 0, 0);
+            this.ctx.fillText("XNA NODES OF YESOD REMAKE ", 295.0, 20.0);
+            this.ctx.fillText("Start", 480.0, 100.0);
+            this.ctx.fillText("Instructions", 480.0, 120.0);
+            this.ctx.fillText("Define Keys ", 480.0, 140.0);
+            this.ctx.fillText("Exit", 480.0, 160.0);
+            this.ctx.fillText("Hit X to Start", 480.0, 240.0);
         }
         else {
+            if (!this.belowMoon) {
 
-            var width = 62;
-            var height = 48;
-            //var imagePosX = 0;
-            //var imagePosY = 0;
+                if (this.rocket.RocketScreen == this.screenCounter) {
+                    ////                this.rocket.Draw(this.ctx);
+                }
 
+                ////            this.earth.Draw(this.ctx);
 
-            this.platformz = [];
-            this.walls = [];
+                for (var j = 0; j < 8; j++) {
 
-            for (var ii = 0; ii < 10; ii++) {
+                    var rock = this.upperRocks[this.screenCounter][j];
+                    var rocks = this.upperRocks[j];
+                    ////                this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), 0, this.rockWidth, this.rockHeight, (j * this.rockWidth), 170, this.rockWidth, this.rockHeight);
+                    ////                this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), this.rockHeight, this.rockWidth, this.rockHeight, (j * this.rockWidth), 400, this.rockWidth, this.rockHeight);
+                }
 
+                // Draw the holes
+                if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
+                    ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole0X, this.holesY, this.rockWidth, this.rockHeight);
 
-                // Clear the array of ledges
-                this.platformList = [];
-                this.platforms = [];
-                var temp;
+                    // Blue rectangle
+                    this.ctx.beginPath();
+                    this.ctx.lineWidth = 2;
+                    this.ctx.strokeStyle = "blue";
 
-                // Get the repective level row
-                this.platforms = (this.resourceManager.levels[(this.belowScreenCounter * 10) + ii]);
+                    this.ctx.rect(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
+                    this.ctx.stroke();
 
-                for (var jj = 0; jj < 13; jj++) {
+                }
+                if (this.resourceManager.mHoleArray1[this.screenCounter] == 1) {
+                    ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole1X, this.holesY, this.rockWidth, this.rockHeight);
 
-                    //var temp = [];
-
-                    // Iterate through the array & point to the start position of the texture to be grabbed by the wallRect
-                    //var platforms = (ResourceManager.levels[(belowScreenCounter * 10) + ii, jj]); 
-                    //var platforms = (ResourceManager.ToTheUnderGround[(belowScreenCounter * 10) + ii, jj]); 
-
-                    switch (this.platforms[jj]) {
-                        // Walls
-                        case 0:
-                            // this.ctx.drawImage(moonRocks, x, y, rockWidth, rockHeight, screenPositionX, screenPositionY, rockWidth, rockHeight);                             
-                            this.ctx.drawImage(this.unGroundLedges, 0 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "yellow";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 1:
-                            this.ctx.drawImage(this.unGroundLedges, 1 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "yellow";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 2:
-                            this.ctx.drawImage(this.unGroundLedges, 2 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "yellow";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 3:
-                            this.ctx.drawImage(this.unGroundLedges, 3 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "yellow";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        //Empty space - no need to draw...
-                        //                    case 4:
-
-                        // Floor 
-                        case 5:
-                            this.ctx.drawImage(this.unGroundLedges, 5 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width * jj + width, bottom: height * ii + height };
-                            //this.platformList.push(temp);
-                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "blue";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-
-                            break
-
-                        case 6:
-                            this.ctx.drawImage(this.unGroundLedges, 6 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "blue";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break
-
-                        case 7:
-                            this.ctx.drawImage(this.unGroundLedges, 7 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "blue";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break
-
-                        case 8:
-                            this.ctx.drawImage(this.unGroundLedges, 8 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "green";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break
-
-                        // Ledges
-                        case 9:
-                            this.ctx.drawImage(this.unGroundLedges, 9 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //temp = new Rectangle(width * jj, 50 + (height * ii), width, height);
-                            //this.platformList.push(temp);
-                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "green";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 10:
-                            this.ctx.drawImage(this.unGroundLedges, 10 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 1;
-                            this.ctx.strokeStyle = "green";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 11:
-                            this.ctx.drawImage(this.unGroundLedges, 11 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-
-                            break;
-
-                        case 12:
-                            this.ctx.drawImage(this.unGroundLedges, 12 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        // edible walls
-                        case 16:
-                            this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 2;
-                            this.ctx.strokeStyle = "orange";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 17:
-                            this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 2;
-                            this.ctx.strokeStyle = "blue";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-
-                            break;
-
-                        case 15://18
-                            //this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 2;
-                            this.ctx.strokeStyle = "pink";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        case 18:
-                            this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            //this.platformList.push(temp);
-                            this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                            this.ctx.beginPath();
-                            this.ctx.lineWidth = 2;
-                            this.ctx.strokeStyle = "yellow";
-                            this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                            this.ctx.stroke();
-                            break;
-
-                        // Orbs    
-                        case 20:
-                            this.ctx.drawImage(this.unGroundLedges, 0 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        case 21:
-                            this.ctx.drawImage(this.unGroundLedges, 1 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        case 22:
-                            this.ctx.drawImage(this.unGroundLedges, 2 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        case 23:
-                            this.ctx.drawImage(this.unGroundLedges, 3 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        // Diamond ledges 
-                        case 25:
-                            this.ctx.drawImage(this.unGroundLedges, 5 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-
-                        case 26:
-                            this.ctx.drawImage(this.unGroundLedges, 6 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                            temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                            this.platformList.push(temp);
-                            break;
-                    }
+                    this.ctx.beginPath();
+                    this.ctx.lineWidth = 2;
+                    this.ctx.strokeStyle = "blue";
+                    this.ctx.rect(this.hole1X, this.holesY, this.rockWidth, 30);
+                    this.ctx.stroke();
                 }
             }
+            else {
 
-            this.charlie.Ledges = this.platformz;
-            this.charlie.Walls = this.walls;
+                var width = 62;
+                var height = 48;
+                //var imagePosX = 0;
+                //var imagePosY = 0;
 
+
+                this.platformz = [];
+                this.walls = [];
+
+                for (var ii = 0; ii < 10; ii++) {
+
+
+                    // Clear the array of ledges
+                    this.platformList = [];
+                    this.platforms = [];
+                    var temp;
+
+                    // Get the repective level row
+                    this.platforms = (this.resourceManager.levels[(this.belowScreenCounter * 10) + ii]);
+
+                    for (var jj = 0; jj < 13; jj++) {
+
+                        //var temp = [];
+
+                        // Iterate through the array & point to the start position of the texture to be grabbed by the wallRect
+                        //var platforms = (ResourceManager.levels[(belowScreenCounter * 10) + ii, jj]); 
+                        //var platforms = (ResourceManager.ToTheUnderGround[(belowScreenCounter * 10) + ii, jj]); 
+
+                        switch (this.platforms[jj]) {
+                            // Walls
+                            case 0:
+                                // this.ctx.drawImage(moonRocks, x, y, rockWidth, rockHeight, screenPositionX, screenPositionY, rockWidth, rockHeight);                             
+                                this.ctx.drawImage(this.unGroundLedges, 0 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "yellow";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 1:
+                                this.ctx.drawImage(this.unGroundLedges, 1 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "yellow";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 2:
+                                this.ctx.drawImage(this.unGroundLedges, 2 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "yellow";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 3:
+                                this.ctx.drawImage(this.unGroundLedges, 3 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "yellow";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            //Empty space - no need to draw...
+                            //                    case 4:
+
+                            // Floor 
+                            case 5:
+                                this.ctx.drawImage(this.unGroundLedges, 5 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width * jj + width, bottom: height * ii + height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "blue";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+
+                                break
+
+                            case 6:
+                                this.ctx.drawImage(this.unGroundLedges, 6 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "blue";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break
+
+                            case 7:
+                                this.ctx.drawImage(this.unGroundLedges, 7 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "blue";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break
+
+                            case 8:
+                                this.ctx.drawImage(this.unGroundLedges, 8 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "green";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break
+
+                            // Ledges
+                            case 9:
+                                this.ctx.drawImage(this.unGroundLedges, 9 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //temp = new Rectangle(width * jj, 50 + (height * ii), width, height);
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "green";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 10:
+                                this.ctx.drawImage(this.unGroundLedges, 10 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "green";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 11:
+                                this.ctx.drawImage(this.unGroundLedges, 11 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+
+                                break;
+
+                            case 12:
+                                this.ctx.drawImage(this.unGroundLedges, 12 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                this.platformList.push(temp);
+                                break;
+
+                            // edible walls
+                            case 16:
+                                this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 2;
+                                this.ctx.strokeStyle = "orange";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 17:
+                                this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 2;
+                                this.ctx.strokeStyle = "blue";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+
+                                break;
+
+                            case 15://18
+                                //this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 2;
+                                this.ctx.strokeStyle = "pink";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 18:
+                                this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 2;
+                                this.ctx.strokeStyle = "yellow";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            // Orbs    
+                            case 20:
+                                this.ctx.drawImage(this.unGroundLedges, 0 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                this.platformList.push(temp);
+                                break;
+
+                            case 21:
+                                this.ctx.drawImage(this.unGroundLedges, 1 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                this.platformList.push(temp);
+                                break;
+
+                            case 22:
+                                this.ctx.drawImage(this.unGroundLedges, 2 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                this.platformList.push(temp);
+                                break;
+
+                            case 23:
+                                this.ctx.drawImage(this.unGroundLedges, 3 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                this.platformList.push(temp);
+                                break;
+
+                            // Diamond ledges 
+                            case 25:
+                                this.ctx.drawImage(this.unGroundLedges, 5 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "green";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
+                            case 26:
+                                this.ctx.drawImage(this.unGroundLedges, 6 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 1;
+                                this.ctx.strokeStyle = "green";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+                        }
+                    }
+                }
+
+                for (var i = 0; i < this.resourceManager.mEnemies.length; i++) {
+                    this.resourceManager.mEnemies[i].Draw(this.ctx);
+                }
+                this.charlie.Ledges = this.platformz;
+                this.charlie.Walls = this.walls;
+            }
+
+            this.charlie.Draw(this.ctx);
+
+            this.ctx.font = "12px Arial";
+            this.ctx.fillStyle = "yellow";
+            this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
+            this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
+            this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
+            ///        this.ctx.drawImage(this.panel, 40, 520);
         }
-
-        this.charlie.Draw(this.ctx);
-
-
-
-
-
-        this.ctx.font = "12px Arial";
-        this.ctx.fillStyle = "yellow";
-
-        this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
-        this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
-        this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
-        this.ctx.drawImage(this.panel, 40, 520);
-
     }
 
     private clearAll(): void {
-        this.enemies = [];//  .Clear();
-        //this.rects = [];//.Clear();
-        this.walls = [];//.Clear();
-        this.platformz = [];//.Clear();
-        this.edibleWalls = [];//.Clear();
-        this.alchiems = [];//.Clear();
-        //this.testList = [];//.Clear();
+        this.enemies = [];
+        //this.rects = [];
+        this.walls = [];
+        this.platformz = [];
+        this.edibleWalls = [];
+        this.alchiems = [];
+        //this.testList = [];
         //if (this.roof.length > 0) {
         //    this.roof = [];//.Clear();
         //}

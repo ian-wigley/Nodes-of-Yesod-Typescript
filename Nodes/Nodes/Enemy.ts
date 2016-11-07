@@ -10,6 +10,7 @@ class Enemy extends BaseObject {
     protected m_millisecondsPerFrame: number;
     protected m_facingLeft: boolean;
     protected m_turning: boolean;
+    protected m_name: string;
 
     constructor(xpos: number, ypos: number, speedX: number, texture: HTMLCanvasElement, walls: number[]) {
         super(texture);
@@ -25,7 +26,13 @@ class Enemy extends BaseObject {
         this.m_sheetSize = 8;
         this.m_timeSinceLastFrame = 0;
         this.m_millisecondsPerFrame = 100;
+        this.m_name = "";
     }
+
+    public Update(): void { }
+
+    public get Name(): string { return this.m_name; }
+
 }
 
 export = Enemy;

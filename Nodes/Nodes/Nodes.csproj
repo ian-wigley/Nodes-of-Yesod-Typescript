@@ -26,7 +26,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="BaseObject.ts" />
+    <TypeScriptCompile Include="BlueThingy.ts" />
     <TypeScriptCompile Include="Charlie.ts" />
+    <TypeScriptCompile Include="ChasingEnemy.ts" />
     <TypeScriptCompile Include="Earth.ts" />
     <TypeScriptCompile Include="Enemy.ts" />
     <TypeScriptCompile Include="Fire.ts" />
