@@ -6,21 +6,21 @@ import Enemy = require("Enemy");
 
 class ResourceManager {
 
-    ctx: HTMLCanvasElement;
-    gameSprites: HTMLCanvasElement;
-    mSprites: HTMLCanvasElement;
+    private ctx: HTMLCanvasElement;
+    private gameSprites: HTMLCanvasElement;
+    private mSprites: HTMLCanvasElement;
     //mEnemies: HTMLCanvasElement;
-    mWalls: Array<number>;//HTMLCanvasElement;
-    mUpperRockArray: Array<number[]>;
-    mMoundArray: Array<number>;
-    mHoleArray0: Array<number>;
-    mHoleArray1: Array<number>;
-    mLowerRockArray: Array<number>;
-    mEnemies: Array<Enemy>;//Object>;
-    levels: Array<number[]>;
-    test1: Array<number>;
-    mToTheEnemies: Array<number>
-    ToTheUnderGround: Array<number[]>;
+    private mWalls: Array<number>;//HTMLCanvasElement;
+    private mUpperRockArray: Array<number[]>;
+    private mMoundArray: Array<number>;
+    private mHoleArray0: Array<number>;
+    private mHoleArray1: Array<number>;
+    private mLowerRockArray: Array<number>;
+    private mEnemies: Array<Enemy>;
+    private levels: Array<number[]>;
+    private test1: Array<number>;
+    private mToTheEnemies: Array<number>
+    private ToTheUnderGround: Array<number[]>;
 
     constructor(gameSprites, enemies, walls, platform, ctx) {
 
@@ -29,10 +29,6 @@ class ResourceManager {
         this.mWalls = walls;
         this.ctx = ctx;
         //}
-
-
-
-
 
         //    this.mPlatform = platform;
         //    
@@ -2660,186 +2656,8 @@ class ResourceManager {
         this.levels[2558] = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; //255
         this.levels[2559] = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; //255
 
-        this.ConfigureEnemies(1);
+//        this.ConfigureEnemies(1);
     }
-
-
-
-    configureLevels() {
-
-        var enemyCount = 0;
-        var count = 0;
-        var wordLine;
-
-        for (var i = 0; i < 2560; i++) {
-            wordLine = this.levels[i];//, 0];
-
-            var mFileContents = wordLine.split(',');
-
-            for (var a = 0; a < 13; a++) {
-                switch (mFileContents[a]) {
-                    case "}":
-                        //this.ToTheUnderGround[count, a] = 0;
-                        this.test1[a] = 0;
-                        break;
-
-                    case "{":
-                        //this.ToTheUnderGround[count, a] = 1;
-                        this.test1[a] = 1;
-                        break;
-
-                    case "]":
-                        //this.ToTheUnderGround[count, a] = 2;
-                        //this.ToTheUnderGround[count][a] = 2;
-                        this.test1[a] = 2;
-                        break;
-
-                    case "[":
-                        //this.ToTheUnderGround[count, a] = 3;				
-                        //this.ToTheUnderGround[count][a] = 3;
-                        this.test1[a] = 3;
-                        break;
-
-                    case ".":
-                        //this.ToTheUnderGround[count, a] = 4;				
-                        //this.ToTheUnderGround[count][a] = 4;
-                        this.test1[a] = 4;
-                        break;
-
-                    case "-":
-                        //this.ToTheUnderGround[count, a] = 5;				
-                        //this.ToTheUnderGround[count][a] = 5;
-                        this.test1[a] = 5;
-                        break;
-
-                    case "=":
-                        //this.ToTheUnderGround[count, a] = 6;
-                        this.test1[a] = 6;
-                        break;
-
-                    case ">":
-                        //this.ToTheUnderGround[count, a] = 7;
-                        this.test1[a] = 7;
-                        break;
-
-                    case "<":
-                        //this.ToTheUnderGround[count, a] = 8;
-                        this.test1[a] = 8;
-                        break;
-
-                    case "̢ ":   //<---
-                        //this.ToTheUnderGround[count, a] = 9;
-                        this.test1[a] = 9;
-                        break;
-
-                    case "_":
-                        //this.ToTheUnderGround[count, a] = 10;
-                        this.test1[a] = 10;
-                        break;
-
-                    case "11":
-                        //this.ToTheUnderGround[count, a] = 11;
-                        this.test1[a] = 11;
-                        break;
-
-                    case "12":
-                        //this.ToTheUnderGround[count, a] = 12;
-                        this.test1[a] = 12;
-                        break;
-
-                    case "a":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 1;
-                        //enemyCount++;
-                        break;
-
-                    case "b":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 2;
-                        //enemyCount++;
-                        break;
-
-                    case "c":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 3;
-                        //enemyCount++;
-                        break;
-
-                    case "d":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 4;
-                        //enemyCount++;
-                        break;
-
-                    case "e":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 5;
-                        //enemyCount++;
-                        break;
-
-                    case "f":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 6;
-                        //enemyCount++;
-                        break;
-
-                    case "g":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 7;
-                        //enemyCount++;
-                        break;
-
-                    case "h":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 8;
-                        //enemyCount++;
-                        break;
-
-                    case "i":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 9;
-                        //enemyCount++;
-                        break;
-
-                    case "j":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 10;
-                        //enemyCount++;
-                        break;
-
-                    case "k":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 11;
-                        //enemyCount++;
-                        break;
-
-                    case "l":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 12;
-                        //enemyCount++;
-                        break;
-
-                    case "m":
-                        //this.ToTheUnderGround[count, a] = 4;
-                        //this.mToTheEnemies[(count / 10), enemyCount] = 13;
-                        //enemyCount++;
-                        break;
-
-                }
-                //if (enemyCount > 2)
-                //{
-                //    enemyCount = 0;
-                //}
-
-                //count++;
-
-            }
-
-            this.ToTheUnderGround.push(this.test1);
-            this.test1 = [];
-        }
-    }
-
 
     public ConfigureEnemies(belowScreenCounter): void {
 
@@ -2890,56 +2708,45 @@ class ResourceManager {
         //                    var redSpaceMan = (new RedSpaceman((Math.random() * 360), (Math.random() * 360), 1, 1, this.mSprites, this.mWalls));
         //                    this.mEnemies.push(redSpaceMan);
         //                    break;
-
         //                case 11:
-
         //                    break;
-
         //                case 12:
-
         //                    break;
-
         //                case 13:
-
         //                    break;
         //            }
         //        }
+        this.mEnemies = [];
         for (var j = 0; j < 3; j++) {
             var floatingEnemies = Math.ceil(Math.random() * 6);
             switch (floatingEnemies) {
                 case 1:
-                    //var springBear = (new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-                    this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//(springBear);
+                    this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 2:
-                    var blueThingy = (new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-                    this.mEnemies.push(blueThingy);
+                    this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 3:
-                    var cloud = new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls);
-                    this.mEnemies.push(cloud);
+                     this.mEnemies.push(new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 4:
-                    var springBear = (new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-                    this.mEnemies.push(springBear);
+                    this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 5:
-                    var blueThingy = (new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
-                    this.mEnemies.push(blueThingy);
+                    this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 6:
-                    var cloud = new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls);
-                    this.mEnemies.push(cloud);
+                    this.mEnemies.push(new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
             }
         }
     }
-
     
-    public get EnemyList(): Array<Object> { return this.mEnemies; }
-
-
-
+    public get EnemyList(): Array<Enemy> { return this.mEnemies; }
+    public get Levels(): number[][] { return this.levels }
+    public get UpperRocks(): number[][] { return this.mUpperRockArray; }
+    public get Hole1(): number[] { return this.mHoleArray0; }
+    public get Hole2(): number[] { return this.mHoleArray1; }
 }
 
 export = ResourceManager;

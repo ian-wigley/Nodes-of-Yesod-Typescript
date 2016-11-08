@@ -1,12 +1,11 @@
 ﻿import BlueThingy = require("BlueThingy");
 import ChasingEnemy = require("ChasingEnemy");
-import SpringBear = require("SpringBear");
-
 import Charlie = require("Charlie");
 import Earth = require("Earth");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
+import SpringBear = require("SpringBear");
 
 class Nodes {
 
@@ -19,20 +18,6 @@ class Nodes {
     private upperRocks: Array<number[]>;
     private holes1: Array<number>;
     private holes2: Array<number>;
-
-    //private List<Enemy> enemies = new List<Enemy>();
-    //// Floor textures
-    //private List<Rectangle> rects = new List<Rectangle>();
-    //// Platforms & Ledges
-    //private List<Rectangle> platform = new List<Rectangle>();
-    //// Standard Walls
-    //private List<Rectangle> walls = new List<Rectangle>();
-    //// Mole edible
-    //private List<Rectangle> edibleWalls = new List<Rectangle>();
-    //// Alcheims
-    //private List<Rectangle> alchiems = new List<Rectangle>();
-    //// Roof rocks
-    //private List<Rectangle> roof = new List<Rectangle>();
 
     //// Enemies
     enemies: Array<number>;
@@ -131,9 +116,11 @@ class Nodes {
     private charlie: Charlie;
     private earth: Earth;
     private rocket: Rocket;
-    //// Set the screen position for the Y-value
-    //var yScreenPosition = 100;
-    //var spacing = 30;
+
+    private sineCounter: number = 0;
+    private moveLeft: boolean = false;
+    private moveRight: boolean = false;
+    private somersault: boolean = false;
 
     constructor() {
         var construct = 0;
@@ -146,16 +133,6 @@ class Nodes {
         this.ctx.fill();
         this.ctx.stroke();
     }
-
-    //var width = 62;
-    //var height = 66; //77;
-    ////var spacing = 10;
-
-    sineCounter: number = 0;
-    moveLeft: boolean = false;
-    moveRight: boolean = false;
-    somersault: boolean = false;
-
 
     private clear(): void {
         this.ctx.clearRect(0, 0, this.width, this.height);
@@ -177,7 +154,7 @@ class Nodes {
         this.frontScreen = <HTMLCanvasElement>document.getElementById("FrontScreen");
 
         this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx);
-        this.upperRocks = this.resourceManager.mUpperRockArray;
+        this.upperRocks = this.resourceManager.UpperRocks;
 
         //    holes1 = ResourceManager.mHoleArray0;
         //    holes2 = ResourceManager.mHoleArray1;
@@ -264,7 +241,6 @@ class Nodes {
 
     private update(): void {
 
-
         this.screenChange = false;
 
         if (this.moveLeft && !this.charlie.Falling) {// && !this.charlie.msomersaultJump) {
@@ -291,7 +267,6 @@ class Nodes {
             this.charlie.Update(1);
         }
 
-
         //    //
         //    if (somersault) {
         //        Charlie.msomersaultJump = true;
@@ -301,11 +276,8 @@ class Nodes {
         //    if (Charlie.msomersaultJump) {
         //        //Charlie.update(0);
         //    }
-
-
         //    // Check for collisions
         //    Charlie.collisions(belowMoon, this.platformList, moveLeft, moveRight);
-
         //    // if(somersault)
         //    // {
         //    // Charlie.msomersaultJump = true;
@@ -351,12 +323,10 @@ class Nodes {
             //belowScreenCounter = screenCounter;
         }
 
-
-
         if (!this.belowMoon) {
 
             // if there is a hole position the rectangle 
-            if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
+            if (this.resourceManager.Hole1[this.screenCounter] == 1) {
                 this.charlie.HoleRectangle1 = new Rectangle(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
             }
 
@@ -369,15 +339,12 @@ class Nodes {
                 this.belowMoon = true;
             }
 
-
             //    if (Charlie.mFalling) {
             //        Charlie.updateFall();
             //        belowScreenCounter = Charlie.mBelowScreenCounter;
             //    }
-
             //    //belowScreenCounter = Charlie.mBelowScreenCounter//screenCounter;
             //    belowScreenCounter = screenCounter;
-
             //    upperRocks = ResourceManager.mUpperRockArray[screenCounter];
 
             this.earth.Update();
@@ -386,12 +353,11 @@ class Nodes {
 
             if (this.charlie.Falling) {
                 if (this.charlie.Y < 12) {
-                    //graphicsMan.configureEnemies(belowScreenCounter);
                     this.resourceManager.ConfigureEnemies(this.screenCounter);
                 }
                 this.charlie.Y += 2;
                 if (this.charlie.Y >= 425) {
-                    this.charlie.Y = 20; //man.YPosition = 20;
+                    this.charlie.Y = 20;
                     this.charlie.Walking = false;
                     this.belowScreenCounter += 16;
                     this.clearAll();
@@ -423,36 +389,15 @@ class Nodes {
                 }
             }
 
-
-            for (var i = 0; i < this.resourceManager.mEnemies.length; i++) {
-
-                this.resourceManager.mEnemies[i].Update();
-
-
-                //var bobj = this.resourceManager.mEnemies[i];
-
-
-
-
-                //if (bobj.Name == "BlueThingy") {
-                //    var test = true;
-                //}
-
-                //  if (this.resourceManager.mEnemies[i].Name .//hasOwnProperty("BlueThingy")) {
-                //      var yes = true;
-                //  }
-                //foreach(Enemy en in enemies)
-                //{
-                //    if (en is Alf)
-                //    {
-                //        Alf alf = (Alf)en;
-                //        alf.Update(gameTime);
-                //    }
-                //}
+            for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
+                this.resourceManager.EnemyList[i].Update();
+                if (this.resourceManager.EnemyList[i].Name == "ChasingEnemy") {
+                    this.resourceManager.EnemyList[i].CharlieX = this.charlie.X;
+                    this.resourceManager.EnemyList[i].CharlieY = this.charlie.Y;
+                }
             }
-
-
         }
+
         this.rocket.Update();
         this.charlie.Collisions(this.belowMoon, this.screenChange);
 
@@ -469,35 +414,33 @@ class Nodes {
         if (!this.gameOn) {
             this.ctx.font = "12px Arial";
             this.ctx.fillStyle = "yellow";
-            //this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
             this.ctx.drawImage(this.frontScreen, 0, 0);
             this.ctx.fillText("XNA NODES OF YESOD REMAKE ", 295.0, 20.0);
             this.ctx.fillText("Start", 480.0, 100.0);
             this.ctx.fillText("Instructions", 480.0, 120.0);
             this.ctx.fillText("Define Keys ", 480.0, 140.0);
-            this.ctx.fillText("Exit", 480.0, 160.0);
             this.ctx.fillText("Hit X to Start", 480.0, 240.0);
         }
         else {
             if (!this.belowMoon) {
 
                 if (this.rocket.RocketScreen == this.screenCounter) {
-                    ////                this.rocket.Draw(this.ctx);
+                                    this.rocket.Draw(this.ctx);
                 }
 
-                ////            this.earth.Draw(this.ctx);
+                            this.earth.Draw(this.ctx);
 
                 for (var j = 0; j < 8; j++) {
 
                     var rock = this.upperRocks[this.screenCounter][j];
                     var rocks = this.upperRocks[j];
-                    ////                this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), 0, this.rockWidth, this.rockHeight, (j * this.rockWidth), 170, this.rockWidth, this.rockHeight);
-                    ////                this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), this.rockHeight, this.rockWidth, this.rockHeight, (j * this.rockWidth), 400, this.rockWidth, this.rockHeight);
+                                    this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), 0, this.rockWidth, this.rockHeight, (j * this.rockWidth), 170, this.rockWidth, this.rockHeight);
+                                    this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), this.rockHeight, this.rockWidth, this.rockHeight, (j * this.rockWidth), 400, this.rockWidth, this.rockHeight);
                 }
 
                 // Draw the holes
-                if (this.resourceManager.mHoleArray0[this.screenCounter] == 1) {
-                    ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole0X, this.holesY, this.rockWidth, this.rockHeight);
+                if (this.resourceManager.Hole1[this.screenCounter] == 1) {
+                                   this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole0X, this.holesY, this.rockWidth, this.rockHeight);
 
                     // Blue rectangle
                     this.ctx.beginPath();
@@ -508,8 +451,8 @@ class Nodes {
                     this.ctx.stroke();
 
                 }
-                if (this.resourceManager.mHoleArray1[this.screenCounter] == 1) {
-                    ////               this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole1X, this.holesY, this.rockWidth, this.rockHeight);
+                if (this.resourceManager.Hole2[this.screenCounter] == 1) {
+                                   this.ctx.drawImage(this.moonRocks, 0, 300, this.rockWidth, this.rockHeight, this.hole1X, this.holesY, this.rockWidth, this.rockHeight);
 
                     this.ctx.beginPath();
                     this.ctx.lineWidth = 2;
@@ -522,10 +465,6 @@ class Nodes {
 
                 var width = 62;
                 var height = 48;
-                //var imagePosX = 0;
-                //var imagePosY = 0;
-
-
                 this.platformz = [];
                 this.walls = [];
 
@@ -538,17 +477,12 @@ class Nodes {
                     var temp;
 
                     // Get the repective level row
-                    this.platforms = (this.resourceManager.levels[(this.belowScreenCounter * 10) + ii]);
+                    this.platforms = (this.resourceManager.Levels[(this.belowScreenCounter * 10) + ii]);
 
                     for (var jj = 0; jj < 13; jj++) {
 
-                        //var temp = [];
-
                         // Iterate through the array & point to the start position of the texture to be grabbed by the wallRect
-                        //var platforms = (ResourceManager.levels[(belowScreenCounter * 10) + ii, jj]); 
-                        //var platforms = (ResourceManager.ToTheUnderGround[(belowScreenCounter * 10) + ii, jj]); 
-
-                        switch (this.platforms[jj]) {
+                         switch (this.platforms[jj]) {
                             // Walls
                             case 0:
                                 // this.ctx.drawImage(moonRocks, x, y, rockWidth, rockHeight, screenPositionX, screenPositionY, rockWidth, rockHeight);                             
@@ -597,8 +531,6 @@ class Nodes {
                             // Floor 
                             case 5:
                                 this.ctx.drawImage(this.unGroundLedges, 5 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width * jj + width, bottom: height * ii + height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -610,8 +542,6 @@ class Nodes {
 
                             case 6:
                                 this.ctx.drawImage(this.unGroundLedges, 6 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -622,8 +552,6 @@ class Nodes {
 
                             case 7:
                                 this.ctx.drawImage(this.unGroundLedges, 7 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -634,8 +562,6 @@ class Nodes {
 
                             case 8:
                                 this.ctx.drawImage(this.unGroundLedges, 8 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -647,9 +573,6 @@ class Nodes {
                             // Ledges
                             case 9:
                                 this.ctx.drawImage(this.unGroundLedges, 9 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //temp = new Rectangle(width * jj, 50 + (height * ii), width, height);
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -660,8 +583,6 @@ class Nodes {
 
                             case 10:
                                 this.ctx.drawImage(this.unGroundLedges, 10 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -679,15 +600,23 @@ class Nodes {
 
                             case 12:
                                 this.ctx.drawImage(this.unGroundLedges, 12 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                this.platformList.push(temp);
+                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
+                                //this.platformList.push(temp);
                                 break;
 
                             // edible walls
+                            case 15:
+                                this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.ctx.beginPath();
+                                this.ctx.lineWidth = 2;
+                                this.ctx.strokeStyle = "pink";
+                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
+                                this.ctx.stroke();
+                                break;
+
                             case 16:
                                 this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 2;
@@ -698,34 +627,16 @@ class Nodes {
 
                             case 17:
                                 this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 2;
                                 this.ctx.strokeStyle = "blue";
                                 this.ctx.rect(width * jj, 50 + (height * ii), width, height);
                                 this.ctx.stroke();
-
-                                break;
-
-                            case 15://18
-                                //this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
-                                this.ctx.beginPath();
-                                this.ctx.lineWidth = 2;
-                                this.ctx.strokeStyle = "pink";
-                                this.ctx.rect(width * jj, 50 + (height * ii), width, height);
-                                this.ctx.stroke();
                                 break;
 
                             case 18:
                                 this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 2;
@@ -762,8 +673,6 @@ class Nodes {
                             // Diamond ledges 
                             case 25:
                                 this.ctx.drawImage(this.unGroundLedges, 5 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -774,8 +683,6 @@ class Nodes {
 
                             case 26:
                                 this.ctx.drawImage(this.unGroundLedges, 6 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
-                                //this.platformList.push(temp);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.ctx.beginPath();
                                 this.ctx.lineWidth = 1;
@@ -787,8 +694,8 @@ class Nodes {
                     }
                 }
 
-                for (var i = 0; i < this.resourceManager.mEnemies.length; i++) {
-                    this.resourceManager.mEnemies[i].Draw(this.ctx);
+                for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
+                    this.resourceManager.EnemyList[i].Draw(this.ctx);
                 }
                 this.charlie.Ledges = this.platformz;
                 this.charlie.Walls = this.walls;
@@ -801,20 +708,19 @@ class Nodes {
             this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
             this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
             this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
-            ///        this.ctx.drawImage(this.panel, 40, 520);
+            this.ctx.drawImage(this.panel, 40, 520);
         }
     }
 
     private clearAll(): void {
         this.enemies = [];
-        //this.rects = [];
         this.walls = [];
         this.platformz = [];
         this.edibleWalls = [];
         this.alchiems = [];
         //this.testList = [];
         //if (this.roof.length > 0) {
-        //    this.roof = [];//.Clear();
+        //    this.roof = [];
         //}
     }
 }

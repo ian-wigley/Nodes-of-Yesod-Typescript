@@ -24,7 +24,7 @@ class Charlie extends BaseObject {
     private m_holeRectangle2: Rectangle;
 
 
-    testJump: Array<number> = new Array();
+    private testJump: Array<number> = new Array();
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
 
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, platforms: Array<Rectangle>) {
@@ -99,16 +99,7 @@ class Charlie extends BaseObject {
                     this.m_frameX += 1;
                     this.m_animTimer = 0;
                 }
-
-                //this.m_amplitude += 0.1;
-                //this.m_shift = Math.abs(this.m_amplitude * Math.sin(this.t));
-                //    //shift = abs(amplitude * sin(t))
-                //this.m_y -= this.m_shift;
-                //numberOfTicks++;
-
                 this.m_amplitude += 0.025;
-                //ufo.y = (250 * sin(numberOfTicks * 0.5 * pi)) + 350;
-                //this.m_y = (250 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + 350;   //350 is the correct y height
                 this.m_y = (200 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + 320;   //350 is the correct y height
                 this.m_x += 5;
                 this.testJump.push(this.m_y);
@@ -175,10 +166,7 @@ class Charlie extends BaseObject {
         //// //                       YPosition = 366;
         //// }
         ////}
-
         //this.collisions(false);
-
-
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
@@ -187,19 +175,19 @@ class Charlie extends BaseObject {
 
         // Draw Charlie facing left
         if (!this.m_direction && !this.m_somerSaultJump) {
-////            ctx.drawImage(this.m_texture, this.m_frameX * 64 + (11 * 64), this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, this.m_frameX * 64 + (11 * 64), this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
         if (!this.m_direction && this.m_somerSaultJump) {
-////            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
         if (this.m_direction && this.m_somerSaultJump) {
-////            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /* this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /* this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
         // Draw Charlie facing right
         else if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
-////            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, this.m_frameX * 64, this.m_frameY /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
         ctx.fill();
 
@@ -434,8 +422,6 @@ class Charlie extends BaseObject {
             //        }
             //    }
             //}
-
-
         }
     }
 
