@@ -23,11 +23,12 @@ class Charlie extends BaseObject {
     private m_holeRectangle1: Rectangle;
     private m_holeRectangle2: Rectangle;
 
+    private m_debug: boolean;
 
-    private testJump: Array<number> = new Array();
+    testJump: Array<number> = new Array();
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, platforms: Array<Rectangle>) {
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, platforms: Array<Rectangle>, debug:boolean) {
 
         super(texture);
         this.m_x = xpos;
@@ -36,8 +37,9 @@ class Charlie extends BaseObject {
         this.m_height = 64;
         this.m_frameX = 1;
         //this.m_resourceManager = resManager;
-        this.m_walls = new Array<Rectangle>();//  walls
-        this.m_platforms = new Array<Rectangle>();//platforms;
+        this.m_walls = new Array<Rectangle>();
+        this.m_platforms = new Array<Rectangle>();
+        this.m_debug = debug;
     }
 
    public Update(value: number): void {
@@ -45,7 +47,7 @@ class Charlie extends BaseObject {
 
         // Walk Left
         if (value == 0 && !this.m_somerSaultJump) {
-            this.m_x -= 5;
+            this.m_x -= 4;
             this.m_direction = false;
             if (this.m_animTimer > 0.4) {
                 this.m_frameX = (this.m_frameX + 1) % 8;
@@ -54,31 +56,40 @@ class Charlie extends BaseObject {
         }
         // Walk Right
         else if (value == 1 && !this.m_somerSaultJump) {
-            this.m_x += 5;
+            this.m_x += 4;
             this.m_direction = true;
             if (this.m_animTimer > 0.4) {
                 this.m_frameX = (this.m_frameX + 1) % 8;
                 this.m_animTimer = 0;
             }
         }
-        // left
+        // left somerSault
         if (value == 0 && this.m_somerSaultJump) {
             if (!this.m_initialised) {
                 //this.summerSaultFrame = 138;// 3 * 64;
                 this.m_frameY = 138;
                 this.m_direction = false;
-                this.m_frameX = 17;
+                this.m_frameX = 0;
                 this.m_initialised = true;
             }
-            if (this.m_frameX > 0) {
+            if (this.m_frameX < 20) {
                 //    this.m_y -= 5;
-                this.m_frameX -= 1;
+                //this.m_frameX -= 1;
+                if (this.m_animTimer > 0.1) {
+                    this.m_frameX += 1;
+                    this.m_animTimer = 0;
+                }
+                this.m_amplitude += 0.025;
+                this.m_y = (200 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + 320;   //350 is the correct y height
+                this.m_x -= 5;
             }
-            if (this.m_frameX == 0 && this.m_somerSaultJump) {
+            if (this.m_frameX == 20 && this.m_somerSaultJump) {
                 this.m_somerSaultJump = false;
                 //this.summerSaultFrame = 0;
                 this.m_frameY = 0;
+                this.m_frameX = 0;
                 this.m_initialised = false;
+                this.m_y = 320;
             }
         }
 
@@ -93,9 +104,7 @@ class Charlie extends BaseObject {
             }
             if (this.m_frameX < 20) { //17
                 //    this.m_y -= 5;
-
                 if (this.m_animTimer > 0.1) {
-
                     this.m_frameX += 1;
                     this.m_animTimer = 0;
                 }
@@ -166,7 +175,10 @@ class Charlie extends BaseObject {
         //// //                       YPosition = 366;
         //// }
         ////}
+
         //this.collisions(false);
+
+
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
@@ -191,16 +203,18 @@ class Charlie extends BaseObject {
         }
         ctx.fill();
 
-        ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "green";
-        ctx.rect(this.m_x + 10, this.m_y, this.m_width, this.m_height);
-        ctx.stroke();
-        ctx.font = "12px Arial";
-        ctx.fillStyle = "yellow";
-        ctx.fillText("X" + this.m_x, 10, 50);
-        ctx.fillText("Y" + this.m_y, 10, 70);
-        //ctx.fillText("sine" + this.m_shift, 10, 70);
+        if (this.m_debug) {
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "green";
+            ctx.rect(this.m_x + 10, this.m_y, this.m_width, this.m_height);
+            ctx.stroke();
+            ctx.font = "12px Arial";
+            ctx.fillStyle = "yellow";
+            ctx.fillText("X" + this.m_x, 10, 50);
+            ctx.fillText("Y" + this.m_y, 10, 70);
+            //ctx.fillText("sine" + this.m_shift, 10, 70);
+        }
     }
 
     public Collisions(belowMoon: boolean, screenChange: boolean): void {

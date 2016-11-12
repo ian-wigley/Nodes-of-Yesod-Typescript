@@ -1,9 +1,11 @@
 ﻿import BaseObject = require("BaseObject");
+import Rectangle = require("Rectangle");
 
 class Enemy extends BaseObject {
 
     protected m_speed: number;
-    protected m_walls: number[];
+    protected m_walls: Array<Rectangle>;
+    protected m_platforms: Array<Rectangle>;
     protected m_currentFrameY: number;
     protected m_sheetSize: number;
     protected m_timeSinceLastFrame: number;
@@ -12,7 +14,7 @@ class Enemy extends BaseObject {
     protected m_turning: boolean;
     protected m_name: string;
 
-    constructor(xpos: number, ypos: number, speedX: number, texture: HTMLCanvasElement, walls: number[]) {
+    constructor(xpos: number, ypos: number, speedX: number, texture: HTMLCanvasElement, walls: Array<Rectangle>) {
         super(texture);
 
         this.m_speed = speedX;

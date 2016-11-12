@@ -24,11 +24,11 @@ class Earth extends BaseObject {
         ctx.drawImage(this.m_texture, this.m_frameX * 64, 894, 64, 64, this.m_x, this.m_y, 64, 64);
         ctx.fill();
 
-        ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "green";
-        ctx.rect(this.m_x, this.m_y, this.m_width, this.m_height);
-        ctx.stroke();
+        //ctx.beginPath();
+        //ctx.lineWidth = 1;
+        //ctx.strokeStyle = "green";
+        //ctx.rect(this.m_x, this.m_y, this.m_width, this.m_height);
+        //ctx.stroke();
     }
 }
 

@@ -1,7 +1,8 @@
 ﻿import Enemy = require("Enemy");
+import Rectangle = require("Rectangle");
 
 class ChasingEnemy extends Enemy {
-    constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: number[]) {
+    constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>) {
         super(xpos, ypos, speedx, gamesprites, wall);
         this.m_name = "ChasingEnemy";
     }
@@ -31,6 +32,7 @@ class ChasingEnemy extends Enemy {
         ctx.beginPath();
         ctx.drawImage(this.m_texture, this.m_frameX * 64 + (2 * 64), 9 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
+
 }
 
 export = ChasingEnemy;

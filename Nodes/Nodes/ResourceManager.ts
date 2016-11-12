@@ -1,5 +1,6 @@
 ﻿import BlueThingy = require("BlueThingy");
 import ChasingEnemy = require("ChasingEnemy");
+import Rectangle = require("Rectangle");
 import SpringBear = require("SpringBear");
 
 import Enemy = require("Enemy");
@@ -10,7 +11,7 @@ class ResourceManager {
     private gameSprites: HTMLCanvasElement;
     private mSprites: HTMLCanvasElement;
     //mEnemies: HTMLCanvasElement;
-    private mWalls: Array<number>;//HTMLCanvasElement;
+    private mWalls: Array<Rectangle>;//Array<number>;//HTMLCanvasElement;
     private mUpperRockArray: Array<number[]>;
     private mMoundArray: Array<number>;
     private mHoleArray0: Array<number>;
@@ -2656,7 +2657,7 @@ class ResourceManager {
         this.levels[2558] = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; //255
         this.levels[2559] = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; //255
 
-//        this.ConfigureEnemies(1);
+        //        this.ConfigureEnemies(1);
     }
 
     public ConfigureEnemies(belowScreenCounter): void {
@@ -2727,7 +2728,7 @@ class ResourceManager {
                     this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 3:
-                     this.mEnemies.push(new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 4:
                     this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
@@ -2741,7 +2742,7 @@ class ResourceManager {
             }
         }
     }
-    
+
     public get EnemyList(): Array<Enemy> { return this.mEnemies; }
     public get Levels(): number[][] { return this.levels }
     public get UpperRocks(): number[][] { return this.mUpperRockArray; }
