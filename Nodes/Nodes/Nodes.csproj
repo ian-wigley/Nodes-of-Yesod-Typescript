@@ -25,8 +25,11 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Alf.ts" />
     <TypeScriptCompile Include="BaseObject.ts" />
+    <TypeScriptCompile Include="Bird.ts" />
     <TypeScriptCompile Include="BlueThingy.ts" />
+    <TypeScriptCompile Include="Caterpillar.ts" />
     <TypeScriptCompile Include="Charlie.ts" />
     <TypeScriptCompile Include="ChasingEnemy.ts" />
     <TypeScriptCompile Include="Earth.ts" />

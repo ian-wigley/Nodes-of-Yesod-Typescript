@@ -393,6 +393,8 @@ class Nodes {
 
             for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
                 this.resourceManager.EnemyList[i].Update();
+                this.resourceManager.EnemyList[i].Walls = this.walls;
+
                 if (this.resourceManager.EnemyList[i].Name == "ChasingEnemy") {
                     this.resourceManager.EnemyList[i].CharlieX = this.charlie.X;
                     this.resourceManager.EnemyList[i].CharlieY = this.charlie.Y;

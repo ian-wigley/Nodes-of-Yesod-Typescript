@@ -34,6 +34,7 @@ class Enemy extends BaseObject {
     public Update(): void { }
 
     public get Name(): string { return this.m_name; }
+    public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
 
 }
 
