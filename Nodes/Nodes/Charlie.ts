@@ -209,7 +209,7 @@ class Charlie extends BaseObject {
             ctx.strokeStyle = "green";
             ctx.rect(this.m_x + 10, this.m_y, this.m_width, this.m_height);
             ctx.stroke();
-            ctx.font = "12px Arial";
+            ctx.font = "20px SpaceAge";
             ctx.fillStyle = "yellow";
             ctx.fillText("X" + this.m_x, 10, 50);
             ctx.fillText("Y" + this.m_y, 10, 70);

@@ -4,10 +4,10 @@ class Earth extends BaseObject {
 
     constructor(texture: HTMLCanvasElement) {
         super(texture);
-        this.m_x = 50;
-        this.m_y = 50;
-        this.m_width = 64;//texture.width;
-        this.m_height = 64;//texture.height;
+        this.m_x = 600;
+        this.m_y = 20;
+        this.m_width = 64;
+        this.m_height = 64;
         this.m_frameX = 0;
     }
 

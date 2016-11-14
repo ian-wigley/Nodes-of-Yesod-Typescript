@@ -53,7 +53,6 @@ class Nodes {
     private collision: HTMLCanvasElement;
     private colRect: HTMLCanvasElement;
 
-    ////        private SpriteFont hudFont;
     ////        Rectangle gameSpritesRect;
     ////        Rectangle mainSpritesRect;
     ////        Rectangle heartBeatRect;
@@ -101,7 +100,7 @@ class Nodes {
 
     private moleManAlive: boolean = false;
     private trip: boolean = false;
-    private gameOn: boolean = true; //false;
+    private gameOn: boolean = false;//true;
     private jumpRight: boolean = false;
     private belowMoon: boolean = false;
 
@@ -166,7 +165,7 @@ class Nodes {
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
 
-        //  mole = new Mole(gameSprites, walls, edibleWalls, intface.ToTheUnderGround);
+        //  mole = new Mole(gameSprites, walls, edibleWalls, ToTheUnderGround);
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -416,14 +415,15 @@ class Nodes {
         this.ctx.beginPath();
 
         if (!this.gameOn) {
-            this.ctx.font = "12px Arial";
+            this.ctx.font = "36px SpaceAge";
             this.ctx.fillStyle = "yellow";
             this.ctx.drawImage(this.frontScreen, 0, 0);
-            this.ctx.fillText("XNA NODES OF YESOD REMAKE ", 295.0, 20.0);
-            this.ctx.fillText("Start", 480.0, 100.0);
-            this.ctx.fillText("Instructions", 480.0, 120.0);
-            this.ctx.fillText("Define Keys ", 480.0, 140.0);
-            this.ctx.fillText("Hit X to Start", 480.0, 240.0);
+            this.ctx.fillText("NODES OF YESOD REMAKE", 160, 20);
+            this.ctx.font = "20px SpaceAge";
+            //this.ctx.fillText("Start", 480.0, 100.0);
+            //this.ctx.fillText("Instructions", 480.0, 120.0);
+            //this.ctx.fillText("Define Keys ", 480.0, 140.0);
+            this.ctx.fillText("Press X to Start the game", 400, 240);
         }
         else {
             if (!this.belowMoon) {
@@ -638,16 +638,16 @@ class Nodes {
             this.charlie.Draw(this.ctx);
 
             if (this.debug) {
-                this.ctx.font = "12px Arial";
+                this.ctx.font = "12px SpaceAge";
                 this.ctx.fillStyle = "yellow";
                 this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
                 this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
                 this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
             }
-            this.ctx.drawImage(this.panel, 40, 520);
-            this.ctx.font = "12px Arial";
-            this.ctx.fillStyle = "yellow";
-            this.ctx.fillText("0:00:00", 660, 542);
+            this.ctx.drawImage(this.panel, 50, 530);
+            this.ctx.font = "20px SpaceAge";
+            this.ctx.fillStyle = "white";
+            this.ctx.fillText("0:00:00", 635, 554);
         }
     }
 
