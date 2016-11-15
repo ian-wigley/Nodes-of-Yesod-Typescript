@@ -20,11 +20,6 @@ class BlueThingy extends Enemy {
         ctx.beginPath();
         ctx.drawImage(this.m_texture, this.m_frameX * 64 + (12 * 64), 5 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
-
-    public set Ledges(value: Array<Rectangle>) { this.m_platforms = value; }
-    public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
-
-
 }
 
 export = BlueThingy;

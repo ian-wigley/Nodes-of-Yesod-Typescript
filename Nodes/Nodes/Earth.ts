@@ -21,7 +21,7 @@ class Earth extends BaseObject {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64, 894, 64, 64, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, this.m_frameX * 64, 15 * 64, 64, 64, this.m_x, this.m_y, 64, 64);//962
         ctx.fill();
 
         //ctx.beginPath();

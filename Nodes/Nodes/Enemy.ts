@@ -35,7 +35,7 @@ class Enemy extends BaseObject {
 
     public get Name(): string { return this.m_name; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
-
+    public set Ledges(value: Array<Rectangle>) { this.m_platforms = value; }
 }
 
 export = Enemy;

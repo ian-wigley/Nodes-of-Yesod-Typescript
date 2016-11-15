@@ -9,7 +9,7 @@ class Bird extends Enemy {
         super(xpos, ypos, speedx, gamesprites, wall);
         this.m_name = "Bird";
         this.m_x = 180;
-        this.m_y = 400;
+        this.m_y = 420;
         this.m_width = 34;//64
         this.m_height = 64;
         this.m_speed = 1;
@@ -41,7 +41,7 @@ class Bird extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64, 7 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, this.m_frameX * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 }
 

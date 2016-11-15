@@ -644,9 +644,19 @@ class Nodes {
                 this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
                 this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
             }
+
+            this.animTimer += 0.1;
+            if (this.animTimer > 1.0) {
+                this.heartBeatTimer = (this.heartBeatTimer + 1) % 7;
+                this.animTimer = 0;
+            }
+
+            this.ctx.drawImage(this.gameSprites, (this.heartBeatTimer + 9) * 64, 15 * 69, 68, 68, 420, 520, 64, 64);
             this.ctx.drawImage(this.panel, 50, 530);
+
             this.ctx.font = "20px SpaceAge";
             this.ctx.fillStyle = "white";
+            this.ctx.fillText("3", 415, 554);
             this.ctx.fillText("0:00:00", 635, 554);
         }
     }
