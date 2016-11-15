@@ -2,6 +2,7 @@
 import ChasingEnemy = require("ChasingEnemy");
 import Charlie = require("Charlie");
 import Earth = require("Earth");
+import Mole = require("Mole");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
@@ -98,7 +99,7 @@ class Nodes {
 
     private debug: boolean = false;
 
-    private moleManAlive: boolean = false;
+    private moleAlive: boolean = false;
     private trip: boolean = false;
     private gameOn: boolean = false;//true;
     private jumpRight: boolean = false;
@@ -116,6 +117,7 @@ class Nodes {
     private resourceManager: ResourceManager;
     private charlie: Charlie;
     private earth: Earth;
+    private mole: Mole;
     private rocket: Rocket;
 
     private sineCounter: number = 0;
@@ -164,8 +166,7 @@ class Nodes {
         this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.platformz, this.debug);//350
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
-
-        //  mole = new Mole(gameSprites, walls, edibleWalls, ToTheUnderGround);
+        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls);
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -199,14 +200,26 @@ class Nodes {
                 this.somersault = true;
                 break;
             case 37:
-                this.moveLeft = true;
+                if (!this.moleAlive) {
+                    this.moveLeft = true;
+                }
+                else { }
                 break;
             case 38:
                 break;
             case 39:
-                this.moveRight = true;
+                if (!this.moleAlive) {
+                    this.moveRight = true;
+                }
+                else { }
                 break;
             case 40:
+                break;
+            case 77:
+                this.moleAlive = true;
+                break;
+            case 78:
+                this.moleAlive = false;
                 break;
             case 88:
                 this.gameOn = true;
@@ -399,6 +412,11 @@ class Nodes {
                     this.resourceManager.EnemyList[i].CharlieY = this.charlie.Y;
                 }
             }
+
+            if (this.moleAlive) {
+                this.mole.Update();
+            }
+
         }
 
         this.rocket.Update();
@@ -634,6 +652,11 @@ class Nodes {
                 this.charlie.Ledges = this.platformz;
                 this.charlie.Walls = this.walls;
             }
+
+            if (this.moleAlive) {
+                this.mole.Draw(this.ctx);
+            }
+
 
             this.charlie.Draw(this.ctx);
 
