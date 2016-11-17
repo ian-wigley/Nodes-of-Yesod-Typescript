@@ -125,6 +125,11 @@ class Nodes {
     private moveRight: boolean = false;
     private somersault: boolean = false;
 
+    private moleMoveLeft: boolean = false;
+    private moleMoveRight: boolean = false;
+
+    private scrollText: string = "NODES OF YESOD REMAKE        CATCH A MOLE,  FIND A HOLE,  JUMP RIGHT DOWN,  AND START TO ROLL.  WHAT YOU DO IS FIND A CLUE,  OF RED, MAGENTA, GREEN OR BLUE.  TAKE SOME TIME,  DESCEND AND CLIMB,  GO AND FIND THE RÿGHT ALCHIEMS.  THE TASK IS PLAIN,  WITH EÿGHT THE SAME,  SEEK THE MONOLITH AND THATS THE GAME.      CTRL TO ABORT GAME      RETURN TO PAUSE THE GAME   ";
+
     constructor() {
         var construct = 0;
     }
@@ -163,10 +168,10 @@ class Nodes {
         //    holes2 = ResourceManager.mHoleArray1;
 
         // Create the Actors
-        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.platformz, this.debug);//350
+        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.platformz, this.debug);
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
-        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls);
+        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.platformz, this.debug);
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -203,7 +208,10 @@ class Nodes {
                 if (!this.moleAlive) {
                     this.moveLeft = true;
                 }
-                else { }
+                else {
+                    this.moleMoveLeft = true;
+                    this.moleMoveRight = false;
+                }
                 break;
             case 38:
                 break;
@@ -211,12 +219,17 @@ class Nodes {
                 if (!this.moleAlive) {
                     this.moveRight = true;
                 }
-                else { }
+                else {
+                    this.moleMoveRight = true;
+                    this.moleMoveLeft = false;
+                }
                 break;
             case 40:
                 break;
             case 77:
                 this.moleAlive = true;
+                this.mole.X = this.charlie.X;
+                this.mole.Y = this.charlie.Y;
                 break;
             case 78:
                 this.moleAlive = false;
@@ -240,11 +253,13 @@ class Nodes {
                 break;
             case 37:
                 this.moveLeft = false;
+                this.moleMoveLeft = false;
                 break;
             case 38:
                 break;
             case 39:
                 this.moveRight = false;
+                this.moleMoveRight = false;
                 break;
             case 40:
                 break;
@@ -414,6 +429,16 @@ class Nodes {
             }
 
             if (this.moleAlive) {
+                if (this.moleMoveLeft) {
+                    this.mole.UpdatePosition(0);
+                   
+                }
+                if (this.moleMoveRight) {
+                    this.mole.UpdatePosition(1);
+                   
+                }
+                //this.moleMoveLeft = false;
+                //this.moleMoveRight = false;
                 this.mole.Update();
             }
 

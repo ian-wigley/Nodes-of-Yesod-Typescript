@@ -14,6 +14,8 @@
     protected m_speedX: number = 1.0;
     protected m_speedY: number = 1.0;
 
+    protected m_debug: boolean = false;
+
     constructor(texture: HTMLCanvasElement) {
         this.m_texture = texture;
         this.m_x = 0;
