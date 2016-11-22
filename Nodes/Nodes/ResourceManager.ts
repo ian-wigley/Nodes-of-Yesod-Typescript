@@ -3015,19 +3015,23 @@ class ResourceManager {
             var floatingEnemies = Math.ceil(Math.random() * 6);
             switch (floatingEnemies) {
                 case 1:
-                    this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    //this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));//Math.max(800, Math.random() * 1200);
+                    this.mEnemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.mSprites, this.mWalls));
                     break;
                 case 2:
-                    this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    //this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 3:
                     this.mEnemies.push(new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 4:
-                    this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    //this.mEnemies.push(new SpringBear((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.mSprites, this.mWalls));
                     break;
                 case 5:
-                    this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    //this.mEnemies.push(new BlueThingy((Math.random() * 360), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
+                    this.mEnemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.mSprites, this.mWalls));//, mPlatforms));
                     break;
                 case 6:
                     this.mEnemies.push(new ChasingEnemy(300, 300, 1, this.mSprites, this.mWalls));//, mPlatforms));

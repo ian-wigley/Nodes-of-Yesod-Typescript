@@ -13,6 +13,7 @@ class Bird extends Enemy {
         this.m_width = 34;//64
         this.m_height = 64;
         this.m_speed = 1;
+        this.m_facingLeft = false;
     }
 
     public Update(): void {
@@ -30,10 +31,12 @@ class Bird extends Enemy {
                 if (this.m_speed > 0) {
                     this.m_x -= 5;
                     this.m_speed *= -1;
+                    this.m_facingLeft = true;
                 }
                 else {
                     this.m_x += 5;
                     this.m_speed *= -1;
+                    this.m_facingLeft = false;
                 }
             }
         }
@@ -41,7 +44,12 @@ class Bird extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        if (!this.m_facingLeft) {
+            ctx.drawImage(this.m_texture, this.m_frameX * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
+        else {
+            ctx.drawImage(this.m_texture, (this.m_frameX + 4) * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
     }
 }
 
