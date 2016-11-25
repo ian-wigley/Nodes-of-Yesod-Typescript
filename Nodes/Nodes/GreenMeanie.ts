@@ -4,12 +4,12 @@ import Rectangle = require("Rectangle");
 class GreenMeanie extends Enemy {
     constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>) {
         super(xpos, ypos, speedx, gamesprites, wall);
-        this.m_name = "Fire";
+        this.m_name = "GreenMeanie";
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
-        this.m_x += this.m_speed;
+        //this.m_x += this.m_speed;
         if (this.m_animTimer > 0.4) {
             this.m_frameX = (this.m_frameX + 1) % 4;
             this.m_animTimer = 0;
@@ -18,7 +18,7 @@ class GreenMeanie extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, (this.m_frameX + 4) * 64, 6 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 }
 export = GreenMeanie;

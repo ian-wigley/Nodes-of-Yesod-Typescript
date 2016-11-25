@@ -219,7 +219,7 @@ class Charlie extends BaseObject {
 
     public Collisions(belowMoon: boolean, screenChange: boolean): void {
         if (!belowMoon) {
-            if (this.Rectangle.Intersects(this.m_holeRectangle1)) {// || this.Rectangle.Intersects(this.m_holeRectangle2)) {
+            if (this.Rectangle.Intersects(this.m_holeRectangle1) || this.Rectangle.Intersects(this.m_holeRectangle2)) {
                 //Yesod.belowScreenCounter = Yesod.screenCounter;
                 //Yesod.belowMoon = true;
                 //this.Falling = true;

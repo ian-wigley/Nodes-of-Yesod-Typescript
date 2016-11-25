@@ -9,7 +9,7 @@ class Fire extends Enemy{
 
     public Update(): void {
         this.m_animTimer += 0.1;
-        this.m_x += this.m_speed;
+ //       this.m_x += this.m_speed;
         if (this.m_animTimer > 0.4) {
             this.m_frameX = (this.m_frameX + 1) % 4;
             this.m_animTimer = 0;
@@ -18,7 +18,7 @@ class Fire extends Enemy{
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, (this.m_frameX + 8) * 64, 10 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 }
 

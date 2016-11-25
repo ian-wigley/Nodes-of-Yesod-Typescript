@@ -4,7 +4,7 @@ import Rectangle = require("Rectangle");
 class WoodLouse extends Enemy {
     constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>) {
         super(xpos, ypos, speedx, gamesprites, wall);
-        this.m_name = "Fire";
+        this.m_name = "WoodLouse";
     }
 
     public Update(): void {
@@ -18,7 +18,7 @@ class WoodLouse extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, (this.m_frameX + 4)* 64, 7 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 }
 export = WoodLouse;

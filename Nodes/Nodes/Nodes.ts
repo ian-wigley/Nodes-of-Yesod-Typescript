@@ -97,7 +97,7 @@ class Nodes {
     private screenCounter: number = 0;
     private belowScreenCounter: number = 0;
 
-    private debug: boolean = false;
+    private debug: boolean = true;//false;
 
     private moleAlive: boolean = false;
     private trip: boolean = false;
@@ -364,6 +364,17 @@ class Nodes {
                 this.charlie.HoleRectangle1 = new Rectangle(0, 0, 0, 0);
             }
 
+            // if there is a hole position the rectangle 
+            if (this.resourceManager.Hole2[this.screenCounter] == 1) {
+                this.charlie.HoleRectangle2 = new Rectangle(this.hole1X + 20, this.holesY + 20, 60, this.holesY + 40);
+            }
+
+            // other wise move it out of the way...
+            else {
+                this.charlie.HoleRectangle2 = new Rectangle(0, 0, 0, 0);
+            }
+
+
             if (this.charlie.Falling) {
                 this.belowMoon = true;
             }
@@ -418,6 +429,13 @@ class Nodes {
                 }
             }
 
+
+            if (this.belowScreenCounter == 47) {
+                var breakHere = true;
+            }
+
+
+
             for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
                 this.resourceManager.EnemyList[i].Update();
                 this.resourceManager.EnemyList[i].Walls = this.walls;
@@ -441,7 +459,6 @@ class Nodes {
                 //this.moleMoveRight = false;
                 this.mole.Update();
             }
-
         }
 
         this.rocket.Update();
