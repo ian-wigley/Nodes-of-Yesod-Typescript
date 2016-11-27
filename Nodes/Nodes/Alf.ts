@@ -13,12 +13,14 @@ class Alf extends Enemy {
         this.m_width = 34;
         this.m_height = 64;
         this.m_speed = 1;
+        this.m_offsetX = 0 * 64;
+        this.m_offsetY = 5 * 69;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
         if (this.m_animTimer > 0.4) {
-            this.m_frameX = (this.m_frameX + 1) % 7;
+            this.m_frame = (this.m_frame + 1) % 7;
             this.m_animTimer = 0;
         }
         var triggered = false;
@@ -40,7 +42,12 @@ class Alf extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frameX * 64 + (12 * 64), 5 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        if (!this.m_facingLeft) {
+            ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
+        else {
+            ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY + 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
     }
 }
 

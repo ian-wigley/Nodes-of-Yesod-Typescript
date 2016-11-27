@@ -10,7 +10,6 @@ class Enemy extends BaseObject {
     protected m_sheetSize: number;
     protected m_timeSinceLastFrame: number;
     protected m_millisecondsPerFrame: number;
-    protected m_facingLeft: boolean;
     protected m_turning: boolean;
     protected m_name: string;
 
@@ -22,8 +21,9 @@ class Enemy extends BaseObject {
         this.m_y = ypos;
         this.m_width = texture.width;
         this.m_height = texture.height;
-        this.m_frameX = 0;
-        this.m_frameY = 0;
+        this.m_frame = 0;
+        this.m_offsetX = 0;
+        this.m_offsetY = 0;
         this.m_walls = walls;
         this.m_sheetSize = 8;
         this.m_timeSinceLastFrame = 0;

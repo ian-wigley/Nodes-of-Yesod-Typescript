@@ -11,14 +11,14 @@ class WoodLouse extends Enemy {
         this.m_animTimer += 0.1;
         this.m_x += this.m_speed;
         if (this.m_animTimer > 0.4) {
-            this.m_frameX = (this.m_frameX + 1) % 4;
+            this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, (this.m_frameX + 4)* 64, 7 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, (this.m_frame + 4)* 64, 7 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 }
 export = WoodLouse;

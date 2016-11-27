@@ -7,8 +7,8 @@ class Rocket extends BaseObject {
     constructor(texture: HTMLCanvasElement) {
         super(texture);
         this.m_y = 100;
-        this.m_frameX = 16;
-        this.m_frameY = 64;
+        this.m_offsetX = 17 * 64;
+        this.m_offsetY = 11 * 68;
     }
 
     public Update(): void {
@@ -23,7 +23,7 @@ class Rocket extends BaseObject {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        ctx.drawImage(this.m_texture, 17 * 64, 9 * 68, 64, 64, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
     }
 
     public get RocketScreen(): number {

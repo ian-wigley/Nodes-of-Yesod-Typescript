@@ -97,7 +97,7 @@ class Nodes {
     private screenCounter: number = 0;
     private belowScreenCounter: number = 0;
 
-    private debug: boolean = true;//false;
+    private debug: boolean = false;
 
     private moleAlive: boolean = false;
     private trip: boolean = false;
@@ -227,9 +227,11 @@ class Nodes {
             case 40:
                 break;
             case 77:
-                this.moleAlive = true;
-                this.mole.X = this.charlie.X;
-                this.mole.Y = this.charlie.Y;
+                if (this.belowMoon) {
+                    this.moleAlive = true;
+                    this.mole.X = this.charlie.X;
+                    this.mole.Y = this.charlie.Y;
+                }
                 break;
             case 78:
                 this.moleAlive = false;
@@ -696,6 +698,7 @@ class Nodes {
             }
 
             if (this.moleAlive) {
+                this.mole.Walls = this.walls;
                 this.mole.Draw(this.ctx);
             }
 
