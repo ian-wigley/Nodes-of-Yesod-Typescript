@@ -4,6 +4,7 @@ class BaseObject {
 
     protected m_texture: HTMLCanvasElement;
     protected m_walls: Array<Rectangle>;
+    protected m_edibleWalls: Array<Rectangle>;
     protected m_x: number;
     protected m_y: number;
     protected m_width: number;

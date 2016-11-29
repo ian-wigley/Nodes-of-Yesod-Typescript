@@ -33,7 +33,7 @@ class Nodes {
     private walls: Array<Rectangle> = new Array<Rectangle>();
 
     //// Mole edible
-    private edibleWalls: Array<number>;
+    private edibleWalls: Array<Rectangle> = new Array<Rectangle>();
 
     //// Alcheims
     private alchiems: Array<number>;
@@ -168,10 +168,10 @@ class Nodes {
         //    holes2 = ResourceManager.mHoleArray1;
 
         // Create the Actors
-        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.platformz, this.debug);
+        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
-        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.platformz, this.debug);
+        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -627,29 +627,33 @@ class Nodes {
                             // edible walls
                             case 15:
                                 this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 16:
                                 this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 17:
                                 this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 18:
                                 this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
-                            // Orbs    
+                            // Alchiems
                             case 20:
                                 this.ctx.drawImage(this.unGroundLedges, 0 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
                                 //temp = { left: width * jj, top: 50 + (height * ii), right: width, bottom: height };
@@ -695,10 +699,12 @@ class Nodes {
                 }
                 this.charlie.Ledges = this.platformz;
                 this.charlie.Walls = this.walls;
+                this.charlie.EdibleWalls = this.edibleWalls;
             }
 
             if (this.moleAlive) {
                 this.mole.Walls = this.walls;
+                this.mole.EdibleWalls = this.edibleWalls;
                 this.mole.Draw(this.ctx);
             }
 

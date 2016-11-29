@@ -28,7 +28,7 @@ class Charlie extends BaseObject {
     testJump: Array<number> = new Array();
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, platforms: Array<Rectangle>, debug:boolean) {
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug:boolean) {
 
         super(texture);
         this.m_x = xpos;
@@ -37,7 +37,8 @@ class Charlie extends BaseObject {
         this.m_height = 64;
         this.m_frame = 1;
         //this.m_resourceManager = resManager;
-        this.m_walls = walls;//new Array<Rectangle>();
+        this.m_walls = walls;
+        this.m_edibleWalls = ediblewalls;
         this.m_platforms = new Array<Rectangle>();
         this.m_debug = debug;
     }
@@ -376,6 +377,23 @@ class Charlie extends BaseObject {
                 }
             }
 
+            if (this.m_edibleWalls.length > 0 && !screenChange) {
+                for (var i = 0; i < this.m_edibleWalls.length; i++) {
+                    if (charlieRect.Intersects(this.m_edibleWalls[i])) {
+                        var yes = true;
+                        if (!this.m_direction) {
+                            this.m_x = this.m_edibleWalls[i].Width
+                            break;
+                        }
+                        else {
+                            this.m_x = 680;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
             //if (mEdibleWalls.Count > 0) {
             //    foreach(Rectangle edible in mEdibleWalls)
             //        {
@@ -452,6 +470,7 @@ class Charlie extends BaseObject {
 
     public set Ledges(value: Array<Rectangle>) { this.m_platforms = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
+    public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
     public get BelowMoonSurface(): boolean { return this.m_belowSurface; }
 
     public get Falling(): boolean { return this.m_falling; }
