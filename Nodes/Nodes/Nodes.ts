@@ -535,6 +535,7 @@ class Nodes {
                 var height = 48;
                 this.platformz = [];
                 this.walls = [];
+                this.edibleWalls = [];
 
                 for (var ii = 0; ii < 10; ii++) {
 
