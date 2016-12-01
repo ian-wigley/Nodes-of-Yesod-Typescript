@@ -171,7 +171,7 @@ class Nodes {
         this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
-        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
+        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug);
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -705,6 +705,7 @@ class Nodes {
             if (this.moleAlive) {
                 this.mole.Walls = this.walls;
                 this.mole.EdibleWalls = this.edibleWalls;
+                this.mole.ScreenCounter = this.belowScreenCounter;
                 this.mole.Draw(this.ctx);
             }
 

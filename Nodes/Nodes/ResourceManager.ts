@@ -31,7 +31,7 @@ class ResourceManager {
     private levels: Array<number[]>;
     private test1: Array<number>;
     private mToTheEnemies: Array<number>[];
-    private ToTheUnderGround: Array<number[]>;
+ //   private ToTheUnderGround: Array<number[]>;
 
     constructor(gameSprites, enemies, walls, platform, ctx) {
 
@@ -103,7 +103,7 @@ class ResourceManager {
 
         this.mEnemies = new Array();
       //  this.mToTheEnemies = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
-        this.ToTheUnderGround = new Array();
+      //  this.ToTheUnderGround = new Array();
 
         this.levels = new Array();
         this.levels[0] = [4, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4]; //0

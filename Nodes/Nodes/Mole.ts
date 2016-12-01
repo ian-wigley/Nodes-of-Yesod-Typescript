@@ -4,12 +4,15 @@ import Rectangle = require("Rectangle");
 class Mole extends BaseObject {
 
     private m_moleRect: Rectangle;
+    private m_screenCounter: number = 0;
+    private m_levels: number[][];
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean) {
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean) {
         super(texture);
         this.m_debug = debug;
         this.m_walls = walls;
         this.m_edibleWalls = ediblewalls;
+        this.m_levels = levels;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 11 * 69;
     }
@@ -55,34 +58,34 @@ class Mole extends BaseObject {
                 //}
             }
         }
+
         for (var i = 0; i < this.m_edibleWalls.length; i++) {
             if (this.m_moleRect.Intersects(this.m_edibleWalls[i]) && !triggered) {
-                //var span = this.m_mBelowScreenCounter * 10;
-                //for (var i = span; i < span + 13; i++)
-                //{
-                //    if (MolePosX < 100) {
-                //        if (mtoTheUndergound[i, 1] == 15 || mtoTheUndergound[i, 1] == 17) {
-                //            // replace the edible walls with replacement
-                //            mtoTheUndergound[i, 1] = 4;
-                //            if (Yesod.screenCounter > 0) {
-                //                mtoTheUndergound[(i - 10), 12] = 4;
-                //            }
-                //            else {
-                //                mtoTheUndergound[(i + 150), 12] = 4;
-                //            }
-                //        }
-                //    }
-                //    else {
-                //        if (MolePosX > 650) {
-                //            if (mtoTheUndergound[i, 12] == 16 || mtoTheUndergound[i, 12] == 18) {
-                //                mtoTheUndergound[i, 12] = 4;
-                //            }
-                //        }
-                //    }
-                //}
+                triggered = true;
+                var span = this.m_screenCounter * 10;
+                for (var i = span; i < span + 13; i++) {
+                    if (this.m_x < 100) {
+                        if (this.m_levels[i][1] == 15 || this.m_levels[i][1] == 17) {
+                            // replace the edible walls with empty sections
+                            this.m_levels[i][1] = 4;
+                            if (this.m_screenCounter > 0) {
+                                this.m_levels[(i - 10)][12] = 4;
+                            }
+                            else {
+                                this.m_levels[(i + 150)][12] = 4;
+                            }
+                        }
+                    }
+                    else {
+                        if (this.m_x > 650) {
+                            if (this.m_levels[i][12] == 16 || this.m_levels[i][12] == 18) {
+                                this.m_levels[i][12] = 4;
+                            }
+                        }
+                    }
+                }
             }
         }
-
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
@@ -102,6 +105,7 @@ class Mole extends BaseObject {
 
     public set X(value: number) { this.m_x = value; }
     public set Y(value: number) { this.m_y = value; }
+    public set ScreenCounter(value: number) { this.m_screenCounter = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
 }
