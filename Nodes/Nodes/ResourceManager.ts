@@ -20,8 +20,7 @@ class ResourceManager {
     private ctx: HTMLCanvasElement;
     private gameSprites: HTMLCanvasElement;
     private mSprites: HTMLCanvasElement;
-    //mEnemies: HTMLCanvasElement;
-    private mWalls: Array<Rectangle>;//Array<number>;//HTMLCanvasElement;
+    private mWalls: Array<Rectangle>;
     private mUpperRockArray: Array<number[]>;
     private mMoundArray: Array<number>;
     private mHoleArray0: Array<number>;
@@ -31,7 +30,6 @@ class ResourceManager {
     private levels: Array<number[]>;
     private test1: Array<number>;
     private mToTheEnemies: Array<number>[];
- //   private ToTheUnderGround: Array<number[]>;
 
     constructor(gameSprites, enemies, walls, platform, ctx) {
 
@@ -2967,8 +2965,8 @@ class ResourceManager {
                     this.mEnemies.push(alf);
                     break;
                 case 2:  //b
-                    var bird = new Bird(300, 366, 1, this.mSprites, this.mWalls);
-                    this.mEnemies.push(bird);
+                    //var bird = new Bird(300, 366, 1, this.mSprites, this.mWalls);
+                    //this.mEnemies.push(bird);
                     break;
                 case 3:  //c
                     var caterpillar = new Caterpillar(300, 366, 1, this.mSprites, this.mWalls);
@@ -3040,11 +3038,21 @@ class ResourceManager {
         }
     }
 
+
+    public AddToEnemyList(value: Enemy): void {
+        this.mEnemies.push(value);
+    }
+
+
+
+
     public get EnemyList(): Array<Enemy> { return this.mEnemies; }
     public get Levels(): number[][] { return this.levels }
     public get UpperRocks(): number[][] { return this.mUpperRockArray; }
     public get Hole1(): number[] { return this.mHoleArray0; }
     public get Hole2(): number[] { return this.mHoleArray1; }
+
+    //public set Walking(value: boolean) { this.m_walkingOnFloor = value; }
 }
 
 export = ResourceManager;

@@ -1,6 +1,8 @@
 ﻿import BlueThingy = require("BlueThingy");
+import Bird = require("Bird");
 import ChasingEnemy = require("ChasingEnemy");
 import Charlie = require("Charlie");
+import Enemy = require("Enemy");
 import Earth = require("Earth");
 import Mole = require("Mole");
 import Rectangle = require("Rectangle");
@@ -22,6 +24,7 @@ class Nodes {
 
     //// Enemies
     private enemies: Array<number>;
+    private walkingEnemies: Array<Enemy> = new Array<Enemy>();
 
     //// Floor textures
     private floor: Array<number>;
@@ -172,6 +175,11 @@ class Nodes {
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
         this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug);
+
+        var bird = new Bird(300, 366, 1, this.gameSprites, this.walls);
+        this.walkingEnemies.push(bird);
+ //       this.resourceManager.AddToEnemyList(bird);
+ 
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -690,6 +698,10 @@ class Nodes {
                                 this.ctx.drawImage(this.unGroundLedges, 6 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
                                 this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
+                                break;
+
+                            // Draw the walking enemies
+                            case 99:
                                 break;
                         }
                     }
