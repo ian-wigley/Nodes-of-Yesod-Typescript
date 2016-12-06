@@ -444,8 +444,6 @@ class Nodes {
                 var breakHere = true;
             }
 
-
-
             for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
                 this.resourceManager.EnemyList[i].Update();
                 this.resourceManager.EnemyList[i].Walls = this.walls;
@@ -700,8 +698,12 @@ class Nodes {
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
-                            // Draw the walking enemies
-                            case 99:
+                            // Bird
+                            case 81:
+                                this.walkingEnemies[0].Walls = this.walls;
+                                this.walkingEnemies[0].EdibleWalls = this.edibleWalls;
+                                this.walkingEnemies[0].Update();
+                                this.walkingEnemies[0].Draw(this.ctx);
                                 break;
                         }
                     }
@@ -718,7 +720,8 @@ class Nodes {
             if (this.moleAlive) {
                 this.mole.Walls = this.walls;
                 this.mole.EdibleWalls = this.edibleWalls;
-                this.mole.ScreenCounter = this.belowScreenCounter;
+                this.mole.ScreenCounter = this.screenCounter;
+                this.mole.BelowScreenCounter = this.belowScreenCounter;
                 this.mole.Draw(this.ctx);
             }
 

@@ -43,6 +43,7 @@ class BaseObject {
     public set CharlieX(value: number) { this.m_charlieX = value; }
     public get Y(): number { return this.m_y; }
     public set CharlieY(value: number) { this.m_charlieY = value; }
+    public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
 
 }
 

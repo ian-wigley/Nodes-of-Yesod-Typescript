@@ -28,7 +28,7 @@ class Bird extends Enemy {
         var triggered = false;
         this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height);
         for (var i = 0; i < this.m_walls.length; i++) {
-            if (this.m_birdRect.Intersects(this.m_walls[i]) && !triggered ){
+            if (this.m_birdRect.Intersects(this.m_walls[i]) && !triggered) {
                 triggered = true;
                 if (this.m_speed > 0) {
                     this.m_x -= 5;
@@ -42,7 +42,33 @@ class Bird extends Enemy {
                 }
             }
         }
+        triggered = false;
+        ////if (this.m_edibleWalls.length > 0 && !triggered) {
+        for (var i = 0; i < this.m_edibleWalls.length; i++) {
+            if (this.m_birdRect.Intersects(this.m_edibleWalls[i]) && !triggered) {
+                triggered = true;
+                if (this.m_speed > 0) {
+                    this.m_x -= 5;
+                    this.m_speed *= -1;
+                    this.m_facingLeft = true;
+                }
+                else {
+                    this.m_x += 5;
+                    this.m_speed *= -1;
+                    this.m_facingLeft = false;
+                }
+            }
+        }
+
+        if (this.m_x >= 801) {
+            this.m_x = 0;
+        }
+        else if (this.m_x < 0) {
+            this.m_x = 800;
+        }
+
     }
+
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();

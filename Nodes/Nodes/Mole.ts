@@ -5,6 +5,8 @@ class Mole extends BaseObject {
 
     private m_moleRect: Rectangle;
     private m_screenCounter: number = 0;
+    private m_belowScreenCounter: number = 0;
+    private m_undergroundScreenCounter: number = 0;
     private m_levels: number[][];
 
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean) {
@@ -62,7 +64,7 @@ class Mole extends BaseObject {
         for (var i = 0; i < this.m_edibleWalls.length; i++) {
             if (this.m_moleRect.Intersects(this.m_edibleWalls[i]) && !triggered) {
                 triggered = true;
-                var span = this.m_screenCounter * 10;
+                var span = this.m_belowScreenCounter * 10;
                 for (var i = span; i < span + 13; i++) {
                     if (this.m_x < 100) {
                         if (this.m_levels[i][1] == 15 || this.m_levels[i][1] == 17) {
@@ -106,6 +108,7 @@ class Mole extends BaseObject {
     public set X(value: number) { this.m_x = value; }
     public set Y(value: number) { this.m_y = value; }
     public set ScreenCounter(value: number) { this.m_screenCounter = value; }
+    public set BelowScreenCounter(value: number) { this.m_belowScreenCounter = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
 }
