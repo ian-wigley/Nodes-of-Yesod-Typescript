@@ -33,6 +33,13 @@ class ChasingEnemy extends Enemy {
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        if (this.m_debug) {
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "green";
+            ctx.rect(this.m_x + 10, this.m_y, this.m_width, this.m_height);
+            ctx.stroke();
+        }
     }
 }
 

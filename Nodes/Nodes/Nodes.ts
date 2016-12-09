@@ -2,8 +2,9 @@
 import Bird = require("Bird");
 import ChasingEnemy = require("ChasingEnemy");
 import Charlie = require("Charlie");
-import Enemy = require("Enemy");
 import Earth = require("Earth");
+import Enemy = require("Enemy");
+import Explosion = require("Explosion");
 import Mole = require("Mole");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
@@ -100,15 +101,13 @@ class Nodes {
     private screenCounter: number = 0;
     private belowScreenCounter: number = 0;
 
-    private debug: boolean = false;
+    private debug: boolean = true;//false;
 
     private moleAlive: boolean = false;
     private trip: boolean = false;
     private gameOn: boolean = false;//true;
     private jumpRight: boolean = false;
     private belowMoon: boolean = false;
-
-
     private screenChange: boolean = false;
 
     //var alchiem = 0;
@@ -120,6 +119,7 @@ class Nodes {
     private resourceManager: ResourceManager;
     private charlie: Charlie;
     private earth: Earth;
+    private explosion: Explosion;
     private mole: Mole;
     private rocket: Rocket;
 
@@ -175,6 +175,7 @@ class Nodes {
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
         this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug);
+        this.explosion = new Explosion(this.gameSprites);
 
         var bird = new Bird(300, 366, 1, this.gameSprites, this.walls);
         this.walkingEnemies.push(bird);
@@ -439,10 +440,7 @@ class Nodes {
                 }
             }
 
-
-            if (this.belowScreenCounter == 47) {
-                var breakHere = true;
-            }
+            //var charlieRect = this.charlie.Rectangle;
 
             for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
                 this.resourceManager.EnemyList[i].Update();
@@ -452,7 +450,18 @@ class Nodes {
                     this.resourceManager.EnemyList[i].CharlieX = this.charlie.X;
                     this.resourceManager.EnemyList[i].CharlieY = this.charlie.Y;
                 }
+
+                //if (charlieRect.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
+                if (this.charlie.Rectangle.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
+                    this.explosion.Actived = true;
+                    this.resourceManager.EnemyList[i].Reset();
+                }
             }
+
+            if (this.explosion.Actived) {
+                this.explosion.Update();
+            }
+
 
             if (this.moleAlive) {
                 if (this.moleMoveLeft) {
@@ -717,16 +726,25 @@ class Nodes {
                 this.charlie.EdibleWalls = this.edibleWalls;
             }
 
+            this.ctx.drawImage(this.gameSprites, (this.heartBeatTimer + 9) * 64, 15 * 69, 68, 68, 420, 520, 64, 64);
+            this.ctx.drawImage(this.panel, 50, 530);
+            this.ctx.drawImage(this.gameSprites, 16 * 64, 12 * 69, 68, 68, 50, 520, 64, 64);
+
             if (this.moleAlive) {
                 this.mole.Walls = this.walls;
                 this.mole.EdibleWalls = this.edibleWalls;
                 this.mole.ScreenCounter = this.screenCounter;
                 this.mole.BelowScreenCounter = this.belowScreenCounter;
                 this.mole.Draw(this.ctx);
+
+                this.ctx.drawImage(this.gameSprites, 15 * 64, 12 * 69, 68, 68, 50, 520, 64, 64);
             }
 
-
             this.charlie.Draw(this.ctx);
+
+            if (this.explosion.Actived) {
+                this.explosion.Draw(this.ctx);
+            }
 
             if (this.debug) {
                 this.ctx.font = "12px SpaceAge";
@@ -742,8 +760,7 @@ class Nodes {
                 this.animTimer = 0;
             }
 
-            this.ctx.drawImage(this.gameSprites, (this.heartBeatTimer + 9) * 64, 15 * 69, 68, 68, 420, 520, 64, 64);
-            this.ctx.drawImage(this.panel, 50, 530);
+
 
             this.ctx.font = "20px SpaceAge";
             this.ctx.fillStyle = "white";

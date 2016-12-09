@@ -19,6 +19,7 @@ class BaseObject {
     protected m_speedY: number = 1.0;
     protected m_facingLeft: boolean;
     protected m_debug: boolean = false;
+    protected m_name: string;
 
     constructor(texture: HTMLCanvasElement) {
         this.m_texture = texture;
@@ -31,9 +32,15 @@ class BaseObject {
         this.m_offsetY = 0;
         this.m_animTimer = 0;
         this.m_facingLeft = false;
+        this.m_name = "";
     }
 
-    Update(value: number): void {
+    public Update(value: number): void {
+    }
+
+    public Reset(): void {
+        this.m_x = 400;
+        this.m_y = 50;
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
@@ -44,7 +51,7 @@ class BaseObject {
     public get Y(): number { return this.m_y; }
     public set CharlieY(value: number) { this.m_charlieY = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
-
+    public get Rectangle(): Rectangle { return new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height); }
 }
 
 export = BaseObject;

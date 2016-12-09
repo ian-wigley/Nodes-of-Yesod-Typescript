@@ -34,6 +34,7 @@
     <TypeScriptCompile Include="ChasingEnemy.ts" />
     <TypeScriptCompile Include="Earth.ts" />
     <TypeScriptCompile Include="Enemy.ts" />
+    <TypeScriptCompile Include="Explosion.ts" />
     <TypeScriptCompile Include="Fire.ts" />
     <TypeScriptCompile Include="Fish.ts" />
     <TypeScriptCompile Include="GreenMeanie.ts" />

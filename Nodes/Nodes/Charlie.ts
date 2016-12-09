@@ -13,6 +13,7 @@ class Charlie extends BaseObject {
 
     private m_belowSurface: boolean = false;
     private m_jump: boolean = false;
+    private m_sittingDown: boolean = false;
     private m_amplitude: number = 0;
     private m_shift: number = 0;
     private t: number = 6;
@@ -202,6 +203,14 @@ class Charlie extends BaseObject {
         else if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY  /*this.summerSaultFrame*/, 64, 64, this.m_x, this.m_y, 64, 64);
         }
+
+        if (this.m_direction && this.m_sittingDown) {
+            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+        }
+        if (this.m_direction && !this.m_sittingDown) {
+            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+        }
+
         ctx.fill();
 
         if (this.m_debug) {
