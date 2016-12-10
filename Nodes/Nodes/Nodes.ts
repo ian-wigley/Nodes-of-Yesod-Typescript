@@ -117,6 +117,8 @@ class Nodes {
     private seatedTime: number = 0;
     private elapsedSeatedTime: number = 0;
     private immunityTime: number = 0;
+    private enemyCollidedWith: number = 0;
+
 
     //// Objects
     //private alf: Alf;
@@ -466,6 +468,7 @@ class Nodes {
                         if (this.resourceManager.EnemyList[i].Name == "ChasingEnemy") {
                             this.charlie.SittingDown = true;
                             this.seatedTime = new Date().getTime();
+                            this.enemyCollidedWith = i;
 
                             if (this.charlie.Direction) {
                                 this.charlie.SeatingFrame = 69;
@@ -475,7 +478,7 @@ class Nodes {
                             }
                         }
                         this.explosion.Actived = true;
-                        this.resourceManager.EnemyList[i].Reset();
+                        //this.resourceManager.EnemyList[i].Reset();
                     }
                 }
             }
@@ -516,6 +519,8 @@ class Nodes {
             if ((this.currentTime - this.immunityTime) / 1000 > 2) {
                 this.immune = false;
                 this.immunityTime = 0;
+
+                this.resourceManager.EnemyList[this.enemyCollidedWith].Reset();
             }
         }
         this.Draw();
