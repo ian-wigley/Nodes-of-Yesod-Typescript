@@ -15,3 +15,8 @@ C:\Users\ianwi\Desktop\Nodes-new\Nodes\bin\Nodes.dll
 C:\Users\ianwi\Desktop\Nodes-new\Nodes\bin\Nodes.pdb
 C:\Users\ianwi\Desktop\Nodes-new\Nodes\obj\Debug\Nodes.dll
 C:\Users\ianwi\Desktop\Nodes-new\Nodes\obj\Debug\Nodes.pdb
+C:\Users\ianwi\OneDrive\Documents\GitHub\Nodes-of-Yesod---Typescript-version\Nodes\Nodes\bin\Nodes.dll.config
+C:\Users\ianwi\OneDrive\Documents\GitHub\Nodes-of-Yesod---Typescript-version\Nodes\Nodes\bin\Nodes.dll
+C:\Users\ianwi\OneDrive\Documents\GitHub\Nodes-of-Yesod---Typescript-version\Nodes\Nodes\bin\Nodes.pdb
+C:\Users\ianwi\OneDrive\Documents\GitHub\Nodes-of-Yesod---Typescript-version\Nodes\Nodes\obj\Debug\Nodes.dll
+C:\Users\ianwi\OneDrive\Documents\GitHub\Nodes-of-Yesod---Typescript-version\Nodes\Nodes\obj\Debug\Nodes.pdb
