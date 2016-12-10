@@ -10,6 +10,8 @@ class BlueThingy extends Enemy {
         this.m_name = "BlueThingy";
         this.m_offsetX = 12 * 64;
         this.m_offsetY = 6 * 69;
+        this.m_width = 34;//64
+        this.m_height = 64;
     }
 
     public Update(): void {

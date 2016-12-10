@@ -13,12 +13,13 @@ class Explosion extends BaseObject {
 
     public Update(): void {
         this.m_animTimer += 0.1;
-        if (this.m_animTimer > 0.4) {
+        if (this.m_animTimer > 0.7) {
             this.m_frame = (this.m_frame + 1) % 3;
             this.m_animTimer = 0;
         }
         if (this.m_frame == 2) {
             this.m_active = false;
+            this.m_frame = 0;
         }
     }
 
