@@ -205,10 +205,10 @@ class Charlie extends BaseObject {
         }
 
         if (this.m_direction && this.m_sittingDown) {
-            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, /*this.m_frame*/ 15 * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_direction && !this.m_sittingDown) {
-            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+        if (!this.m_direction && this.m_sittingDown) {
+            ctx.drawImage(this.m_texture, /*this.m_frame*/ 1 * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
         ctx.fill();
@@ -481,6 +481,10 @@ class Charlie extends BaseObject {
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
     public get BelowMoonSurface(): boolean { return this.m_belowSurface; }
+    public get SittingDown(): boolean { return this.m_sittingDown; }
+    public set SittingDown(value: boolean) { this.m_sittingDown = value; }
+
+    public set SeatingFrame(value: number) { this.m_offsetY = value; }
 
     public get Falling(): boolean { return this.m_falling; }
     public set Falling(value: boolean) { this.m_falling = value; }

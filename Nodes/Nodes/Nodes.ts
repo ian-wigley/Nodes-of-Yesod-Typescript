@@ -102,6 +102,7 @@ class Nodes {
     private belowScreenCounter: number = 0;
 
     private debug: boolean = true;//false;
+    private immune: boolean = false;
 
     private moleAlive: boolean = false;
     private trip: boolean = false;
@@ -111,8 +112,11 @@ class Nodes {
     private screenChange: boolean = false;
 
     //var alchiem = 0;
-    //var startTime = new Date().getTime();
-    //var currentTime;
+    private startTime = new Date().getTime();
+    private currentTime: number = 0;
+    private seatedTime: number = 0;
+    private elapsedSeatedTime: number = 0;
+    private immunityTime: number = 0;
 
     //// Objects
     //private alf: Alf;
@@ -122,6 +126,8 @@ class Nodes {
     private explosion: Explosion;
     private mole: Mole;
     private rocket: Rocket;
+
+    private gravityStick: number = 0;
 
     private sineCounter: number = 0;
     private moveLeft: boolean = false;
@@ -179,8 +185,8 @@ class Nodes {
 
         var bird = new Bird(300, 366, 1, this.gameSprites, this.walls);
         this.walkingEnemies.push(bird);
- //       this.resourceManager.AddToEnemyList(bird);
- 
+        //       this.resourceManager.AddToEnemyList(bird);
+
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -214,23 +220,27 @@ class Nodes {
                 this.somersault = true;
                 break;
             case 37:
-                if (!this.moleAlive) {
-                    this.moveLeft = true;
-                }
-                else {
-                    this.moleMoveLeft = true;
-                    this.moleMoveRight = false;
+                if (!this.charlie.SittingDown) {
+                    if (!this.moleAlive) {
+                        this.moveLeft = true;
+                    }
+                    else {
+                        this.moleMoveLeft = true;
+                        this.moleMoveRight = false;
+                    }
                 }
                 break;
             case 38:
                 break;
             case 39:
-                if (!this.moleAlive) {
-                    this.moveRight = true;
-                }
-                else {
-                    this.moleMoveRight = true;
-                    this.moleMoveLeft = false;
+                if (!this.charlie.SittingDown) {
+                    if (!this.moleAlive) {
+                        this.moveRight = true;
+                    }
+                    else {
+                        this.moleMoveRight = true;
+                        this.moleMoveLeft = false;
+                    }
                 }
                 break;
             case 40:
@@ -440,7 +450,7 @@ class Nodes {
                 }
             }
 
-            //var charlieRect = this.charlie.Rectangle;
+            var charlieRect = this.charlie.Rectangle;
 
             for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
                 this.resourceManager.EnemyList[i].Update();
@@ -451,10 +461,22 @@ class Nodes {
                     this.resourceManager.EnemyList[i].CharlieY = this.charlie.Y;
                 }
 
-                //if (charlieRect.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
-                if (this.charlie.Rectangle.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
-                    this.explosion.Actived = true;
-                    this.resourceManager.EnemyList[i].Reset();
+                if (!this.charlie.SittingDown && !this.charlie.Falling && !this.immune) {
+                    if (charlieRect.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
+                        if (this.resourceManager.EnemyList[i].Name == "ChasingEnemy") {
+                            this.charlie.SittingDown = true;
+                            this.seatedTime = new Date().getTime();
+
+                            if (this.charlie.Direction) {
+                                this.charlie.SeatingFrame = 69;
+                            }
+                            else if (!this.charlie.Direction) {
+                                this.charlie.SeatingFrame = 138;
+                            }
+                        }
+                        this.explosion.Actived = true;
+                        this.resourceManager.EnemyList[i].Reset();
+                    }
                 }
             }
 
@@ -466,11 +488,9 @@ class Nodes {
             if (this.moleAlive) {
                 if (this.moleMoveLeft) {
                     this.mole.UpdatePosition(0);
-                   
                 }
                 if (this.moleMoveRight) {
                     this.mole.UpdatePosition(1);
-                   
                 }
                 //this.moleMoveLeft = false;
                 //this.moleMoveRight = false;
@@ -481,9 +501,25 @@ class Nodes {
         this.rocket.Update();
         this.charlie.Collisions(this.belowMoon, this.screenChange);
 
+        this.currentTime = new Date().getTime();
+        if (this.charlie.SittingDown) {
+            if ((this.currentTime - this.seatedTime) / 1000 > 5) {
+                this.charlie.SittingDown = false;
+                this.charlie.SeatingFrame = 0;//138;
+                this.seatedTime = 0;
+                this.immunityTime = new Date().getTime();
+                this.immune = true;
+            }
+        }
+
+        if (this.immune) {
+            if ((this.currentTime - this.immunityTime) / 1000 > 2) {
+                this.immune = false;
+                this.immunityTime = 0;
+            }
+        }
         this.Draw();
     }
-
 
     private Draw(): void {
 
@@ -752,6 +788,9 @@ class Nodes {
                 this.ctx.fillText("Screen Number : " + this.screenCounter, 10, 90);
                 this.ctx.fillText("Below Surface Screen Number : " + this.belowScreenCounter, 10, 110);
                 this.ctx.fillText("Changing screen : " + this.screenChange, 10, 130);
+                this.ctx.fillText("Seated Time : " + this.seatedTime, 10, 150);
+                this.ctx.fillText("Current Time : " + this.currentTime, 10, 170);
+                this.ctx.fillText("Delta seated Time : " + (this.currentTime - this.seatedTime), 10, 190);
             }
 
             this.animTimer += 0.1;
