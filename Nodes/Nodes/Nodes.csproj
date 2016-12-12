@@ -38,6 +38,7 @@
     <TypeScriptCompile Include="Fire.ts" />
     <TypeScriptCompile Include="Fish.ts" />
     <TypeScriptCompile Include="GreenMeanie.ts" />
+    <TypeScriptCompile Include="Input.ts" />
     <TypeScriptCompile Include="main.ts" />
     <TypeScriptCompile Include="Mole.ts" />
     <TypeScriptCompile Include="Nodes.ts" />
@@ -47,7 +48,9 @@
     <TypeScriptCompile Include="require.d.ts" />
     <TypeScriptCompile Include="ResourceManager.ts" />
     <TypeScriptCompile Include="Rocket.ts" />
+    <TypeScriptCompile Include="Scroll.ts" />
     <TypeScriptCompile Include="SpringBear.ts" />
+    <TypeScriptCompile Include="Star.ts" />
     <TypeScriptCompile Include="WhirlWind.ts" />
     <TypeScriptCompile Include="WoodLouse.ts" />
   </ItemGroup>

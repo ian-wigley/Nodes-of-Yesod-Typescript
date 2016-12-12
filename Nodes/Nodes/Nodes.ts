@@ -5,6 +5,7 @@ import Charlie = require("Charlie");
 import Earth = require("Earth");
 import Enemy = require("Enemy");
 import Explosion = require("Explosion");
+import KeyBoard = require("Input");
 import Mole = require("Mole");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
@@ -118,7 +119,7 @@ class Nodes {
     private elapsedSeatedTime: number = 0;
     private immunityTime: number = 0;
     private enemyCollidedWith: number = 0;
-
+    private numberOfScreensFell: number = 0;
 
     //// Objects
     //private alf: Alf;
@@ -128,16 +129,12 @@ class Nodes {
     private explosion: Explosion;
     private mole: Mole;
     private rocket: Rocket;
+    private keyboard: KeyBoard;
 
     private gravityStick: number = 0;
 
     private sineCounter: number = 0;
-    private moveLeft: boolean = false;
-    private moveRight: boolean = false;
     private somersault: boolean = false;
-
-    private moleMoveLeft: boolean = false;
-    private moleMoveRight: boolean = false;
 
     private scrollText: string = "NODES OF YESOD REMAKE        CATCH A MOLE,  FIND A HOLE,  JUMP RIGHT DOWN,  AND START TO ROLL.  WHAT YOU DO IS FIND A CLUE,  OF RED, MAGENTA, GREEN OR BLUE.  TAKE SOME TIME,  DESCEND AND CLIMB,  GO AND FIND THE RÿGHT ALCHIEMS.  THE TASK IS PLAIN,  WITH EÿGHT THE SAME,  SEEK THE MONOLITH AND THATS THE GAME.      CTRL TO ABORT GAME      RETURN TO PAUSE THE GAME   ";
 
@@ -189,6 +186,7 @@ class Nodes {
         this.walkingEnemies.push(bird);
         //       this.resourceManager.AddToEnemyList(bird);
 
+        this.keyboard = new KeyBoard();
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -222,30 +220,16 @@ class Nodes {
                 this.somersault = true;
                 break;
             case 37:
-                if (!this.charlie.SittingDown) {
-                    if (!this.moleAlive) {
-                        this.moveLeft = true;
-                    }
-                    else {
-                        this.moleMoveLeft = true;
-                        this.moleMoveRight = false;
-                    }
-                }
+                this.keyboard.left = true;
                 break;
             case 38:
+                this.keyboard.up = true;
                 break;
             case 39:
-                if (!this.charlie.SittingDown) {
-                    if (!this.moleAlive) {
-                        this.moveRight = true;
-                    }
-                    else {
-                        this.moleMoveRight = true;
-                        this.moleMoveLeft = false;
-                    }
-                }
+                this.keyboard.right = true;
                 break;
             case 40:
+                this.keyboard.down = true;
                 break;
             case 77:
                 if (this.belowMoon) {
@@ -275,16 +259,16 @@ class Nodes {
                 this.somersault = false;
                 break;
             case 37:
-                this.moveLeft = false;
-                this.moleMoveLeft = false;
+                this.keyboard.left = false;
                 break;
             case 38:
+                this.keyboard.up = false;
                 break;
             case 39:
-                this.moveRight = false;
-                this.moleMoveRight = false;
+                this.keyboard.right = false;
                 break;
             case 40:
+                this.keyboard.down = false;
                 break;
             default:
                 break;
@@ -295,12 +279,32 @@ class Nodes {
 
         this.screenChange = false;
 
-        if (this.moveLeft && !this.charlie.Falling) {// && !this.charlie.msomersaultJump) {
-            this.charlie.Update(0);
-        }
+        if (!this.charlie.SittingDown) {
+            if (this.keyboard.left) {
+                if (!this.moleAlive && !this.charlie.Falling) {
+                    this.charlie.Update(0);
+                }
+                else if (this.moleAlive && !this.charlie.Falling) {
+                    this.mole.UpdatePosition(0);
+                    this.mole.Update();
+                }
+            }
 
-        if (this.moveRight && !this.charlie.Falling) {// && !this.charlie.msomersaultJump) {
-            this.charlie.Update(1);
+            if (this.keyboard.right) {
+                if (!this.moleAlive && !this.charlie.Falling) {
+                    this.charlie.Update(1);
+                }
+                else if (this.moleAlive && !this.charlie.Falling) {
+                    this.mole.UpdatePosition(1);
+                    this.mole.Update();
+                }
+            }
+
+            if (this.keyboard.up && this.moleAlive) {
+            }
+
+            if (this.keyboard.down && this.moleAlive) {
+            }
         }
 
         // Trigger the somersault
@@ -485,19 +489,6 @@ class Nodes {
 
             if (this.explosion.Actived) {
                 this.explosion.Update();
-            }
-
-
-            if (this.moleAlive) {
-                if (this.moleMoveLeft) {
-                    this.mole.UpdatePosition(0);
-                }
-                if (this.moleMoveRight) {
-                    this.mole.UpdatePosition(1);
-                }
-                //this.moleMoveLeft = false;
-                //this.moleMoveRight = false;
-                this.mole.Update();
             }
         }
 
