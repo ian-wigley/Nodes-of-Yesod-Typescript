@@ -134,7 +134,7 @@ class Nodes {
     private gravityStick: number = 0;
 
     private sineCounter: number = 0;
-    private somersault: boolean = false;
+    //private somersault: boolean = false;
 
     private scrollText: string = "NODES OF YESOD REMAKE        CATCH A MOLE,  FIND A HOLE,  JUMP RIGHT DOWN,  AND START TO ROLL.  WHAT YOU DO IS FIND A CLUE,  OF RED, MAGENTA, GREEN OR BLUE.  TAKE SOME TIME,  DESCEND AND CLIMB,  GO AND FIND THE RÿGHT ALCHIEMS.  THE TASK IS PLAIN,  WITH EÿGHT THE SAME,  SEEK THE MONOLITH AND THATS THE GAME.      CTRL TO ABORT GAME      RETURN TO PAUSE THE GAME   ";
 
@@ -217,7 +217,8 @@ class Nodes {
     onKeyboardPress(event: Event, touchDevice: boolean) {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
-                this.somersault = true;
+                //this.somersault = true;
+                this.keyboard.jump = true;
                 break;
             case 37:
                 this.keyboard.left = true;
@@ -256,7 +257,8 @@ class Nodes {
     onKeyboardRelease(event: Event, touchDevice: boolean) {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
-                this.somersault = false;
+                //this.somersault = false;
+                this.keyboard.jump = false;
                 break;
             case 37:
                 this.keyboard.left = false;
@@ -300,19 +302,19 @@ class Nodes {
                 }
             }
 
+            if (this.keyboard.left && this.keyboard.jump || this.keyboard.right && this.keyboard.jump) {
+                this.charlie.Somersault = true;
+            }
+
+            if (this.keyboard.jump) {
+                this.charlie.Jump = true;
+            }
+
             if (this.keyboard.up && this.moleAlive) {
             }
 
             if (this.keyboard.down && this.moleAlive) {
             }
-        }
-
-        // Trigger the somersault
-        if (this.somersault) {
-            this.charlie.Somersault = true;
-            //this.charlie.Update(1);
-            //this.somersault = false;
-            //this.charlie.Summersault = false;
         }
 
         if (this.charlie.Somersault && !this.charlie.Direction) {
@@ -322,6 +324,14 @@ class Nodes {
         if (this.charlie.Somersault && this.charlie.Direction) {
             this.charlie.Update(1);
         }
+
+        //// Trigger the somersault
+        //if (this.somersault) {
+        //    this.charlie.Somersault = true;
+        //    //this.charlie.Update(1);
+        //    //this.somersault = false;
+        //    //this.charlie.Summersault = false;
+        //}
 
         //    //
         //    if (somersault) {
@@ -400,7 +410,6 @@ class Nodes {
             else {
                 this.charlie.HoleRectangle2 = new Rectangle(0, 0, 0, 0);
             }
-
 
             if (this.charlie.Falling) {
                 this.belowMoon = true;

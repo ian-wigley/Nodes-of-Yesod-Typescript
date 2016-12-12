@@ -46,11 +46,11 @@
         this.m_down = value;
     }
 
-    public get fire(): boolean {
+    public get jump(): boolean {
         return this.m_jump;
     }
 
-    public set fire(value: boolean) {
+    public set jump(value: boolean) {
         this.m_jump = value;
     }
 }
