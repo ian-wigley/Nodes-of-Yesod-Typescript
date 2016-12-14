@@ -36,6 +36,12 @@ class Mole extends BaseObject {
             this.m_x += 4;
             this.m_facingLeft = false;
         }
+        if (value == 2) {
+            this.m_y -= 4;
+        }
+        if (value == 3) {
+            this.m_y += 4;
+        }
 
         var triggered = false;
         this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height);

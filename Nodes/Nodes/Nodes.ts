@@ -310,10 +310,16 @@ class Nodes {
                 this.charlie.Jump = true;
             }
 
-            if (this.keyboard.up && this.moleAlive) {
+            if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
+                this.mole.UpdatePosition(2);
             }
 
-            if (this.keyboard.down && this.moleAlive) {
+            if (this.keyboard.down && this.moleAlive && !this.charlie.Falling) {
+                this.mole.UpdatePosition(3);
+            }
+
+            if (this.moleAlive) {
+                this.mole.Update();
             }
         }
 
