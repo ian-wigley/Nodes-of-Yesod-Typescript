@@ -10,6 +10,7 @@ import Mole = require("Mole");
 import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
+import ScreenInfo = require("ScreenInfo");
 import SpringBear = require("SpringBear");
 
 class Nodes {
@@ -130,6 +131,7 @@ class Nodes {
     private mole: Mole;
     private rocket: Rocket;
     private keyboard: KeyBoard;
+    private screenInfo: ScreenInfo;
 
     private gravityStick: number = 0;
 
@@ -172,6 +174,10 @@ class Nodes {
         this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx);
         this.upperRocks = this.resourceManager.UpperRocks;
 
+
+        this.keyboard = new KeyBoard();
+        this.screenInfo = new ScreenInfo(this.canvas.width, this.canvas.height);
+
         //    holes1 = ResourceManager.mHoleArray0;
         //    holes2 = ResourceManager.mHoleArray1;
 
@@ -179,14 +185,12 @@ class Nodes {
         this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
-        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug);
+        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug, this.screenInfo);
         this.explosion = new Explosion(this.gameSprites);
 
         var bird = new Bird(300, 366, 1, this.gameSprites, this.walls);
         this.walkingEnemies.push(bird);
         //       this.resourceManager.AddToEnemyList(bird);
-
-        this.keyboard = new KeyBoard();
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);

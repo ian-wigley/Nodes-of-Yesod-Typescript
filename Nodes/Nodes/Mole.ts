@@ -1,5 +1,6 @@
 ﻿import BaseObject = require("BaseObject");
 import Rectangle = require("Rectangle");
+import ScreenInfo = require("ScreenInfo");
 
 class Mole extends BaseObject {
 
@@ -9,7 +10,7 @@ class Mole extends BaseObject {
     private m_undergroundScreenCounter: number = 0;
     private m_levels: number[][];
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean) {
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean, screenInfo: ScreenInfo) {
         super(texture);
         this.m_debug = debug;
         this.m_walls = walls;

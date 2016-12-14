@@ -48,6 +48,7 @@
     <TypeScriptCompile Include="require.d.ts" />
     <TypeScriptCompile Include="ResourceManager.ts" />
     <TypeScriptCompile Include="Rocket.ts" />
+    <TypeScriptCompile Include="ScreenInfo.ts" />
     <TypeScriptCompile Include="Scroll.ts" />
     <TypeScriptCompile Include="SpringBear.ts" />
     <TypeScriptCompile Include="Star.ts" />
