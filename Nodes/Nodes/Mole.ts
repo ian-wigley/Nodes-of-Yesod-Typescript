@@ -9,6 +9,7 @@ class Mole extends BaseObject {
     private m_belowScreenCounter: number = 0;
     private m_undergroundScreenCounter: number = 0;
     private m_levels: number[][];
+    private m_underground: boolean;
 
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean, screenInfo: ScreenInfo) {
         super(texture);
@@ -16,6 +17,7 @@ class Mole extends BaseObject {
         this.m_walls = walls;
         this.m_edibleWalls = ediblewalls;
         this.m_levels = levels;
+        this.m_underground = false;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 11 * 69;
     }
@@ -25,6 +27,11 @@ class Mole extends BaseObject {
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 8;
             this.m_animTimer = 0;
+        }
+
+        if (!this.m_underground) {
+            this.m_x = 230;
+            this.m_y = 260;
         }
     }
 
@@ -99,7 +106,11 @@ class Mole extends BaseObject {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        if (!this.m_facingLeft) {
+
+        if (!this.m_underground) {
+            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
+        else if (!this.m_facingLeft) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }
         else {
@@ -118,5 +129,7 @@ class Mole extends BaseObject {
     public set BelowScreenCounter(value: number) { this.m_belowScreenCounter = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
+    public set Underground(value: boolean) { this.m_underground = value;
+    }
 }
 export = Mole; 

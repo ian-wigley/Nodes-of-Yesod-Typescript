@@ -24,8 +24,6 @@ class Charlie extends BaseObject {
     private m_holeRectangle1: Rectangle;
     private m_holeRectangle2: Rectangle;
 
-
-
     testJump: Array<number> = new Array();
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
 

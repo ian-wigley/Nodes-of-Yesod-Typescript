@@ -3044,14 +3044,12 @@ class ResourceManager {
         this.mEnemies.push(value);
     }
 
-
-
-
     public get EnemyList(): Array<Enemy> { return this.mEnemies; }
     public get Levels(): number[][] { return this.levels }
     public get UpperRocks(): number[][] { return this.mUpperRockArray; }
     public get Hole1(): number[] { return this.mHoleArray0; }
     public get Hole2(): number[] { return this.mHoleArray1; }
+    public get Mounds(): number[] { return this.mMoundArray; }
 
     //public set Walking(value: boolean) { this.m_walkingOnFloor = value; }
 }

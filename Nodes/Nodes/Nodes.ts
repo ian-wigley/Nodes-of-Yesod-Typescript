@@ -12,6 +12,7 @@ import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
 import ScreenInfo = require("ScreenInfo");
 import SpringBear = require("SpringBear");
+import Star = require("Star");
 
 class Nodes {
 
@@ -47,7 +48,11 @@ class Nodes {
     //// Roof rocks
     private roof: Array<number>;
 
+
     private platformList: Array<number>;
+
+    private stars: Array<Star>;
+
 
     //// Images
     private gameSprites: HTMLCanvasElement;
@@ -99,6 +104,8 @@ class Nodes {
     private hole0X: number = 300;
     private hole1X: number = 500;
     private holesY: number = 350;//400;
+    private mound1X: number = 200;
+    private mound1Y: number = 300;
 
     private screenCounter: number = 0;
     private belowScreenCounter: number = 0;
@@ -107,12 +114,13 @@ class Nodes {
     private immune: boolean = false;
 
     private moleAlive: boolean = false;
+    private moleCaught: boolean = false;
     private trip: boolean = false;
     private gameOn: boolean = false;//true;
     private jumpRight: boolean = false;
     private belowMoon: boolean = false;
     private screenChange: boolean = false;
-
+   
     //var alchiem = 0;
     private startTime = new Date().getTime();
     private currentTime: number = 0;
@@ -132,6 +140,7 @@ class Nodes {
     private rocket: Rocket;
     private keyboard: KeyBoard;
     private screenInfo: ScreenInfo;
+    private star: Star;
 
     private gravityStick: number = 0;
 
@@ -185,12 +194,21 @@ class Nodes {
         this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
         this.earth = new Earth(this.gameSprites);
         this.rocket = new Rocket(this.gameSprites);
+        this.star = new Star();
+
         this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug, this.screenInfo);
         this.explosion = new Explosion(this.gameSprites);
+
 
         var bird = new Bird(300, 366, 1, this.gameSprites, this.walls);
         this.walkingEnemies.push(bird);
         //       this.resourceManager.AddToEnemyList(bird);
+
+
+        this.stars = new Array<Star>();
+        for (var j = 0; j < 40; j++) {
+            this.stars.push(new Star());
+        }
 
         this.AddHitListener(this.canvas);
         setInterval(() => this.update(), 10);
@@ -423,6 +441,7 @@ class Nodes {
 
             if (this.charlie.Falling) {
                 this.belowMoon = true;
+                this.mole.Underground = true;
             }
 
             //    if (Charlie.mFalling) {
@@ -434,6 +453,13 @@ class Nodes {
             //    upperRocks = ResourceManager.mUpperRockArray[screenCounter];
 
             this.earth.Update();
+
+            if (this.charlie.Rectangle.Intersects(this.mole.Rectangle)) {
+                this.moleCaught = true;
+            }
+            if (!this.moleCaught) {
+                this.mole.Update();
+            }
         }
         else {
 
@@ -556,6 +582,10 @@ class Nodes {
         else {
             if (!this.belowMoon) {
 
+                for (var j = 0; j < 40; j++) {
+                    this.stars[j].Draw(this.ctx);
+                }
+
                 if (this.rocket.RocketScreen == this.screenCounter) {
                     this.rocket.Draw(this.ctx);
                 }
@@ -569,6 +599,13 @@ class Nodes {
                     this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), 0, this.rockWidth, this.rockHeight, (j * this.rockWidth), 170, this.rockWidth, this.rockHeight);
                     this.ctx.drawImage(this.moonRocks, (this.upperRocks[this.screenCounter][j] * this.rockWidth), this.rockHeight, this.rockWidth, this.rockHeight, (j * this.rockWidth), 400, this.rockWidth, this.rockHeight);
                 }
+
+                if (!this.moleCaught) {
+                    this.mole.Draw(this.ctx);
+                }
+
+                // Draw the "Mounds"
+                this.ctx.drawImage(this.moonRocks, 100, 300, this.rockWidth, this.rockHeight, this.mound1X, this.mound1Y, this.rockWidth, this.rockHeight);
 
                 // Draw the holes
                 if (this.resourceManager.Hole1[this.screenCounter] == 1) {
