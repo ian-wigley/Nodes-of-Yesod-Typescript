@@ -99,9 +99,6 @@ class Nodes {
     private unGroTileHeight: number = 48;
     private unGroTileWidth: number = 62;
 
-    private seconds: number = 0;
-    private minutes: number = 0;
-
     private hole0X: number = 300;
     private hole1X: number = 500;
     private holesY: number = 350;//400;
@@ -125,6 +122,10 @@ class Nodes {
    
     //var alchiem = 0;
     private startTime = new Date().getTime();
+    private seconds: number = 0;
+    private minutes: number = 0;
+
+
     private currentTime: number = 0;
     private seatedTime: number = 0;
     private elapsedSeatedTime: number = 0;
@@ -543,6 +544,9 @@ class Nodes {
         this.charlie.Collisions(this.belowMoon, this.screenChange);
 
         this.currentTime = new Date().getTime();
+        this.seconds = new Date().getSeconds();
+        this.minutes = new Date().getMinutes();
+
         if (this.charlie.SittingDown) {
             if ((this.currentTime - this.seatedTime) / 1000 > 5) {
                 this.charlie.SittingDown = false;
@@ -692,7 +696,7 @@ class Nodes {
                                 break;
 
                             //Empty space - no need to draw...
-                            //                    case 4:
+                            //case 4:
 
                             // Floor 
                             case 5:
@@ -734,6 +738,8 @@ class Nodes {
 
                             case 11:
                                 this.ctx.drawImage(this.unGroundLedges, 11 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 12:
@@ -743,28 +749,24 @@ class Nodes {
                             // edible walls
                             case 15:
                                 this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 16:
                                 this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 17:
                                 this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 18:
                                 this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                //this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
@@ -866,7 +868,8 @@ class Nodes {
             this.ctx.font = "20px SpaceAge";
             this.ctx.fillStyle = "white";
             this.ctx.fillText("3", 415, 554);
-            this.ctx.fillText("0:00:00", 635, 554);
+            //this.ctx.fillText("0:00:00" + this.seconds, 635, 554);
+            this.ctx.fillText("0:0" + this.minutes + ":" + this.seconds, 635, 554);
         }
     }
 
