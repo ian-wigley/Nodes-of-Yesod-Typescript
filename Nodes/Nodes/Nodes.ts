@@ -83,6 +83,7 @@ class Nodes {
     private clockTimer: number = 0;
     private elapsedClockSecs: number = 1.0;
     private elapsedSecs: number = 0.1;
+    private percentage: number = 0;
 
     private platforms: Array<number>;// = 0;
 
@@ -117,6 +118,7 @@ class Nodes {
     private moleCaught: boolean = false;
     private trip: boolean = false;
     private gameOn: boolean = false;//true;
+    private gameOver: boolean = false;
     private jumpRight: boolean = false;
     private belowMoon: boolean = false;
     private screenChange: boolean = false;
@@ -568,6 +570,16 @@ class Nodes {
         this.rect(0, 0, this.width, this.height);
         this.ctx.beginPath();
 
+        if (this.gameOver) {
+            this.ctx.font = "20px SpaceAge";
+            this.ctx.fillStyle = "yellow";
+            this.ctx.fillText("GAME OVER", 400, 80);
+            this.ctx.fillText("YOU HAVE COMPLETED", 400, 100);
+            this.ctx.fillText(this.percentage + " PERCENT", 400, 120);
+            this.ctx.fillText("OF THE ADVENTURE", 400, 140);
+            this.ctx.fillText("PRESS SPACE FOR MENU", 400, 160);
+        }
+
         if (!this.gameOn) {
             this.ctx.font = "36px SpaceAge";
             this.ctx.fillStyle = "yellow";
@@ -850,8 +862,6 @@ class Nodes {
                 this.heartBeatTimer = (this.heartBeatTimer + 1) % 7;
                 this.animTimer = 0;
             }
-
-
 
             this.ctx.font = "20px SpaceAge";
             this.ctx.fillStyle = "white";
