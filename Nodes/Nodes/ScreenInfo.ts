@@ -12,9 +12,22 @@
         this.m_width = width;
     }
 
-    public get left(): number {
+    public get Left(): number {
         return this.m_left;
     }
+
+    public get Right(): number {
+        return this.m_width - 64;
+    }
+
+    public get Top(): number {
+        return this.m_top;
+    }
+
+    public get Bottom(): number {
+        return this.m_height - 140;
+    }
+
 }
 
 export = ScreenSize;

@@ -10,6 +10,7 @@ class Mole extends BaseObject {
     private m_undergroundScreenCounter: number = 0;
     private m_levels: number[][];
     private m_underground: boolean;
+    private m_screen: ScreenInfo;
 
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean, screenInfo: ScreenInfo) {
         super(texture);
@@ -17,6 +18,7 @@ class Mole extends BaseObject {
         this.m_walls = walls;
         this.m_edibleWalls = ediblewalls;
         this.m_levels = levels;
+        this.m_screen = screenInfo;
         this.m_underground = false;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 11 * 69;
@@ -36,18 +38,18 @@ class Mole extends BaseObject {
     }
 
     public UpdatePosition(value: number): void {
-        if (value == 0) {
+        if (value == 0 && this.m_x > this.m_screen.Left) {
             this.m_x -= 4;
             this.m_facingLeft = true;
         }
-        if (value == 1) {
+        if (value == 1 && this.m_x < this.m_screen.Right) {
             this.m_x += 4;
             this.m_facingLeft = false;
         }
-        if (value == 2) {
+        if (value == 2 && this.m_y > this.m_screen.Top) {
             this.m_y -= 4;
         }
-        if (value == 3) {
+        if (value == 3 && this.m_y < this.m_screen.Bottom) {
             this.m_y += 4;
         }
 
