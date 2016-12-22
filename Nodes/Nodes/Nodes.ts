@@ -183,7 +183,7 @@ class Nodes {
         this.unGroundLedges = <HTMLCanvasElement>document.getElementById("UnGroundLedges");
         this.frontScreen = <HTMLCanvasElement>document.getElementById("FrontScreen");
 
-        this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx);
+        this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx, this.screenInfo);
         this.upperRocks = this.resourceManager.UpperRocks;
 
 
@@ -194,16 +194,16 @@ class Nodes {
         //    holes2 = ResourceManager.mHoleArray1;
 
         // Create the Actors
-        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug);
-        this.earth = new Earth(this.gameSprites);
-        this.rocket = new Rocket(this.gameSprites);
+        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.debug, this.screenInfo);
+        this.earth = new Earth(this.gameSprites, this.screenInfo);
+        this.rocket = new Rocket(this.gameSprites, this.screenInfo);
         this.star = new Star();
 
         this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platformz, this.resourceManager.Levels, this.debug, this.screenInfo);
-        this.explosion = new Explosion(this.gameSprites);
+        this.explosion = new Explosion(this.gameSprites, this.screenInfo);
 
 
-        var bird = new Bird(300, 366, 1, this.gameSprites, this.walls);
+        var bird = new Bird(300, 366, 1, this.gameSprites, this.walls, this.screenInfo);
         this.walkingEnemies.push(bird);
         //       this.resourceManager.AddToEnemyList(bird);
 

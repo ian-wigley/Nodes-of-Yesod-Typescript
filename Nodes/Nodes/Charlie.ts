@@ -1,5 +1,6 @@
 ﻿import BaseObject = require("BaseObject");
 import Rectangle = require("Rectangle");
+import ScreenInfo = require("ScreenInfo");
 
 class Charlie extends BaseObject {
 
@@ -27,9 +28,9 @@ class Charlie extends BaseObject {
     testJump: Array<number> = new Array();
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug:boolean) {
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean,screenInfo: ScreenInfo) {
 
-        super(texture);
+        super(texture, screenInfo);
         this.m_x = xpos;
         this.m_y = ypos;
         this.m_width = 34;//64

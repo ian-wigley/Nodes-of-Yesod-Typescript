@@ -1,12 +1,13 @@
 ﻿import Enemy = require("Enemy");
 import Rectangle = require("Rectangle");
+import ScreenInfo = require("ScreenInfo");
 
 class BlueThingy extends Enemy {
 
     private m_blueThingRect: Rectangle;
 
-    constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>) {
-        super(xpos, ypos, speedx, gamesprites, wall);
+    constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>, screenInfo: ScreenInfo) {
+        super(xpos, ypos, speedx, gamesprites, wall, screenInfo);
         this.m_name = "BlueThingy";
         this.m_offsetX = 12 * 64;
         this.m_offsetY = 6 * 69;

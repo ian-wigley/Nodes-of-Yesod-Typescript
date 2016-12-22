@@ -1,11 +1,12 @@
 ﻿import BaseObject = require("BaseObject");
+import ScreenInfo = require("ScreenInfo");
 
 class Rocket extends BaseObject {
 
     private m_rocketScreen: number = 0;
 
-    constructor(texture: HTMLCanvasElement) {
-        super(texture);
+    constructor(texture: HTMLCanvasElement, screenInfo: ScreenInfo) {
+        super(texture, screenInfo);
         this.m_y = 100;
         this.m_offsetX = 17 * 64;
         this.m_offsetY = 11 * 68;

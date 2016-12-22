@@ -10,15 +10,13 @@ class Mole extends BaseObject {
     private m_undergroundScreenCounter: number = 0;
     private m_levels: number[][];
     private m_underground: boolean;
-    private m_screen: ScreenInfo;
 
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean, screenInfo: ScreenInfo) {
-        super(texture);
+        super(texture, screenInfo);
         this.m_debug = debug;
         this.m_walls = walls;
         this.m_edibleWalls = ediblewalls;
         this.m_levels = levels;
-        this.m_screen = screenInfo;
         this.m_underground = false;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 11 * 69;

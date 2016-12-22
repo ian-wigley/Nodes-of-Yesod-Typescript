@@ -1,10 +1,12 @@
 ﻿import BaseObject = require("BaseObject");
+import ScreenInfo = require("ScreenInfo");
 
 class Explosion extends BaseObject {
 
     private m_active: boolean;
-    constructor(texture: HTMLCanvasElement) {
-        super(texture);
+
+    constructor(texture: HTMLCanvasElement, screenInfo: ScreenInfo) {
+        super(texture, screenInfo);
         this.m_name = "Explosion";
         this.m_offsetX = 3 * 64;
         this.m_offsetY = 10 * 69;

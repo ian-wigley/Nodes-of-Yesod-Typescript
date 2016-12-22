@@ -1,4 +1,5 @@
 ﻿import Rectangle = require("Rectangle");
+import ScreenInfo = require("ScreenInfo");
 
 class BaseObject {
 
@@ -20,9 +21,11 @@ class BaseObject {
     protected m_facingLeft: boolean;
     protected m_debug: boolean = false;
     protected m_name: string;
+    protected m_screen: ScreenInfo;
 
-    constructor(texture: HTMLCanvasElement) {
+    constructor(texture: HTMLCanvasElement, screenInfo: ScreenInfo) {
         this.m_texture = texture;
+        this.m_screen = screenInfo;
         this.m_x = 0;
         this.m_y = 0;
         this.m_width = 0;

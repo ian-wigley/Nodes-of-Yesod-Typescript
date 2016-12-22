@@ -1,9 +1,10 @@
 ﻿import BaseObject = require("BaseObject");
+import ScreenInfo = require("ScreenInfo");
 
 class Earth extends BaseObject {
 
-    constructor(texture: HTMLCanvasElement) {
-        super(texture);
+    constructor(texture: HTMLCanvasElement, screenInfo: ScreenInfo) {
+        super(texture, screenInfo);
         this.m_x = 600;
         this.m_y = 20;
         this.m_width = 64;

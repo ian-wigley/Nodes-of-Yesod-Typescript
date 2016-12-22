@@ -1,5 +1,6 @@
 ﻿import BaseObject = require("BaseObject");
 import Rectangle = require("Rectangle");
+import ScreenInfo = require("ScreenInfo");
 
 class Enemy extends BaseObject {
 
@@ -12,8 +13,8 @@ class Enemy extends BaseObject {
     protected m_millisecondsPerFrame: number;
     protected m_turning: boolean;
 
-    constructor(xpos: number, ypos: number, speedX: number, texture: HTMLCanvasElement, walls: Array<Rectangle>) {
-        super(texture);
+    constructor(xpos: number, ypos: number, speedX: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, screenInfo: ScreenInfo) {
+        super(texture, screenInfo);
         this.m_speed = speedX;
         this.m_x = xpos;
         this.m_y = ypos;

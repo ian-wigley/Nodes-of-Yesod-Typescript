@@ -1,9 +1,10 @@
 ﻿import Enemy = require("Enemy");
 import Rectangle = require("Rectangle");
+import ScreenInfo = require("ScreenInfo");
 
 class Plant extends Enemy {
-    constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>) {
-        super(xpos, ypos, speedx, gamesprites, wall);
+    constructor(xpos: number, ypos: number, speedx: number, gamesprites: HTMLCanvasElement, wall: Array<Rectangle>, screenInfo: ScreenInfo) {
+        super(xpos, ypos, speedx, gamesprites, wall, screenInfo);
         this.m_name = "Plant";
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 0 * 69;
