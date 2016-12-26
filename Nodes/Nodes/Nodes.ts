@@ -306,10 +306,13 @@ class Nodes {
 
         this.screenChange = false;
 
+        var charlieValue: number = 0;
+
         if (!this.charlie.SittingDown) {
             if (this.keyboard.left) {
                 if (!this.moleAlive && !this.charlie.Falling) {
-                    this.charlie.Update(0);
+                    //this.charlie.Update(0);
+                    charlieValue = 1;
                 }
                 else if (this.moleAlive && !this.charlie.Falling) {
                     this.mole.UpdatePosition(0);
@@ -319,7 +322,8 @@ class Nodes {
 
             if (this.keyboard.right) {
                 if (!this.moleAlive && !this.charlie.Falling) {
-                    this.charlie.Update(1);
+                    //this.charlie.Update(1);
+                    charlieValue = 2;
                 }
                 else if (this.moleAlive && !this.charlie.Falling) {
                     this.mole.UpdatePosition(1);
@@ -328,11 +332,16 @@ class Nodes {
             }
 
             if (this.keyboard.left && this.keyboard.jump || this.keyboard.right && this.keyboard.jump) {
+                this.charlie.JumpVal = this.charlie.Y;
                 this.charlie.Somersault = true;
             }
 
-            if (this.keyboard.jump) {
+            // Normal jump !
+            if (!this.keyboard.left && this.keyboard.jump && this.belowMoon || !this.keyboard.right && this.keyboard.jump && this.belowMoon) {
+                this.charlie.JumpVal = this.charlie.Y;
                 this.charlie.Jump = true;
+                //this.charlie.Update(2);
+                charlieValue = 3;
             }
 
             if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
@@ -349,12 +358,17 @@ class Nodes {
         }
 
         if (this.charlie.Somersault && !this.charlie.Direction) {
-            this.charlie.Update(0);
+            //this.charlie.Update(0);
+            charlieValue = 1;
         }
 
         if (this.charlie.Somersault && this.charlie.Direction) {
-            this.charlie.Update(1);
+            //this.charlie.Update(1);
+            charlieValue = 2;
         }
+
+        this.charlie.Update(charlieValue);
+
 
         //// Trigger the somersault
         //if (this.somersault) {
@@ -516,22 +530,22 @@ class Nodes {
                 }
 
                 if (!this.charlie.SittingDown && !this.charlie.Falling && !this.immune) {
-                    if (charlieRect.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
-                        if (this.resourceManager.EnemyList[i].Name == "ChasingEnemy") {
-                            this.charlie.SittingDown = true;
-                            this.seatedTime = new Date().getTime();
-                            this.enemyCollidedWith = i;
+                    //if (charlieRect.Intersects(this.resourceManager.EnemyList[i].Rectangle)) {
+                    //    if (this.resourceManager.EnemyList[i].Name == "ChasingEnemy") {
+                    //        this.charlie.SittingDown = true;
+                    //        this.seatedTime = new Date().getTime();
+                    //        this.enemyCollidedWith = i;
 
-                            if (this.charlie.Direction) {
-                                this.charlie.SeatingFrame = 69;
-                            }
-                            else if (!this.charlie.Direction) {
-                                this.charlie.SeatingFrame = 138;
-                            }
-                        }
-                        this.explosion.Actived = true;
-                        //this.resourceManager.EnemyList[i].Reset();
-                    }
+                    //        if (this.charlie.Direction) {
+                    //            this.charlie.SeatingFrame = 69;
+                    //        }
+                    //        else if (!this.charlie.Direction) {
+                    //            this.charlie.SeatingFrame = 138;
+                    //        }
+                    //    }
+                    //    this.explosion.Actived = true;
+                    //    //this.resourceManager.EnemyList[i].Reset();
+                    //}
                 }
             }
 
