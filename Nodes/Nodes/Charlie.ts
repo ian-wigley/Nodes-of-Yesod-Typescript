@@ -15,9 +15,11 @@ class Charlie extends BaseObject {
     private m_belowSurface: boolean = false;
     private m_jump: boolean = false;
     private m_sittingDown: boolean = false;
-    private m_amplitude: number = 0;
+
+    private m_amplitude: number = 125;
     private m_shift: number = 0;
-    private t: number = 6;
+    private m_t: number = 6;
+    private m_increment = 12 * Math.PI / 180;
 
     private m_platforms: Array<Rectangle>;
     //private m_walls: Array<Rectangle>;
@@ -25,11 +27,11 @@ class Charlie extends BaseObject {
     private m_holeRectangle1: Rectangle;
     private m_holeRectangle2: Rectangle;
 
-    testJump: Array<number> = new Array();
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
     private m_landingVal: number  = 0;
     private m_startYPosition: number = 0;
     private m_jumpStarted: boolean = false;
+
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean,screenInfo: ScreenInfo) {
 
         super(texture, screenInfo);
@@ -45,17 +47,14 @@ class Charlie extends BaseObject {
         this.m_debug = debug;
     }
 
-
     // Values:
     // 0 - nothing ! 1 - left ! 2 - right ! 3 - standard jump
-
    public Update(value: number): void {
         this.m_animTimer += 0.1;
 
         this.m_landingVal = !this.m_belowSurface ? 320 : this.m_y;
 
         // Walk Left
-       //        if (value == 0 && !this.m_somerSaultJump) {
         if (value == 1 && !this.m_somerSaultJump) {
             this.m_x -= 4;
             this.m_direction = false;
@@ -65,7 +64,6 @@ class Charlie extends BaseObject {
             }
         }
         // Walk Right
-        //else if (value == 1 && !this.m_somerSaultJump) {
         else if (value == 2 && !this.m_somerSaultJump) {
             this.m_x += 4;
             this.m_direction = true;
@@ -80,78 +78,68 @@ class Charlie extends BaseObject {
             if ((this.m_startYPosition - this.m_y) >= 70) {
                 this.m_jump = false;
             }
-
         }
 
-
         // left somerSault
-       //       if (value == 0 && this.m_somerSaultJump) {
         if (value == 1 && this.m_somerSaultJump) {
             if (!this.m_initialised) {
-                //this.summerSaultFrame = 138;// 3 * 64;
                 this.m_offsetY = 138;
                 this.m_direction = false;
-                this.m_frame = 0;
+                this.m_frame = 16;
                 this.m_initialised = true;
                 this.m_jumpStarted = true;
             }
-            if (this.m_frame < 20) {
-                //    this.m_y -= 5;
-                //this.m_frameX -= 1;
-                if (this.m_animTimer > 0.1) {
-                    this.m_frame += 1;
+            if (this.m_frame > 0 ) {
+                if (this.m_animTimer > 0.2) {
+                    this.m_frame -= 1;
                     this.m_animTimer = 0;
+                    this.m_t += this.m_increment;
+                    this.m_shift = this.m_amplitude * Math.sin(this.m_t);
+                    this.m_y = this.m_startYPosition - this.m_shift;
+                    //console.log(this.m_y);
                 }
-                this.m_amplitude += 0.025;
-                //this.m_y = (200 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + 320;
-                this.m_y = (200 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + this.m_startYPosition;//this.m_landingVal;//320;   //350 is the correct y height
-                this.m_x -= 5;
+                this.m_x -= 4;
             }
-            if (this.m_frame == 20 && this.m_somerSaultJump) {
+            if (this.m_frame == 0 && this.m_somerSaultJump) {
                 this.m_somerSaultJump = false;
-                //this.summerSaultFrame = 0;
                 this.m_offsetY = 0;
-                this.m_frame = 0;
+                //this.m_frame = 16;//0;
                 this.m_initialised = false;
                 this.m_y = this.m_startYPosition;
+                //console.log("----- Jump Complete -----");
+                this.m_t = 0;
             }
         }
 
         // right
-       //        if (value == 1 && this.m_somerSaultJump) {
         if (value == 2 && this.m_somerSaultJump) {
             if (!this.m_initialised) {
-                //this.summerSaultFrame = 68;// 3 * 64;
                 this.m_offsetY  = 68;
                 this.m_direction = true;
                 this.m_frame = 0;
                 this.m_initialised = true;
                 this.m_jumpStarted = true;
             }
-            if (this.m_frame < 20) { //17
-                //    this.m_y -= 5;
-                if (this.m_animTimer > 0.1) {
+            if (this.m_frame < 16) { //20
+                if (this.m_animTimer > 0.2) {
                     this.m_frame += 1;
                     this.m_animTimer = 0;
+                    this.m_t += this.m_increment;
+                    this.m_shift = this.m_amplitude * Math.sin(this.m_t);
+                    this.m_y = this.m_startYPosition - this.m_shift;
                 }
-                this.m_amplitude += 0.025;
-                //this.m_y = (200 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + 320;   //350 is the correct y height
-                this.m_y = (200 * -Math.abs(Math.sin(this.m_amplitude * Math.PI))) + this.m_startYPosition;
                 this.m_x += 5;
-                this.testJump.push(this.m_y);
+                //console.log(this.m_y);
             }
-            if (this.m_frame == 20 && this.m_somerSaultJump) { //17
+            if (this.m_frame == 16 && this.m_somerSaultJump) { //20
                 this.m_somerSaultJump = false;
-                //this.summerSaultFrame = 0;
                 this.m_offsetY  = 0;
                 this.m_frame = 0;
                 this.m_initialised = false;
-                //this.m_y = 320;
                 this.m_y = this.m_startYPosition;
                 this.m_jumpStarted = false;
-            }
-            if (this.testJump.length == 39) {
-                var breakHere = true;
+                this.m_t = 0;
+                //console.log("----- Jump Complete -----");
             }
         }
 
