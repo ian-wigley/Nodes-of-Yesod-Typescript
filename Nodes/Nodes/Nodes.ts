@@ -500,22 +500,23 @@ class Nodes {
                 }
             }
             if (!this.charlie.Falling) {
-                // Allow us to jump out from under the moon surface....
-                if (this.charlie.Y <= 30 && this.belowScreenCounter < 15) {
-                    this.charlie.Falling = false;
-                    this.charlie.Walking = false;
-                    this.belowMoon = false;
-                    this.charlie.Y = 250;
-                    this.clearAll();
-                    this.belowScreenCounter = 0;
-                    this.resourceManager.ConfigureEnemies(this.belowScreenCounter);
-                }
                 if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
                     this.charlie.Y = 400;
                     this.belowScreenCounter -= 16;
                     this.charlie.Jump = false;
                     this.clearAll();
                 }
+            }
+
+            // Allow us to jump out from under the moon surface
+            if (this.charlie.Jump && this.charlie.Y < 10 && this.belowScreenCounter < 15) {
+                this.charlie.Falling = false;
+                this.charlie.Walking = false;
+                this.belowMoon = false;
+                this.charlie.Y = 320;
+                this.clearAll();
+                //this.belowScreenCounter = 0;
+                //this.resourceManager.ConfigureEnemies(this.belowScreenCounter);
             }
 
             var charlieRect = this.charlie.Rectangle;
