@@ -28,11 +28,14 @@ class Charlie extends BaseObject {
     private m_holeRectangle2: Rectangle;
 
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
-    private m_landingVal: number  = 0;
+    private m_landingVal: number = 0;
     private m_startYPosition: number = 0;
     private m_jumpStarted: boolean = false;
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean,screenInfo: ScreenInfo) {
+
+    private m_jumpingUp: boolean = false;
+
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean, screenInfo: ScreenInfo) {
 
         super(texture, screenInfo);
         this.m_x = xpos;
@@ -49,7 +52,7 @@ class Charlie extends BaseObject {
 
     // Values:
     // 0 - nothing ! 1 - left ! 2 - right ! 3 - standard jump
-   public Update(value: number): void {
+    public Update(value: number): void {
         this.m_animTimer += 0.1;
 
         this.m_landingVal = !this.m_belowSurface ? 320 : this.m_y;
@@ -73,12 +76,71 @@ class Charlie extends BaseObject {
             }
         }
 
-        if (value == 3 && !this.m_somerSaultJump && this.m_jump) {
-            this.m_y -= 5;
-            if ((this.m_startYPosition - this.m_y) >= 70) {
-                this.m_jump = false;
+        // Jumping up 
+        if (value == 3 && this.m_jumpingUp) {
+            // Facing left
+            if (!this.m_initialised) {
+                this.m_offsetY = 206;
+                this.m_frame = 16;
+                this.m_initialised = true;
+                this.m_jumpStarted = true;
+            }
+
+            if (this.m_frame > 8) {
+                if (this.m_animTimer > 0.4) {
+                    this.m_frame -= 1;
+                    this.m_animTimer = 0;
+                    //this.m_t += this.m_increment;
+                    //this.m_shift = this.m_amplitude * Math.sin(this.m_t);
+                    //this.m_y = this.m_startYPosition - this.m_shift;
+                }
+            }
+            if (this.m_frame == 8 && this.m_jumpingUp) {
+                this.m_offsetY = 0;
+                this.m_frame = 0;
+                this.m_initialised = false;
+                this.m_y = this.m_startYPosition;
+                //console.log("----- Jump Complete -----");
+                this.m_jumpingUp = false;
+                this.m_jumpStarted = false;
+                this.m_t = 0;
             }
         }
+
+        // Jumping up 
+        if (value == 4 && this.m_jumpingUp) {
+            // Facing Right
+            if (!this.m_initialised) {
+                this.m_offsetY = 206;
+                this.m_frame = 0;
+                this.m_initialised = true;
+               // this.m_jumpingUp = true;
+                this.m_jumpStarted = true;
+            }
+
+            if (this.m_frame < 8) {
+                if (this.m_animTimer > 0.4) {
+                    this.m_frame += 1;
+                    this.m_animTimer = 0;
+                    //this.m_t += this.m_increment;
+                    //this.m_shift = this.m_amplitude * Math.sin(this.m_t);
+                    //this.m_y = this.m_startYPosition - this.m_shift;
+                }
+            }
+
+            if (this.m_frame == 8 && this.m_jumpingUp) {
+                this.m_jump = false;
+                this.m_offsetY = 0;
+                this.m_frame = 0;
+                this.m_initialised = false;
+                this.m_y = this.m_startYPosition;
+                //console.log("----- Jump Complete -----");
+                this.m_jumpingUp = false;
+                this.m_jumpStarted = false;
+                this.m_t = 0;
+            }
+        }
+
 
         // left somerSault
         if (value == 1 && this.m_somerSaultJump) {
@@ -89,7 +151,7 @@ class Charlie extends BaseObject {
                 this.m_initialised = true;
                 this.m_jumpStarted = true;
             }
-            if (this.m_frame > 0 ) {
+            if (this.m_frame > 0) {
                 if (this.m_animTimer > 0.2) {
                     this.m_frame -= 1;
                     this.m_animTimer = 0;
@@ -113,6 +175,7 @@ class Charlie extends BaseObject {
                 this.m_initialised = false;
                 this.m_y = this.m_startYPosition;
                 //console.log("----- Jump Complete -----");
+                this.m_jumpStarted = false;
                 this.m_t = 0;
             }
         }
@@ -120,7 +183,7 @@ class Charlie extends BaseObject {
         // right
         if (value == 2 && this.m_somerSaultJump) {
             if (!this.m_initialised) {
-                this.m_offsetY  = 68;
+                this.m_offsetY = 68;
                 this.m_direction = true;
                 this.m_frame = 0;
                 this.m_initialised = true;
@@ -139,7 +202,7 @@ class Charlie extends BaseObject {
             }
             if (this.m_frame == 16 && this.m_somerSaultJump) { //20
                 this.m_somerSaultJump = false;
-                this.m_offsetY  = 0;
+                this.m_offsetY = 0;
                 this.m_frame = 0;
                 this.m_initialised = false;
                 this.m_y = this.m_startYPosition;
@@ -148,58 +211,6 @@ class Charlie extends BaseObject {
                 //console.log("----- Jump Complete -----");
             }
         }
-
-        //else if (this.m_frameX > 7)// && this.m_frame < 16)
-        //{
-        //    this.m_y += 5;
-        //}
-        //// Somersault jump left 
-        //if (this.mDirection && this.m_frameX < 16) {
-        //    this.m_x += 1;
-        //    this.summerSaultFrame = 70;
-        //    this.m_frameX += 1;
-        //}
-        //// Somersault jump right
-        //else if (!this.mDirection && this.m_frameX < 16) {
-        //    this.m_x -= 1;
-        //    this.summerSaultFrame = 70 + 69;
-        //    this.m_frameX += 1;
-        //}
-        //if (this.m_frameX == 15) {
-        //    this.mSummerSaultJump = false;
-        //    this.summerSaultFrame = 0;
-        //    this.m_frameX = 0;
-        //}
-        //if (this.m_falling) {
-        //    this.m_y += 1;
-        //}
-        //// if (this.mJumpright) {
-        //// this.m_x  += 2;
-        //// }
-        //// else {
-        //// this.m_x  -= 2;
-        //// }
-        //// if (this.summerSaultFrame < 8 && !this.mTrip) {
-        //// this.m_y -= 10;
-        //// }
-        //// else if (this.summerSaultFrame >= 8 && this.summerSaultFrame < 16 && this.mTrip) {
-        //// this.m_y += 10;
-        //// }
-        //// animTimer += elapsedSecs;
-        //// if (animTimer > 0.2) {
-        //// animTimer = 0;
-        //// this.summerSaultFrame++;
-        //// }
-        ////        summerSaultRect = new Rectangle((int)summerSaultFrame * spriteWidth, (int)1 * spriteHeight, spriteWidth, spriteHeight);
-        //// if (this.summerSaultFrame >= 16) {
-        //// this.summerSaultFrame = 0;
-        //// this.mSummerSaultJump = false;
-        //// if (this.belowMoon) {
-        //// //                       YPosition = 366;
-        //// }
-        ////}
-        //this.collisions(false);
-
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
@@ -214,14 +225,27 @@ class Charlie extends BaseObject {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
+        if (!this.m_direction && this.m_jumpingUp) {//m_jump) {
+            ctx.drawImage(this.m_texture, this.m_frame * 64 + (11 * 64), this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+        }
+
+        // Draw Charlie facing right
+
         if (this.m_direction && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
-        // Draw Charlie facing right
-        else if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
+        if (!this.m_direction && this.m_jumpingUp) {//.m_jump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
+
+       if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
+            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+        }
+
+
+
+
 
         if (this.m_direction && this.m_sittingDown) {
             ctx.drawImage(this.m_texture, /*this.m_frame*/ 15 * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
@@ -265,7 +289,7 @@ class Charlie extends BaseObject {
             if (this.m_falling && !this.m_somerSaultJump) {
                 for (var i = 0; i < this.m_platforms.length; i++) {
                     if (this.Rectangle.Intersects(this.m_platforms[i])) {
-                      
+
                         this.m_falling = false;
                         console.log(">>>>> fell y position = " + this.m_y + "<<<<<");
                         this.m_startYPosition = this.m_y;
@@ -514,6 +538,9 @@ class Charlie extends BaseObject {
     public get Direction(): boolean { return this.m_direction; }
     public get Jump(): boolean { return this.m_jump; }
     public set Jump(value: boolean) { this.m_jump = value; }
+
+    public get JumpingUp():boolean{return this.m_jumpingUp; }
+    public set JumpingUp(value: boolean) { this.m_jumpingUp = value; }
 
     public set JumpVal(value: number) {
         if (!this.m_jumpStarted) {

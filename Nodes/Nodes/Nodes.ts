@@ -119,7 +119,7 @@ class Nodes {
     private jumpRight: boolean = false;
     private belowMoon: boolean = false;
     private screenChange: boolean = false;
-   
+
     //var alchiem = 0;
     private startTime = new Date().getTime();
     private seconds: number = 0;
@@ -242,7 +242,6 @@ class Nodes {
     onKeyboardPress(event: Event, touchDevice: boolean) {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
-                //this.somersault = true;
                 this.keyboard.jump = true;
                 break;
             case 37:
@@ -282,7 +281,6 @@ class Nodes {
     onKeyboardRelease(event: Event, touchDevice: boolean) {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
-                //this.somersault = false;
                 this.keyboard.jump = false;
                 break;
             case 37:
@@ -337,12 +335,16 @@ class Nodes {
             }
 
             // Normal jump !
-            if (!this.keyboard.left && this.keyboard.jump && this.belowMoon || !this.keyboard.right && this.keyboard.jump && this.belowMoon) {
+            if (!this.keyboard.left && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {// || !this.keyboard.right && this.keyboard.jump && this.belowMoon) {
                 this.charlie.JumpVal = this.charlie.Y;
-                this.charlie.Jump = true;
-                //this.charlie.Update(2);
-                charlieValue = 3;
+                this.charlie.JumpingUp = true;
             }
+
+            if (!this.keyboard.right && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {
+                this.charlie.JumpVal = this.charlie.Y;
+                this.charlie.JumpingUp = true;
+            }
+
 
             if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
                 this.mole.UpdatePosition(2);
@@ -358,14 +360,25 @@ class Nodes {
         }
 
         if (this.charlie.Somersault && !this.charlie.Direction) {
-            //this.charlie.Update(0);
             charlieValue = 1;
         }
 
         if (this.charlie.Somersault && this.charlie.Direction) {
-            //this.charlie.Update(1);
             charlieValue = 2;
         }
+
+
+        //        if (!this.charlie.Somersault && this.charlie.Jump && !this.charlie.Direction) {
+        if (!this.charlie.Somersault && this.charlie.JumpingUp && !this.charlie.Direction) {
+            charlieValue = 3;
+        }
+
+        //        if (!this.charlie.Somersault && this.charlie.Jump && this.charlie.Direction) {
+        if (!this.charlie.Somersault && this.charlie.JumpingUp && this.charlie.Direction) {
+            charlieValue = 4;
+        }
+
+
 
         this.charlie.Update(charlieValue);
 
