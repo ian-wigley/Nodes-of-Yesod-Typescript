@@ -18,8 +18,8 @@ class Charlie extends BaseObject {
 
     private m_amplitude: number = 125;
     private m_shift: number = 0;
-    private m_t: number = 6;
-    private m_increment = 12 * Math.PI / 180;
+    private m_t: number = 0;//6;
+    private m_increment = 10 * Math.PI / 180;//12
 
     private m_platforms: Array<Rectangle>;
     //private m_walls: Array<Rectangle>;
@@ -84,15 +84,23 @@ class Charlie extends BaseObject {
                 this.m_frame = 16;
                 this.m_initialised = true;
                 this.m_jumpStarted = true;
+                this.m_t = 0;
+                this.m_amplitude = 100;
             }
 
             if (this.m_frame > 8) {
                 if (this.m_animTimer > 0.4) {
                     this.m_frame -= 1;
                     this.m_animTimer = 0;
-                    //this.m_t += this.m_increment;
-                    //this.m_shift = this.m_amplitude * Math.sin(this.m_t);
-                    //this.m_y = this.m_startYPosition - this.m_shift;
+                    this.m_t += this.m_increment;
+                    console.log("this.m_t = " + this.m_t);
+                    console.log("this.m_increment = " + this.m_increment);
+                    this.m_shift = this.m_amplitude * Math.sin(this.m_t);
+                    console.log("this.m_shift = " + this.m_shift);
+                    this.m_y = this.m_startYPosition - this.m_shift;
+                    console.log("this.m_startYPosition = " + this.m_startYPosition);
+                    console.log("this.m_y = " + this.m_y);
+                    console.log("----------");
                 }
             }
             if (this.m_frame == 8 && this.m_jumpingUp) {
@@ -150,21 +158,23 @@ class Charlie extends BaseObject {
                 this.m_frame = 16;
                 this.m_initialised = true;
                 this.m_jumpStarted = true;
+                this.m_amplitude = 125;
+                console.log("----SomerSaultJump------");
             }
             if (this.m_frame > 0) {
                 if (this.m_animTimer > 0.2) {
                     this.m_frame -= 1;
                     this.m_animTimer = 0;
                     this.m_t += this.m_increment;
-                    //console.log("this.m_t = " + this.m_t);
-                    //console.log("this.m_increment = " + this.m_increment);
+                    console.log("this.m_t = " + this.m_t);
+                    console.log("this.m_increment = " + this.m_increment);
                     this.m_shift = this.m_amplitude * Math.sin(this.m_t);
-                    //console.log("this.m_shift = " + this.m_shift);
+                    console.log("this.m_shift = " + this.m_shift);
                     this.m_y = this.m_startYPosition - this.m_shift;
-                    //console.log("this.m_startYPosition = " + this.m_startYPosition);
-                    //console.log("this.m_y = " + this.m_y);
-                    //console.log(this.m_y);
-                    //console.log("----------");
+                    console.log("this.m_startYPosition = " + this.m_startYPosition);
+                    console.log("this.m_y = " + this.m_y);
+                    console.log(this.m_y);
+                    console.log("----------");
                 }
                 this.m_x -= 4;
             }
@@ -188,6 +198,7 @@ class Charlie extends BaseObject {
                 this.m_frame = 0;
                 this.m_initialised = true;
                 this.m_jumpStarted = true;
+                this.m_amplitude = 125;
             }
             if (this.m_frame < 16) { //20
                 if (this.m_animTimer > 0.2) {
@@ -242,10 +253,6 @@ class Charlie extends BaseObject {
        if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-
-
-
-
 
         if (this.m_direction && this.m_sittingDown) {
             ctx.drawImage(this.m_texture, /*this.m_frame*/ 15 * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);

@@ -335,15 +335,16 @@ class Nodes {
             }
 
             // Normal jump !
-            if (!this.keyboard.left && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {// || !this.keyboard.right && this.keyboard.jump && this.belowMoon) {
+            if (!this.keyboard.left && !this.keyboard.right && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {
+                //!this.keyboard.right && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {// || !this.keyboard.right && this.keyboard.jump && this.belowMoon) {
                 this.charlie.JumpVal = this.charlie.Y;
                 this.charlie.JumpingUp = true;
             }
 
-            if (!this.keyboard.right && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {
-                this.charlie.JumpVal = this.charlie.Y;
-                this.charlie.JumpingUp = true;
-            }
+            //if (!this.keyboard.right && this.keyboard.jump && this.belowMoon && !this.charlie.Somersault) {
+            //    this.charlie.JumpVal = this.charlie.Y;
+            //    this.charlie.JumpingUp = true;
+            //}
 
 
             if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
@@ -498,7 +499,8 @@ class Nodes {
                     this.resourceManager.ConfigureEnemies(this.screenCounter);
                 }
                 this.charlie.Y += 2;
-                if (this.charlie.Y >= 425) {
+                // stop the trigger when jumping up and down...
+                if (this.charlie.Y >= 430 && !this.charlie.JumpingUp) {
                     this.charlie.Y = 20;
                     this.charlie.Walking = false;
                     this.belowScreenCounter += 16;
