@@ -183,12 +183,15 @@ class Nodes {
         this.unGroundLedges = <HTMLCanvasElement>document.getElementById("UnGroundLedges");
         this.frontScreen = <HTMLCanvasElement>document.getElementById("FrontScreen");
 
+        this.keyboard = new KeyBoard();
+        this.screenInfo = new ScreenInfo(this.canvas.width, this.canvas.height);
+
+
         this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platformz, this.ctx, this.screenInfo);
         this.upperRocks = this.resourceManager.UpperRocks;
 
 
-        this.keyboard = new KeyBoard();
-        this.screenInfo = new ScreenInfo(this.canvas.width, this.canvas.height);
+
 
         //    holes1 = ResourceManager.mHoleArray0;
         //    holes2 = ResourceManager.mHoleArray1;
@@ -510,7 +513,7 @@ class Nodes {
                 if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
                     this.charlie.Y = 400;
                     this.belowScreenCounter -= 16;
-                    this.charlie.Jump = false;
+                    //this.charlie.Jump = false;
                     this.clearAll();
                 }
             }
@@ -518,13 +521,14 @@ class Nodes {
                 if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
                     this.charlie.Y = 400;
                     this.belowScreenCounter -= 16;
-                    this.charlie.Jump = false;
+                    //this.charlie.Jump = false;
                     this.clearAll();
                 }
             }
 
             // Allow us to jump out from under the moon surface
-            if (this.charlie.Jump && this.charlie.Y < 10 && this.belowScreenCounter < 15) {
+            //if (this.charlie.Jump && this.charlie.Y < 10 && this.belowScreenCounter < 15) {
+            if (this.charlie.JumpingUp && this.charlie.Y < 10 && this.belowScreenCounter < 15) {
                 this.charlie.Falling = false;
                 this.charlie.Walking = false;
                 this.belowMoon = false;

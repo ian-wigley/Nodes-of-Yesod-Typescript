@@ -25,7 +25,7 @@
     }
 
     public get Bottom(): number {
-        return this.m_height - 140;
+        return this.m_height - 180;//140
     }
 
 }

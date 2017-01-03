@@ -16,7 +16,7 @@ class Charlie extends BaseObject {
     private m_jump: boolean = false;
     private m_sittingDown: boolean = false;
 
-    private m_amplitude: number = 125;
+    private m_amplitude: number = 185;//125
     private m_shift: number = 0;
     private m_t: number = 0;//6;
     private m_increment = 10 * Math.PI / 180;//12
@@ -31,8 +31,6 @@ class Charlie extends BaseObject {
     private m_landingVal: number = 0;
     private m_startYPosition: number = 0;
     private m_jumpStarted: boolean = false;
-
-
     private m_jumpingUp: boolean = false;
 
     constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean, screenInfo: ScreenInfo) {
@@ -93,14 +91,14 @@ class Charlie extends BaseObject {
                     this.m_frame -= 1;
                     this.m_animTimer = 0;
                     this.m_t += this.m_increment;
-                    console.log("this.m_t = " + this.m_t);
-                    console.log("this.m_increment = " + this.m_increment);
+                    //console.log("this.m_t = " + this.m_t);
+                    //console.log("this.m_increment = " + this.m_increment);
                     this.m_shift = this.m_amplitude * Math.sin(this.m_t);
-                    console.log("this.m_shift = " + this.m_shift);
+                    //console.log("this.m_shift = " + this.m_shift);
                     this.m_y = this.m_startYPosition - this.m_shift;
-                    console.log("this.m_startYPosition = " + this.m_startYPosition);
-                    console.log("this.m_y = " + this.m_y);
-                    console.log("----------");
+                    //console.log("this.m_startYPosition = " + this.m_startYPosition);
+                    //console.log("this.m_y = " + this.m_y);
+                    //console.log("----------");
                 }
             }
             if (this.m_frame == 8 && this.m_jumpingUp) {
@@ -148,7 +146,6 @@ class Charlie extends BaseObject {
                 this.m_t = 0;
             }
         }
-
 
         // left somerSault
         if (value == 1 && this.m_somerSaultJump) {
@@ -281,9 +278,6 @@ class Charlie extends BaseObject {
     public Collisions(belowMoon: boolean, screenChange: boolean): void {
         if (!belowMoon) {
             if (this.Rectangle.Intersects(this.m_holeRectangle1) || this.Rectangle.Intersects(this.m_holeRectangle2)) {
-                //Yesod.belowScreenCounter = Yesod.screenCounter;
-                //Yesod.belowMoon = true;
-                //this.Falling = true;
                 this.m_falling = true;
                 this.Y = 10;
                 this.m_belowSurface = true;
@@ -300,28 +294,24 @@ class Charlie extends BaseObject {
                         this.m_falling = false;
                         console.log(">>>>> fell y position = " + this.m_y + "<<<<<");
                         this.m_startYPosition = this.m_y;
+                    }
+                }
+            }
 
-                        if (charlieRect.Bottom == this.m_platforms[i].Top ||
-                            charlieRect.Bottom == this.m_platforms[i].Top + 1 ||
-                            charlieRect.Bottom == this.m_platforms[i].Top + 2 ||
-                            charlieRect.Bottom == this.m_platforms[i].Top + 3) {
-                            this.m_falling = false;
+            if (!this.m_falling && this.m_somerSaultJump) {
+                for (var i = 0; i < this.m_platforms.length; i++) {
+                    if (this.Rectangle.Intersects(this.m_platforms[i])) {
+                        console.log(">>>>> Somersault onto platform = " + this.m_y + "<<<<<");
+                        if (charlieRect.Height == this.m_platforms[i].Top ||
+                            charlieRect.Height == this.m_platforms[i].Top + 1 ||
+                            charlieRect.Height == this.m_platforms[i].Top + 2 ||
+                            charlieRect.Height == this.m_platforms[i].Top + 3) {
+                            this.m_somerSaultJump = false;
                             break;
                         }
                     }
                 }
-
-                //foreach(Rectangle floor in mFloor)
-                //    {
-                //    if (charlieRect.Intersects(floor) == true) {
-                //        mFalling = false;
-                //        mWalking = true;
-                //        mYPosition = 366;
-                //        break;
-                //    }
-                //}
             }
-
 
             //if (!this.Falling && !this.m_somerSaultJump) {
             //    var charlieRect: Rectangle = this.Rectangle;
@@ -543,8 +533,8 @@ class Charlie extends BaseObject {
     public set Somersault(value: boolean) { this.m_somerSaultJump = value; }
     public get Somersault(): boolean { return this.m_somerSaultJump; }
     public get Direction(): boolean { return this.m_direction; }
-    public get Jump(): boolean { return this.m_jump; }
-    public set Jump(value: boolean) { this.m_jump = value; }
+    //public get Jump(): boolean { return this.m_jump; }
+    //public set Jump(value: boolean) { this.m_jump = value; }
 
     public get JumpingUp():boolean{return this.m_jumpingUp; }
     public set JumpingUp(value: boolean) { this.m_jumpingUp = value; }

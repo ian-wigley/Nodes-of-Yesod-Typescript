@@ -22,10 +22,14 @@ class SpringBear extends Enemy {
         this.m_x += this.m_speedX;
         this.m_y += this.m_speedY;
 
-        if (this.m_y > 400 ||
-            this.m_y < 0) {
+        if (this.m_y > this.m_screen.Bottom || this.m_y < this.m_screen.Top) {
             this.m_speedY *= -1;
         }
+
+        if (this.m_x > this.m_screen.Right || this.m_x < this.m_screen.Left) {
+            this.m_speedX *= -1;
+        }
+
         var triggered = false;
         this.m_springBearRect = new Rectangle(this.m_x + 10, this.m_y, 64, 64);
         for (var i = 0; i < this.m_walls.length; i++) {
