@@ -54,7 +54,7 @@ class BaseObject {
     public get Y(): number { return this.m_y; }
     public set CharlieY(value: number) { this.m_charlieY = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
-    public get Rectangle(): Rectangle { return new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height); }
+    public get Rectangle(): Rectangle { return new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, this.m_name); }
 }
 
 export = BaseObject;

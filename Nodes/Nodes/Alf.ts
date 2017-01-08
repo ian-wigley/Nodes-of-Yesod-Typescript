@@ -25,7 +25,7 @@ class Alf extends Enemy {
             this.m_animTimer = 0;
         }
         var triggered = false;
-        this.m_alfRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height);
+        this.m_alfRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "alf");
         for (var i = 0; i < this.m_walls.length; i++) {
             if (this.m_alfRect.Intersects(this.m_walls[i]) && !triggered) {
                 triggered = true;

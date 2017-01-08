@@ -21,6 +21,7 @@ class Charlie extends BaseObject {
     private m_t: number = 0;//6;
     private m_increment = 10 * Math.PI / 180;//12
 
+    private m_floor: Array<Rectangle>;
     private m_platforms: Array<Rectangle>;
     //private m_walls: Array<Rectangle>;
 
@@ -42,9 +43,11 @@ class Charlie extends BaseObject {
         this.m_height = 64;
         this.m_frame = 1;
         //this.m_resourceManager = resManager;
+
         this.m_walls = walls;
         this.m_edibleWalls = ediblewalls;
         this.m_platforms = new Array<Rectangle>();
+        this.m_floor = new Array<Rectangle>();
         this.m_debug = debug;
     }
 
@@ -120,7 +123,7 @@ class Charlie extends BaseObject {
                 this.m_offsetY = 206;
                 this.m_frame = 0;
                 this.m_initialised = true;
-               // this.m_jumpingUp = true;
+                // this.m_jumpingUp = true;
                 this.m_jumpStarted = true;
             }
 
@@ -238,7 +241,6 @@ class Charlie extends BaseObject {
         }
 
         // Draw Charlie facing right
-
         if (this.m_direction && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
@@ -247,7 +249,7 @@ class Charlie extends BaseObject {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
-       if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
+        if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
@@ -288,11 +290,19 @@ class Charlie extends BaseObject {
 
             var charlieRect: Rectangle = this.Rectangle;
             if (this.m_falling && !this.m_somerSaultJump) {
+                for (var i = 0; i < this.m_floor.length; i++) {
+                    if (this.Rectangle.Intersects(this.m_floor[i])) {
+                        this.m_falling = false;
+                        this.m_walkingOnFloor = true;
+                        console.log(">>>>> Landed on floor = " + i + "Y : " + this.m_y + "<<<<<");
+                        this.m_startYPosition = this.m_y;
+                    }
+                }
+
                 for (var i = 0; i < this.m_platforms.length; i++) {
                     if (this.Rectangle.Intersects(this.m_platforms[i])) {
-
                         this.m_falling = false;
-                        console.log(">>>>> fell y position = " + this.m_y + "<<<<<");
+                        console.log(">>>>> Landed on platform = " + i + "Y : " + this.m_y + "<<<<<");
                         this.m_startYPosition = this.m_y;
                     }
                 }
@@ -301,7 +311,7 @@ class Charlie extends BaseObject {
             if (!this.m_falling && this.m_somerSaultJump) {
                 for (var i = 0; i < this.m_platforms.length; i++) {
                     if (this.Rectangle.Intersects(this.m_platforms[i])) {
-                        console.log(">>>>> Somersault onto platform = " + this.m_y + "<<<<<");
+                        console.log(">>>>> Somersault onto platform = " + i + "Y : " +  this.m_y + "<<<<<");
                         if (charlieRect.Height == this.m_platforms[i].Top ||
                             charlieRect.Height == this.m_platforms[i].Top + 1 ||
                             charlieRect.Height == this.m_platforms[i].Top + 2 ||
@@ -313,16 +323,67 @@ class Charlie extends BaseObject {
                 }
             }
 
-            //if (!this.Falling && !this.m_somerSaultJump) {
-            //    var charlieRect: Rectangle = this.Rectangle;
-            //    for (var i = 0; i < this.m_platforms.length; i++) {
-            //        if (!this.Rectangle.Intersects(this.m_platforms[i])) {
+            // Check to see if Charlie has walked over a gap in the floor
+            if (!this.m_falling && !this.m_walkingOnFloor && !this.Somersault) {
+                var platformCount = this.m_platforms.length;
+                var checkCounter = 0;
+                for (var i = 0; i < platformCount; i++) {
+                    if (!charlieRect.Intersects(this.m_platforms[i])) {
+                        checkCounter++;
+                    }
+                }
+                if (checkCounter == platformCount) {
+                    this.m_falling = true;
+                    checkCounter = 0;
+                }
+            }
 
-            //                               this.Falling = true;
+            if (this.m_walkingOnFloor) {
+                var floorCount = this.m_floor.length;
+                var checkCounter = 0;
+                for (var i = 0; i < floorCount; i++) {
+                    if (!charlieRect.Intersects(this.m_floor[i])) {
+                        checkCounter++;
+                    }
+                }
+                if (checkCounter == floorCount) {
+                    this.m_falling = true;
+                    checkCounter = 0;
+                }
+            }
 
-            //        }
-            //    }
-            //}
+            // Check to see if Charlie walks into the walls
+            if (this.m_walls.length > 0 && !screenChange) {
+                for (var i = 0; i < this.m_walls.length; i++) {
+                    if (charlieRect.Intersects(this.m_walls[i])) {
+                        var yes = true;
+                        if (!this.m_direction) {
+                            this.m_x = this.m_walls[i].Width
+                            break;
+                        }
+                        else {
+                            this.m_x = 680;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (this.m_edibleWalls.length > 0 && !screenChange) {
+                for (var i = 0; i < this.m_edibleWalls.length; i++) {
+                    if (charlieRect.Intersects(this.m_edibleWalls[i])) {
+                        var yes = true;
+                        if (!this.m_direction) {
+                            this.m_x = this.m_edibleWalls[i].Width
+                            break;
+                        }
+                        else {
+                            this.m_x = 680;
+                            break;
+                        }
+                    }
+                }
+            }
 
             //// Check to see if Charlie hits a ledge when summersault jumping
             //if (summerSaultJump && mTrip && mPlatforms.Count > 0) {
@@ -377,101 +438,6 @@ class Charlie extends BaseObject {
             //    }
             //}
 
-
-            // Check to see if Charlie has walked over a gap in the floor
-            if (!this.m_falling && !this.m_walkingOnFloor && !this.Somersault) {
-                var platformCount = this.m_platforms.length;
-                var checkCounter = 0;
-                //var charlieRect: Rectangle = this.Rectangle;
-                for (var i = 0; i < platformCount; i++) {
-                    if (!charlieRect.Intersects(this.m_platforms[i])) {
-                        checkCounter++;
-                    }
-                }
-                if (checkCounter == platformCount) {
-                    this.m_falling = true;
-                    checkCounter = 0;
-                }
-            }
-
-            //if (mWalking) {
-            //        int floorCount = mFloor.Count;
-            //        int checkCounter = 0;
-            //    foreach(Rectangle floor in mFloor)
-            //        {
-            //        if (charlieRect.Intersects(floor) == false) {
-            //            checkCounter++;
-            //        }
-            //    }
-            //    if (checkCounter == floorCount) {
-            //        Falling = true;
-            //        checkCounter = 0;
-            //    }
-            //}
-
-            // Check to see if Charlie walks into the walls
-            if (this.m_walls.length > 0 && !screenChange) {
-                for (var i = 0; i < this.m_walls.length; i++) {
-                    if (charlieRect.Intersects(this.m_walls[i])) {
-                        var yes = true;
-                        if (!this.m_direction) {
-                            this.m_x = this.m_walls[i].Width
-                            break;
-                        }
-                        else {
-                            this.m_x = 680;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (this.m_edibleWalls.length > 0 && !screenChange) {
-                for (var i = 0; i < this.m_edibleWalls.length; i++) {
-                    if (charlieRect.Intersects(this.m_edibleWalls[i])) {
-                        var yes = true;
-                        if (!this.m_direction) {
-                            this.m_x = this.m_edibleWalls[i].Width
-                            break;
-                        }
-                        else {
-                            this.m_x = 680;
-                            break;
-                        }
-                    }
-                }
-            }
-
-
-            //if (mEdibleWalls.Count > 0) {
-            //    foreach(Rectangle edible in mEdibleWalls)
-            //        {
-            //        if (edible.IsEmpty && XPosition < 50) {
-            //            if (Yesod.screenCounter > 0) {
-            //                Yesod.screenCounter -= 1;
-            //                Yesod.belowScreenCounter -= 1;
-            //                XPosition = 740;
-
-            //            }
-            //            else {
-            //                Yesod.screenCounter = 15;
-            //                Yesod.belowScreenCounter = 15;
-            //                XPosition = 740;
-            //            }
-            //        }
-            //        else if (charlieRect.Intersects(edible)) {
-            //            if (mFacingLeft) {
-            //                XPosition = edible.Right - 19;
-            //                break;
-            //            }
-            //            else {
-            //                XPosition = 680;
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
-
             //if (mRoof.Count > 0) {
             //    foreach(Rectangle roof in mRoof)
             //        {
@@ -482,7 +448,6 @@ class Charlie extends BaseObject {
             //    }
             //}
 
-
             //if (mAlchiems.Count > 0) {
             //    foreach(Rectangle alchiem in mAlchiems)
             //            {
@@ -492,7 +457,6 @@ class Charlie extends BaseObject {
             //                    {
             //                        for (int j = 1; j < 10; j++)
             //                        {
-
             //                    if (mtoTheUndergound[i, j] == 22) {
             //                        // replace the alchiems with space
             //                        mtoTheUndergound[i, j] = 4;
@@ -512,11 +476,12 @@ class Charlie extends BaseObject {
     public set Y(value: number) { this.m_y = value; }
     public set ScreenCounter(value: number) { this.m_screenCounter = value; }
     public get ScreenCounter() { return this.m_screenCounter; }
-    public get Rectangle(): Rectangle { return new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height); }
+    public get Rectangle(): Rectangle { return new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "charlieRectangle"); }
 
     public set HoleRectangle1(value: Rectangle) { this.m_holeRectangle1 = value; }
     public set HoleRectangle2(value: Rectangle) { this.m_holeRectangle2 = value; }
 
+    public set Floor(value: Array<Rectangle>) { this.m_floor = value; }
     public set Ledges(value: Array<Rectangle>) { this.m_platforms = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
@@ -536,7 +501,7 @@ class Charlie extends BaseObject {
     //public get Jump(): boolean { return this.m_jump; }
     //public set Jump(value: boolean) { this.m_jump = value; }
 
-    public get JumpingUp():boolean{return this.m_jumpingUp; }
+    public get JumpingUp(): boolean { return this.m_jumpingUp; }
     public set JumpingUp(value: boolean) { this.m_jumpingUp = value; }
 
     public set JumpVal(value: number) {
@@ -544,7 +509,6 @@ class Charlie extends BaseObject {
             this.m_startYPosition = value;
         }
     }
-
 }
 
 export = Charlie;

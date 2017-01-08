@@ -27,7 +27,7 @@ class Bird extends Enemy {
             this.m_animTimer = 0;
         }
         var triggered = false;
-        this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height);
+        this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "bird");
         for (var i = 0; i < this.m_walls.length; i++) {
             if (this.m_birdRect.Intersects(this.m_walls[i]) && !triggered) {
                 triggered = true;

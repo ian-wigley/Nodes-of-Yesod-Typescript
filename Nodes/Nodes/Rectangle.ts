@@ -6,14 +6,16 @@
     private m_bottom: number;
     private m_width: number;
     private m_height: number;
+    private m_name: string;
 
-    constructor(left: number, top: number, right: number, bottom: number) {
+    constructor(left: number, top: number, right: number, bottom: number, name:string) {
         this.m_left = left;
         this.m_top = top;
         this.m_right = right;
         this.m_bottom = bottom;
         this.m_width = right + left;
         this.m_height = bottom + top;
+        this.m_name = name;
     }
 
     public get Left(): number {
@@ -40,6 +42,10 @@
         return this.m_height;
     }
 
+    public get Name() {
+        return this.m_name;
+    }
+
     Intersects(rect: Rectangle) {
 
         var wtf: Rectangle = this.FromLTRB(this.Left, this.Top, this.Right, this.Bottom);
@@ -55,7 +61,7 @@
 
     private FromLTRB(left: number, top: number, right: number, bottom: number) {
         //return new Rectangle(left, top, right, bottom);
-        return new Rectangle(left, top, right + left, bottom + top);
+        return new Rectangle(left, top, right + left, bottom + top, this.m_name);
     }
 }
 

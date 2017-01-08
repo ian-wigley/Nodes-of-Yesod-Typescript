@@ -31,7 +31,7 @@ class Nodes {
     private walkingEnemies: Array<Enemy> = new Array<Enemy>();
 
     //// Floor textures
-    private floor: Array<number>;
+    private floor: Array<Rectangle> = new Array<Rectangle>();
 
     ////Platforms & Ledges
     private platformz: Array<Rectangle> = new Array<Rectangle>();
@@ -455,22 +455,22 @@ class Nodes {
 
             // if there is a hole position the rectangle 
             if (this.resourceManager.Hole1[this.screenCounter] == 1) {
-                this.charlie.HoleRectangle1 = new Rectangle(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40);
+                this.charlie.HoleRectangle1 = new Rectangle(this.hole0X + 20, this.holesY + 20, 60, this.holesY + 40, "hole");
             }
 
             // other wise move it out of the way...
             else {
-                this.charlie.HoleRectangle1 = new Rectangle(0, 0, 0, 0);
+                this.charlie.HoleRectangle1 = new Rectangle(0, 0, 0, 0, "");
             }
 
             // if there is a hole position the rectangle 
             if (this.resourceManager.Hole2[this.screenCounter] == 1) {
-                this.charlie.HoleRectangle2 = new Rectangle(this.hole1X + 20, this.holesY + 20, 60, this.holesY + 40);
+                this.charlie.HoleRectangle2 = new Rectangle(this.hole1X + 20, this.holesY + 20, 60, this.holesY + 40, "hole");
             }
 
             // other wise move it out of the way...
             else {
-                this.charlie.HoleRectangle2 = new Rectangle(0, 0, 0, 0);
+                this.charlie.HoleRectangle2 = new Rectangle(0, 0, 0, 0, "");
             }
 
             if (this.charlie.Falling) {
@@ -687,6 +687,7 @@ class Nodes {
                 var width = 62;
                 var height = 48;
                 this.platformz = [];
+                this.floor = [];
                 this.walls = [];
                 this.edibleWalls = [];
 
@@ -707,25 +708,25 @@ class Nodes {
                             // Walls
                             case 0:
                                 this.ctx.drawImage(this.unGroundLedges, 0 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "wall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 1:
                                 this.ctx.drawImage(this.unGroundLedges, 1 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "wall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 2:
                                 this.ctx.drawImage(this.unGroundLedges, 2 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "wall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 3:
                                 this.ctx.drawImage(this.unGroundLedges, 3 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.walls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "wall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
@@ -735,44 +736,48 @@ class Nodes {
                             // Floor 
                             case 5:
                                 this.ctx.drawImage(this.unGroundLedges, 5 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
+                                this.floor.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break
 
                             case 6:
                                 this.ctx.drawImage(this.unGroundLedges, 6 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
+                                this.floor.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break
 
                             case 7:
                                 this.ctx.drawImage(this.unGroundLedges, 7 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
+                                this.floor.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break
 
                             case 8:
                                 this.ctx.drawImage(this.unGroundLedges, 8 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
+                                this.floor.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "floor"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break
 
                             // Ledges
                             case 9:
                                 this.ctx.drawImage(this.unGroundLedges, 9 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ledge"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 10:
                                 this.ctx.drawImage(this.unGroundLedges, 10 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ledge"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 11:
                                 this.ctx.drawImage(this.unGroundLedges, 11 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ledge"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
@@ -783,25 +788,25 @@ class Nodes {
                             // edible walls
                             case 15:
                                 this.ctx.drawImage(this.unGroundLedges, 15 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ediblewall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 16:
                                 this.ctx.drawImage(this.unGroundLedges, 16 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ediblewall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 17:
                                 this.ctx.drawImage(this.unGroundLedges, 17 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ediblewall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 18:
                                 this.ctx.drawImage(this.unGroundLedges, 18 * width, 0, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.edibleWalls.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "ediblewall"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
@@ -833,13 +838,15 @@ class Nodes {
                             // Diamond ledges 
                             case 25:
                                 this.ctx.drawImage(this.unGroundLedges, 5 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.floor.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "diamondledge"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
                             case 26:
                                 this.ctx.drawImage(this.unGroundLedges, 6 * width, height, 60, 48, width * jj, 50 + (height * ii), 60, 48);
-                                this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                //this.platformz.push(new Rectangle(width * jj, 50 + (height * ii), width, height));
+                                this.floor.push(new Rectangle(width * jj, 50 + (height * ii), width, height, "diamondledge"));
                                 if (this.debug) { this.DrawDebugRectangles(width * jj, 50 + (height * ii), width, height); }
                                 break;
 
@@ -857,6 +864,7 @@ class Nodes {
                 for (var i = 0; i < this.resourceManager.EnemyList.length; i++) {
                     this.resourceManager.EnemyList[i].Draw(this.ctx);
                 }
+                this.charlie.Floor = this.floor;
                 this.charlie.Ledges = this.platformz;
                 this.charlie.Walls = this.walls;
                 this.charlie.EdibleWalls = this.edibleWalls;
@@ -918,9 +926,10 @@ class Nodes {
 
     private clearAll(): void {
         this.enemies = [];
+        this.edibleWalls = [];
         this.walls = [];
         this.platformz = [];
-        this.edibleWalls = [];
+        this.walls = [];
         this.alchiems = [];
         //this.testList = [];
         //if (this.roof.length > 0) {

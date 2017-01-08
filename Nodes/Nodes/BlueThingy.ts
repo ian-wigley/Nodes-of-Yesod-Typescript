@@ -34,7 +34,7 @@ class BlueThingy extends Enemy {
 
 
         var triggered = false;
-        this.m_blueThingRect = new Rectangle(this.m_x + 10, this.m_y, 64, 64);
+        this.m_blueThingRect = new Rectangle(this.m_x + 10, this.m_y, 64, 64, "bluethingy");
         for (var i = 0; i < this.m_walls.length; i++) {
             if (this.m_blueThingRect.Intersects(this.m_walls[i]) && !triggered) {
                 triggered = true;

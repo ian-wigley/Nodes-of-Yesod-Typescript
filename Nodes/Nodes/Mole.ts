@@ -52,7 +52,7 @@ class Mole extends BaseObject {
         }
 
         var triggered = false;
-        this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height);
+        this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "mole");
         for (var i = 0; i < this.m_walls.length; i++) {
             if (this.m_moleRect.Intersects(this.m_walls[i]) && !triggered) {
                 triggered = true;
