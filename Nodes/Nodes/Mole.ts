@@ -11,12 +11,13 @@ class Mole extends BaseObject {
     private m_levels: number[][];
     private m_underground: boolean;
 
-    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean, screenInfo: ScreenInfo) {
+    //constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, levels: number[][], debug: boolean, screenInfo: ScreenInfo) {
+    constructor(xpos: number, ypos: number, speedx: number, texture: HTMLCanvasElement, walls: Array<Rectangle>, ediblewalls: Array<Rectangle>, platforms: Array<Rectangle>, debug: boolean, screenInfo: ScreenInfo) {
         super(texture, screenInfo);
         this.m_debug = debug;
         this.m_walls = walls;
         this.m_edibleWalls = ediblewalls;
-        this.m_levels = levels;
+        this.m_levels = [];//= levels;
         this.m_underground = false;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 11 * 69;
@@ -81,7 +82,7 @@ class Mole extends BaseObject {
                 var span = this.m_belowScreenCounter * 10;
                 for (var i = span; i < span + 13; i++) {
                     if (this.m_x < 100) {
-                        if (this.m_levels[i][1] == 15 || this.m_levels[i][1] == 17) {
+                        if (this.m_levels[i][1].toString() == "15" || this.m_levels[i][1].toString() == "17") {
                             // replace the edible walls with empty sections
                             this.m_levels[i][1] = 4;
                             if (this.m_screenCounter > 0) {
@@ -94,7 +95,7 @@ class Mole extends BaseObject {
                     }
                     else {
                         if (this.m_x > 650) {
-                            if (this.m_levels[i][12] == 16 || this.m_levels[i][12] == 18) {
+                            if (this.m_levels[i][12].toString() == "16" || this.m_levels[i][12].toString() == "18") {
                                 this.m_levels[i][12] = 4;
                             }
                         }
@@ -129,7 +130,8 @@ class Mole extends BaseObject {
     public set BelowScreenCounter(value: number) { this.m_belowScreenCounter = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
-    public set Underground(value: boolean) { this.m_underground = value;
-    }
+    public set Underground(value: boolean) { this.m_underground = value; }
+    public set Levels(value: number[][]) { this.m_levels = value; }
+    
 }
 export = Mole; 
