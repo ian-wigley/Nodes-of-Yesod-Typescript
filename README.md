@@ -4,4 +4,4 @@ This is an ongoing project to convert the C# XNA version of Nodes of Yesod remak
 
 The XNA Nodes of Yesod conversion of this great 8 bit platformer was started in 2010, unfortunately it was never completed.
 
-![](Nodes/Nodes TS.jpg)
+![](Nodes/Nodes-TS.jpg)
