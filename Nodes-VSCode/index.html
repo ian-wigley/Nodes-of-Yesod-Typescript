@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Nodes of Yesod Typescript</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+
+    <style>
+
+        @font-face { font-family: SpaceAge; src: url('space age.ttf'); } 
+        
+        /* * {cursor: none;} */
+
+        body {
+            background-color: black;
+        }
+
+        #container {
+            width: 1024px;
+            height: 768px;
+            border: 1px black;
+            margin: 0px auto;
+            text-align: center;
+        }
+
+        #canvas {
+            border: 1px black;
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="container">
+        <canvas id="canvas" width="800" height="600"></canvas>
+    </div>
+    <img id="FrontScreen" src="images/nodes_front_screen.png" style="display: none;" alt="sprites!" />
+    <img id="GameSprites" src="images/sprites.png" style="display: none;" alt="sprites!" />
+    <img id="GameTiles" src="images/tiles.png" style="display: none;" alt="sprites!" />
+    <img id="Panel" src="images/panel.png" style="display: none;" alt="panel!" />
+    <!-- <img id="MoonRocks" src="images/aboveground_tiles.png" style="display: none;" alt="sprites!" /> -->
+    <!-- <img id="UnGroundLedges" src="images/underground_tiles_small.png" style="display: none;" alt="sprites!" /> -->
+    <img id="Instructions" src="images/instructions.png" style="display: none;" alt="sprites!" />
+    
+    <script data-main="out/main.js" src="out/require.js"></script>
+
+</body>
+</html>

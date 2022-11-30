@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "amd",
+        "outDir": "out",
+        "sourceMap": true,
+        "allowJs": true,
+        "checkJs": false,
+        "strict": true,
+        "removeComments": true,
+    },
+  }
