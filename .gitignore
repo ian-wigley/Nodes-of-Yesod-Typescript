@@ -1,14 +1,4 @@
 *.map
-Nodes/Nodes/images/_sprites.PNG
-Nodes/Nodes/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-Nodes/Nodes/obj/Debug/Nodes.dll
-Nodes/Nodes/obj/Debug/Nodes.pdb
-Nodes/Nodes/bin/Nodes.dll
-Nodes/Nodes/bin/Nodes.pdb
-Nodes/Nodes/bin/Nodes.dll.config
-Nodes/Nodes/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-Nodes/Nodes/images/__sprites.PNG
-Nodes/Nodes/Screen.js
 Nodes-Vis_Studio/Nodes/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 Nodes-Vis_Studio/Nodes/obj/Debug/Nodes.csproj.FileListAbsolute.txt
 Nodes-Vis_Studio/Nodes/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
@@ -16,3 +6,4 @@ Nodes-Vis_Studio/Nodes/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-
 Nodes-Vis_Studio/Nodes/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
 Nodes-VSCode/out/
 Nodes-VSCodeBackups/
+Nodes-VSCode/images/bitmapFont.PNG
