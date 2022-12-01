@@ -17,7 +17,7 @@ class Bird extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "Bird";
         this.m_x = 180;
-        this.m_y = 420;
+        this.m_y = y;
         this.m_width = 34;//64
         this.m_height = 64;
         this.m_speed = 1;
