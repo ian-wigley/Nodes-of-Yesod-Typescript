@@ -31,7 +31,7 @@ class Nodes {
 
     // Enemies
     private enemies: Array<Enemy> = [];
-    private walkingEnemies: Array<Enemy> = new Array<Enemy>();
+    private walkingEnemies!: Enemy; //: Array<Enemy> = new Array<Enemy>();
 
     // Platforms & Ledges
     private platforms: Array<Rectangle> = new Array<Rectangle>();
@@ -108,7 +108,7 @@ class Nodes {
 
     private scrollText: string = "NODES OF YESOD REMAKE        CATCH A MOLE,  FIND A HOLE,  JUMP RIGHT DOWN,  AND START TO ROLL.  WHAT YOU DO IS FIND A CLUE,  OF RED, MAGENTA, GREEN OR BLUE.  TAKE SOME TIME,  DESCEND AND CLIMB,  GO AND FIND THE RÿGHT ALCHIEMS.  THE TASK IS PLAIN,  WITH EÿGHT THE SAME,  SEEK THE MONOLITH AND THATS THE GAME.      CTRL TO ABORT GAME      RETURN TO PAUSE THE GAME   ";
 
-    private debug: boolean = false;
+    private debug: boolean = true;
     private upScreen: boolean = false;
 
     private row: number = 0;
@@ -157,11 +157,6 @@ class Nodes {
         this.rocket = new Rocket(this.gameSprites, this.screenInfo);
         this.star = new Star();
         this.explosion = new Explosion(this.gameSprites, this.screenInfo);
-
-
-        let bird = new Bird(300, 366, 1, this.gameSprites, this.walls, this.screenInfo);
-        this.walkingEnemies.push(bird);
-        // this.resourceManager.AddToEnemyList(bird);
 
         this.stars = new Array<Star>();
         for (let j = 0; j < 40; j++) {
@@ -272,8 +267,8 @@ class Nodes {
                 this.column -= 16;
                 this.charlie.Falling = false;
                 break;
-            case "x":
-            case "X":
+            case "z":
+            case "Z":
                 this.column += 16;
                 this.charlie.Falling = false;
                 break;
@@ -307,15 +302,18 @@ class Nodes {
         requestAnimationFrame(this.Update.bind(this));
 
         if (this.gameState == gameMode.GAME_ON || this.gameState == gameMode.GAME_PAUSED) {
-
             this.UpdateCharlie();
-            this.UpdateScreen();
+            this.UpdateHorizontalScreens();
+            this.UpdateVerticalScreens();
+            this.UpdateScreenCounter();
             this.screen = this.resourceManager.getScreenTiles(this.screenCounter);
 
             if (this.screen != undefined) {
                 this.rects = this.screen.rectangleList;
+                this.walkingEnemies = this.screen.enemies;
                 // To-do rename this !!
                 this.charlie.Plats = this.rects;
+
                 if (this.screen.name.includes("AboveMoon")) {
                     if (this.charlie.Falling) {
                         this.charlie.Y += this.charlie.GetVelocityY(2);
@@ -328,57 +326,13 @@ class Nodes {
                     this.CheckIfMoleIsCaught();
                 }
                 else if (this.screen.name.includes("BelowMoon")) {
-                    if (this.charlie.Falling) {
-                        this.charlie.Y += this.charlie.GetVelocityY(4);
-                        // stop the trigger when jumping up and down...
-                        if (this.charlie.Y >= 430 && !this.charlie.JumpingUp) {
-                            this.charlie.Y = 20;
-                            this.charlie.Walking = false;
-                            this.column += 16;
-                            this.clearAll();
-                            this.resourceManager.ConfigureEnemies(this.rects);
-                        }
-                        // // if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
-                        // if (this.charlie.Y <= 15 && this.screenCounter > 15) {
-                        //     this.charlie.Y = 400;
-                        //     // this.belowScreenCounter -= 16;
-                        //     this.screenCounter -= 16;
-                        //     //this.charlie.Jump = false;
-                        //     this.clearAll();
-                        // }
-                    }
-                    // if (!this.charlie.Falling) {
-                    //     // if (this.charlie.Y <= 15 && this.belowScreenCounter > 15) {
-                    //     if (this.charlie.Y <= 15 && this.screenCounter > 15) {
-                    //         this.charlie.Y = 400;
-                    //         // this.belowScreenCounter -= 16;
-                    //         this.screenCounter -= 16;
-                    //         //this.charlie.Jump = false;
-                    //         this.clearAll();
-                    //     }
-                    // }
-
-                    // // Allow us to jump out from under the moon surface
-                    // //if (this.charlie.Jump && this.charlie.Y < 10 && this.belowScreenCounter < 15) {
-                    // // if (this.charlie.JumpingUp && this.charlie.Y < 10 && this.belowScreenCounter < 15) {
-                    // if (this.charlie.JumpingUp && this.charlie.Y < 10 && this.screenCounter < 15) {
-                    //     this.charlie.Falling = false;
-                    //     this.charlie.Walking = false;
-                    //     // this.belowMoon = false;
-                    //     this.charlie.Y = 320;
-                    //     this.clearAll();
-                    //     //this.belowScreenCounter = 0;
-                    //     //this.resourceManager.ConfigureEnemies(this.belowScreenCounter);
-                    // }
-
+                    this.UpdateVerticalScreens();
                     this.UpdateEnemies();
-
                     if (this.explosion.Active) {
                         this.explosion.Update();
                     }
-
                 }
-  
+
                 this.rocket.Update();
                 this.UpdateGameTimer();
                 this.UpdateCharlieSeated();
@@ -414,6 +368,47 @@ class Nodes {
         }
 
         this.charlie.Update(charlieValue);
+    }
+
+    /**
+     * Update the screen depending upon Charlie's X position.
+    */
+    private UpdateVerticalScreens(): void {
+        if (this.charlie.Falling) {
+            this.charlie.Y += this.charlie.GetVelocityY(2);
+            if (this.charlie.Y >= 430 && !this.charlie.JumpingUp) {
+                this.charlie.Y = 20;
+                this.charlie.Walking = false;
+                this.column += 16;
+                this.clearAll();
+                // Recalculate the screen counter & get the screen & walking enemies
+                this.UpdateScreenCounter();
+                this.screen = this.resourceManager.getScreenTiles(this.screenCounter);
+                this.walkingEnemies = this.screen.enemies;
+                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies);
+            }
+
+            // To-do Fix ! It gets triggered throughout the entire somersault
+            if (this.charlie.Y <= 15 && !this.upScreen) {
+                // this.charlie.Y = 400;
+                this.column -= 16;
+                this.upScreen = true;
+                // this.clearAll();
+            }
+
+            // if (this.charlie.Y <= 15 && this.column > 15) {
+            //     this.charlie.Y = 400;
+            //     this.column -= 16;
+            //     this.clearAll();
+            // }
+        }
+    }
+
+    /**
+     * Update the screen depending upon Charlie's X position.
+     */
+    private UpdateScreenCounter(): void {
+        this.screenCounter = this.row + this.column;
     }
 
     private UpdateEnemies(): void {
@@ -476,10 +471,10 @@ class Nodes {
     }
 
     /**
-     * Update the screen depending upon Charlie's X & Y positions.
+     * Update the screen depending upon Charlie's X position.
      */
-    private UpdateScreen(): void {
-        if (this.charlie.X < 5) {//50
+    private UpdateHorizontalScreens(): void {
+        if (this.charlie.X < 5) {
             if (this.row > 0) {
                 this.row = (this.row - 1) % 15;
             }
@@ -488,66 +483,15 @@ class Nodes {
             }
             this.charlie.X = 680;
         }
-        if (this.charlie.X > 750) { //770
+        if (this.charlie.X > 750) {
             if (this.row < 15) {
                 this.row += 1;
             }
             else {
                 this.row = 0;
             }
-            //screenCounter = (screenCounter + 1) % 15;
-            this.charlie.X = 10;//100;
+            this.charlie.X = 10;
         }
-
-        // if (this.charlie.X < 40) {//50
-        //     if (this.screenCounter > 0) {
-        //         this.screenCounter = (this.screenCounter - 1) % 15;
-        //     }
-        //     else {
-        //         this.screenCounter = 15;
-        //     }
-        //     this.charlie.X = 680;
-        // }
-        // if (this.charlie.X > 770) {
-        //     if (this.screenCounter < 15) {
-        //         this.screenCounter += 1;
-        //     }
-        //     else {
-        //         this.screenCounter = 0;
-        //     }
-        //     //screenCounter = (screenCounter + 1) % 15;
-        //     this.charlie.X = 100;
-        // }
-
-        if (this.charlie.Falling) {
-            if (this.charlie.Y < 12) {
-                this.resourceManager.ConfigureEnemies(this.rects);
-            }
-            // this.charlie.Y += 2;
-            // stop the trigger when jumping up and down...
-            if (this.charlie.Y >= 430 && !this.charlie.JumpingUp) {
-                this.charlie.Y = 20;
-                this.charlie.Walking = false;
-                this.column += 16;
-                this.clearAll();
-                // this.resourceManager.ConfigureEnemies(this.belowScreenCounter);
-            }
-
-            // To-do Fix ! It gets triggered throughout the entire somersault
-            if (this.charlie.Y <= 15 && !this.upScreen) {
-                // this.charlie.Y = 400;
-                this.column -= 16;
-                this.upScreen = true;
-                // this.clearAll();
-            }
-
-            // if (this.charlie.Y <= 15 && this.column > 15) {
-            //     this.charlie.Y = 400;
-            //     this.column -= 16;
-            //     this.clearAll();
-            // }
-        }
-        this.screenCounter = this.row + this.column;
     }
 
     private UpdateCharlieWithUserInput(charlieValue: number): number {
