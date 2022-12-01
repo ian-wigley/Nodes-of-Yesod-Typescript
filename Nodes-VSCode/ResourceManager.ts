@@ -17,23 +17,13 @@ import WhirlWind = require("WhirlWind");
 import WoodLouse = require("WoodLouse");
 
 
-// To-do ->() {
-// https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
-//}
-
-
 class ResourceManager {
     private m_sprites: HTMLCanvasElement;
     private m_walls: Array<Rectangle>;
     private m_enemies: Array<Enemy> = [];
-
-
     private m_screen: ScreenInfo;
     private m_leveldata: LevelData;
-
     private jsonTiles: any = [];
-
-
 
     constructor(
         gameSprites: HTMLCanvasElement,
@@ -45,9 +35,7 @@ class ResourceManager {
         mole: Mole
     ) {
         this.m_leveldata = new LevelData();
-
         this.LoadJSON();
-
         this.m_sprites = gameSprites;
         this.m_enemies = enemies;
         this.m_walls = walls;
@@ -69,7 +57,6 @@ class ResourceManager {
                     levels = rawFile.responseText;
                     jsonLevels = JSON.parse(levels);
                     jsonLevels.forEach(function (tile: Tile) {
-                        // console.log(tile.name);
                         _this.jsonTiles.push(tile);
                     });
                 }
@@ -82,32 +69,37 @@ class ResourceManager {
         };
     }
 
-    public ConfigureEnemies(rectangles: any): void {
+    private GetEnemy(name: string) {
+        if (name == "Bird") {
+            return Bird;
+        }
+    }
+
+    public ConfigureEnemies(rectangles: any, enemy: any): void {
         this.m_enemies = [];
-        for (var j = 0; j < 3; j++) {
+
+        // To-do loop through array
+        let en = enemy[0];
+        if (en != undefined) {
+            let obj: any = this.GetEnemy(en.name);
+            this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen));
+        }
+
+        for (let j = 0; j < 3; j++) {
             let floatingEnemies = Math.ceil(Math.random() * 6);
             switch (floatingEnemies) {
                 case 1:
-                    // this.m_enemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, this.m_walls, this.m_screen));
+                case 4:
                     this.m_enemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, rectangles, this.m_screen));
                     break;
                 case 2:
-                    this.m_enemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, this.m_walls, this.m_screen));
-                    break;
-                case 3:
-                    // this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, this.m_walls, this.m_screen));
-                    this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen));
-                    break;
-                case 4:
-                    // this.m_enemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, this.m_walls, this.m_screen));
-                    this.m_enemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, rectangles, this.m_screen));
-                    break;
                 case 5:
                     this.m_enemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, this.m_walls, this.m_screen));
                     break;
-                case 6:
+                 case 6:
                     this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen));
-                    // this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, this.m_walls, this.m_screen));
+                    break;
+                default:
                     break;
             }
         }
@@ -116,12 +108,11 @@ class ResourceManager {
     public AddToEnemyList(value: Enemy): void {
         this.m_enemies.push(value);
     }
-    public ClearEnemies():void{
+    public ClearEnemies(): void {
         this.m_enemies = [];
     }
     public get EnemyList(): Array<Enemy> { return this.m_enemies; }
     public get Levels(): number[][] { return this.m_leveldata.Levels; }
-    // public set Walking(value: boolean) { this.m_walkingOnFloor = value; }
 
     // Return the collection of tiles.
     public getScreenTiles(num: number): Tile {
