@@ -9104,7 +9104,7 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [{"name":"Fish", "x":300, "y":410, "speed":1}],
         "edibleWall": [],
         "screenCounter": 35,
         "name": "BelowMoonScreen19",
