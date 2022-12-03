@@ -73,6 +73,9 @@ class ResourceManager {
         if (name == "Bird") {
             return Bird;
         }
+        if (name == "Fish") {
+            return Fish;
+        }
     }
 
     public ConfigureEnemies(rectangles: any, enemy: any): void {
