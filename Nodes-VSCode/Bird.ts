@@ -79,7 +79,6 @@ class Bird extends Enemy {
 
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
         if (!this.m_facingLeft) {
             ctx.drawImage(this.m_texture, (this.m_frame + 4) * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }

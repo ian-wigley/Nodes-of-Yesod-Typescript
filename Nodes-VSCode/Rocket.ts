@@ -26,7 +26,6 @@ class Rocket extends BaseObject {
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
         ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
     }
 

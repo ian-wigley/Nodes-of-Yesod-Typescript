@@ -33,11 +33,6 @@ class Earth extends BaseObject {
             ctx.fillStyle = "yellow";
             ctx.fillText("Earth Frame :" + this.m_frame, 600, 100);
         }
-        //ctx.beginPath();
-        //ctx.lineWidth = 1;
-        //ctx.strokeStyle = "green";
-        //ctx.rect(this.m_x, this.m_y, this.m_width, this.m_height);
-        //ctx.stroke();
     }
 }
 

@@ -25,7 +25,6 @@ class WoodLouse extends Enemy {
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
         ctx.drawImage(this.m_texture, (this.m_frame + 4)* 64, 7 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 }

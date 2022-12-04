@@ -38,7 +38,7 @@ class Enemy extends BaseObject {
         this.m_turning = false;
     }
 
-    public Update(): void { }
+    public Update(): void {}
 
     public get Name(): string { return this.m_name; }
     // public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
