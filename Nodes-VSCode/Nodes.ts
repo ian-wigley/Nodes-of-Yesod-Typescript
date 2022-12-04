@@ -6,9 +6,6 @@
     DISPLAY_HELP,
 }
 
-import BlueThingy = require("BlueThingy");
-import Bird = require("Bird");
-import ChasingEnemy = require("ChasingEnemy");
 import Charlie = require("Charlie");
 import Earth = require("Earth");
 import Enemy = require("Enemy");
@@ -19,7 +16,6 @@ import Rectangle = require("Rectangle");
 import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
 import ScreenInfo = require("ScreenInfo");
-import SpringBear = require("SpringBear");
 import Star = require("Star");
 
 class Nodes {
@@ -110,6 +106,7 @@ class Nodes {
 
     private debug: boolean = true;
     private upScreen: boolean = false;
+    private screenChange: boolean = false;
 
     private row: number = 0;
     private column: number = 0;
@@ -306,7 +303,13 @@ class Nodes {
             this.UpdateHorizontalScreens();
             this.UpdateVerticalScreens();
             this.UpdateScreenCounter();
+
             this.screen = this.resourceManager.getScreenTiles(this.screenCounter);
+            if (this.screenChange && this.screen.name.includes("BelowMoon")) {
+                this.walkingEnemies = this.screen.enemies;
+                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies);
+                this.screenChange = false;
+            }
 
             if (this.screen != undefined) {
                 this.rects = this.screen.rectangleList;
@@ -482,6 +485,7 @@ class Nodes {
                 this.row = 15;
             }
             this.charlie.X = 680;
+            this.screenChange = true;
         }
         if (this.charlie.X > 750) {
             if (this.row < 15) {
@@ -491,6 +495,7 @@ class Nodes {
                 this.row = 0;
             }
             this.charlie.X = 10;
+            this.screenChange = true;
         }
     }
 
