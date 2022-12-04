@@ -70,11 +70,26 @@ class ResourceManager {
     }
 
     private GetEnemy(name: string) {
+        if (name == "Alf") {
+            return Alf;
+        }
         if (name == "Bird") {
             return Bird;
         }
+        if (name == "Caterpillar") {
+            return Caterpillar;
+        }
         if (name == "Fish") {
             return Fish;
+        }
+        if (name == "GreenMeanie") {
+            return GreenMeanie;
+        }
+        if (name == "Plant") {
+            return Plant;
+        }
+        if (name == "WoodLouse") {
+            return WoodLouse;
         }
     }
 
@@ -82,12 +97,13 @@ class ResourceManager {
         this.m_enemies = [];
 
         // To-do loop through array
-        let en = enemy[0];
-        if (en != undefined) {
-            let obj: any = this.GetEnemy(en.name);
-            this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen));
+        if (enemy != undefined) {
+            let en = enemy[0];
+            if (en != undefined) {
+                let obj: any = this.GetEnemy(en.name);
+                this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen));
+            }
         }
-
         for (let j = 0; j < 3; j++) {
             let floatingEnemies = Math.ceil(Math.random() * 6);
             switch (floatingEnemies) {
@@ -99,7 +115,7 @@ class ResourceManager {
                 case 5:
                     this.m_enemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, this.m_walls, this.m_screen));
                     break;
-                 case 6:
+                case 6:
                     this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen));
                     break;
                 default:
