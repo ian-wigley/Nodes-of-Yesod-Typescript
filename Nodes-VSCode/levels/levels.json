@@ -6269,7 +6269,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Plant", "x":300, "y":100, "speed":1}],
+        "enemies": [
+            {
+                "name": "Plant",
+                "x": 300,
+                "y": 100,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 27,
         "name": "BelowMoonScreen11",
@@ -7157,7 +7164,14 @@
                 "bottom": 50
             }
         ],
-        "enemies": [{"name":"GreenMeanie", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "GreenMeanie",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 29,
         "name": "BelowMoonScreen13",
@@ -7471,7 +7485,14 @@
                 "bottom": 50
             }
         ],
-        "enemies": [{"name":"Caterpillar", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Caterpillar",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 30,
         "name": "BelowMoonScreen14",
@@ -9104,7 +9125,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Fish", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 35,
         "name": "BelowMoonScreen19",
@@ -9442,7 +9470,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Fish", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 36,
         "name": "BelowMoonScreen20",
@@ -10349,7 +10384,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"GreenMeanie", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "GreenMeanie",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 39,
         "name": "BelowMoonScreen23",
@@ -13421,7 +13463,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"WoodLouse", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "WoodLouse",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 49,
         "name": "BelowMoonScreen33",
@@ -14813,7 +14862,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Fish", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 52,
         "name": "BelowMoonScreen36",
@@ -15460,7 +15516,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Plant", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Plant",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 54,
         "name": "BelowMoonScreen38",
@@ -16228,7 +16291,14 @@
                 "bottom": 50
             }
         ],
-        "enemies": [{"name":"Plant", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Plant",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 56,
         "name": "BelowMoonScreen40",
@@ -18119,7 +18189,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"WoodLouse", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "WoodLouse",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 61,
         "name": "BelowMoonScreen45",
@@ -18959,7 +19036,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"GreenMeanie", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "GreenMeanie",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 63,
         "name": "BelowMoonScreen47",
@@ -19396,7 +19480,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Bird", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Bird",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 64,
         "name": "BelowMoonScreen48",
@@ -20291,7 +20382,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [{"name":"Alf", "x":300, "y":410, "speed":1}],
+        "enemies": [
+            {
+                "name": "Alf",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 66,
         "name": "BelowMoonScreen50",
@@ -24818,7 +24916,26 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "GreenMeanie",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            },
+            {
+                "name": "Plant",
+                "x": 200,
+                "y": 100,
+                "speed": 1
+            },
+            {
+                "name": "Plant",
+                "x": 400,
+                "y": 100,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 79,
         "name": "BelowMoonScreen63",
@@ -30574,6 +30691,12 @@
     {
         "rectangleList": [
             {
+                "left": 745,
+                "top": 30,
+                "right": 40,
+                "bottom": 490
+            },
+            {
                 "left": 0,
                 "top": 470,
                 "right": 630,
@@ -31471,7 +31594,14 @@
         ]
     },
     {
-        "rectangleList": [],
+        "rectangleList": [
+            {
+                "left": 745,
+                "top": 30,
+                "right": 40,
+                "bottom": 490
+            }
+        ],
         "enemies": [],
         "edibleWall": [],
         "screenCounter": 98,
