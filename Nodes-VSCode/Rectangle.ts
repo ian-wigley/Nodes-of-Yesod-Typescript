@@ -9,13 +9,15 @@
     private x: number;
     private y: number;
     private m_name?: string;
+    private m_tileIds?: Array<number>;
 
     constructor(
         x: number,
         y: number,
         width: number,
         height: number,
-        name?: string
+        name?: string,
+        tileIds?: Array<number>
     ) {
         this.x = x;
         this.y = y;
@@ -26,6 +28,7 @@
         this.m_left = x;
         this.m_right = x + width;
         this.m_name = name;
+        this.m_tileIds = tileIds;
     }
 
     public get left(): number {
@@ -64,6 +67,10 @@
 
     public get Name() {
         return this.m_name;
+    }
+
+    public get tileIds(){
+        return this.m_tileIds;
     }
 
     public Intersects(rectangle: Rectangle): boolean {
