@@ -134,8 +134,17 @@ class ResourceManager {
     public get Levels(): number[][] { return this.m_leveldata.Levels; }
 
     // Return the collection of tiles.
-    public getScreenTiles(num: number): Tile {
+    public GetScreenTiles(num: number): Tile {
         return this.jsonTiles[num];
+    }
+
+    /**
+     * Method to turn of sections of wall eaten by the mole
+     */
+    public TurnOffEdibleWallChunks(num: number, ids?: Array<number>): void {
+        if (ids != undefined) {
+            ids.forEach(t => { this.jsonTiles[num].tiles[t]._drawable = false; });
+        }
     }
 }
 export = ResourceManager;
