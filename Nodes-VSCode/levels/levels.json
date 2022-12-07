@@ -19453,7 +19453,7 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 745,
@@ -19488,7 +19488,15 @@
                 "speed": 1
             }
         ],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds" : [16, 18]
+            }
+        ],
         "screenCounter": 64,
         "name": "BelowMoonScreen48",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -19670,7 +19678,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -19692,7 +19701,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1054,
                 "sy": 0,
                 "sw": 62,
