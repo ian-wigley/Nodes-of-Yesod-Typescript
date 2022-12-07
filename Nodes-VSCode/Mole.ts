@@ -1,6 +1,7 @@
 ﻿import BaseObject = require("BaseObject");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
+import ResourceManager = require("./ResourceManager");
 
 class Mole extends BaseObject {
 
@@ -10,6 +11,7 @@ class Mole extends BaseObject {
     private m_undergroundScreenCounter: number = 0;
     private m_levels: number[][];
     private m_underground: boolean;
+    private m_resourceManager: ResourceManager;
 
     constructor(
         x: number,
@@ -19,7 +21,8 @@ class Mole extends BaseObject {
         walls: Array<Rectangle>,
         edibleWalls: Array<Rectangle>,
         platforms: Array<Rectangle>,
-        screenInfo: ScreenInfo
+        screenInfo: ScreenInfo,
+        resourceManager: ResourceManager
     ) {
         super(texture, screenInfo);
         this.m_walls = walls;
@@ -31,6 +34,7 @@ class Mole extends BaseObject {
         this.m_width = 40;
         this.m_height = 40;
         this.m_name = "Mole";
+        this.m_resourceManager = resourceManager;
     }
 
     public Update(): void {
@@ -61,7 +65,7 @@ class Mole extends BaseObject {
             this.m_y += 4;
         }
 
-        var triggered = false;
+        let triggered = false;
         this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "mole");
         for (var i = 0; i < this.m_walls.length; i++) {
             if (this.m_moleRect.Intersects(this.m_walls[i]) && !triggered) {
@@ -78,28 +82,35 @@ class Mole extends BaseObject {
         for (var i = 0; i < this.m_edibleWalls.length; i++) {
             if (this.m_moleRect.Intersects(this.m_edibleWalls[i]) && !triggered) {
                 triggered = true;
-                var span = this.m_belowScreenCounter * 10;
-                for (var i = span; i < span + 13; i++) {
-                    if (this.m_x < 100) {
-                        if (this.m_levels[i][1].toString() == "15" || this.m_levels[i][1].toString() == "17") {
-                            // replace the left edible walls with empty sections
-                            this.m_levels[i][1] = 4;
-                            if (this.m_screenCounter > 0) {
-                                this.m_levels[(i - 10)][12] = 4;
-                            }
-                            else {
-                                this.m_levels[(i + 150)][12] = 4;
-                            }
-                        }
-                    }
-                    else {
-                        if (this.m_x > 650) {
-                            if (this.m_levels[i][12].toString() == "16" || this.m_levels[i][12].toString() == "18") {
-                                this.m_levels[i][12] = 4;
-                            }
-                        }
-                    }
-                }
+                // Get the identifier numbers that relate to the tiles to turn off
+                let t = this.m_edibleWalls[i].tileIds;
+
+                this.m_resourceManager.TurnOffEdibleWallChunks(this.m_screenCounter, t);
+
+
+                // this.m_edibleWalls = [];
+                // var span = this.m_belowScreenCounter * 10;
+                // for (var i = span; i < span + 13; i++) {
+                //     if (this.m_x < 100) {
+                //         if (this.m_levels[i][1].toString() == "15" || this.m_levels[i][1].toString() == "17") {
+                //             // replace the left edible walls with empty sections
+                //             this.m_levels[i][1] = 4;
+                //             if (this.m_screenCounter > 0) {
+                //                 this.m_levels[(i - 10)][12] = 4;
+                //             }
+                //             else {
+                //                 this.m_levels[(i + 150)][12] = 4;
+                //             }
+                //         }
+                //     }
+                //     else {
+                //         if (this.m_x > 650) {
+                //             if (this.m_levels[i][12].toString() == "16" || this.m_levels[i][12].toString() == "18") {
+                //                 this.m_levels[i][12] = 4;
+                //             }
+                //         }
+                //     }
+                // }
             }
         }
     }
@@ -132,11 +143,9 @@ class Mole extends BaseObject {
     public get Y(): number { return this.m_y; }
     public set Y(value: number) { this.m_y = value; }
     public set ScreenCounter(value: number) { this.m_screenCounter = value; }
-    public set BelowScreenCounter(value: number) { this.m_belowScreenCounter = value; }
+    public set Underground(value: boolean) { this.m_underground = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
-    public set Underground(value: boolean) { this.m_underground = value; }
-    public set Levels(value: number[][]) { this.m_levels = value; }
 
 }
 export = Mole; 
