@@ -145,8 +145,8 @@ class Nodes {
         this.keyboard = new KeyBoard();
         this.screenInfo = new ScreenInfo(this.canvas.width, this.canvas.height);
 
-        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platforms, this.screenInfo);
         this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platforms, this.ctx, this.screenInfo, this.mole);
+        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platforms, this.screenInfo, this.resourceManager);
 
         // Create the Actors
         this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platforms, this.screenInfo);
@@ -304,7 +304,7 @@ class Nodes {
             this.UpdateVerticalScreens();
             this.UpdateScreenCounter();
 
-            this.screen = this.resourceManager.getScreenTiles(this.screenCounter);
+            this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
             if (this.screenChange && this.screen.name.includes("BelowMoon")) {
                 this.walkingEnemies = this.screen.enemies;
                 this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies);
@@ -314,6 +314,7 @@ class Nodes {
             if (this.screen != undefined) {
                 this.rects = this.screen.rectangleList;
                 this.walkingEnemies = this.screen.enemies;
+                this.edibleWalls = this.screen.edibleWall;
                 // To-do rename this !!
                 this.charlie.Plats = this.rects;
 
@@ -386,7 +387,7 @@ class Nodes {
                 this.clearAll();
                 // Recalculate the screen counter & get the screen & walking enemies
                 this.UpdateScreenCounter();
-                this.screen = this.resourceManager.getScreenTiles(this.screenCounter);
+                this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
                 this.walkingEnemies = this.screen.enemies;
                 this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies);
             }
@@ -417,7 +418,6 @@ class Nodes {
     private UpdateEnemies(): void {
         for (const enemy of this.resourceManager.EnemyList) {
             enemy.Update();
-            // this.resourceManager.EnemyList[i].Walls = this.walls;
 
             if (enemy.Name == "ChasingEnemy") {
                 enemy.CharlieX = this.charlie.X;
@@ -567,8 +567,10 @@ class Nodes {
         if (this.gameState == gameMode.DISPLAY_HELP) { this.DisplayMenuInformation(); }
         if (this.gameState == gameMode.GAME_ON) {
             if (this.screen != undefined) {
-                this.screen.tiles.forEach((a: { sx: number; sy: number; sw: number; sh: number; dx: number; dy: number; dw: number; dh: number; }) => {
-                    this.ctx.drawImage(this.tiles, a.sx, a.sy, a.sw, a.sh, a.dx, a.dy, a.dw, a.dh)
+                this.screen.tiles.forEach((a: { _drawable?: boolean, sx: number; sy: number; sw: number; sh: number; dx: number; dy: number; dw: number; dh: number; }) => {
+                    if (a._drawable == undefined || a._drawable)  {
+                        this.ctx.drawImage(this.tiles, a.sx, a.sy, a.sw, a.sh, a.dx, a.dy, a.dw, a.dh)
+                    }
                 });
                 if (this.screen.name.includes("AboveMoon")) {
                     this.stars.forEach((star: Star) => { star.Draw(this.ctx) });
@@ -582,6 +584,9 @@ class Nodes {
                 }
                 if (this.debug) {
                     this.rects.forEach((element: Rectangle) => {
+                        this.DrawDebugRectangles(element.left, element.top, element.right, element.bottom);
+                    });
+                    this.edibleWalls.forEach((element: Rectangle) => {
                         this.DrawDebugRectangles(element.left, element.top, element.right, element.bottom);
                     });
                 }
@@ -614,7 +619,8 @@ class Nodes {
 
     private DrawHud(): void {
         if (this.moleAlive) {
-            this.mole.Walls = this.walls;
+            this.
+            mole.Walls = this.screen.tiles;//this.walls;
             this.mole.EdibleWalls = this.edibleWalls;
             this.mole.ScreenCounter = this.screenCounter;
             this.mole.Draw(this.ctx);
