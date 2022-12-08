@@ -231,6 +231,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 1,
         "name": "AboveMoonScreen1",
         "tiles": [
@@ -418,6 +419,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 2,
         "name": "AboveMoonScreen2",
         "tiles": [
@@ -611,6 +613,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 3,
         "name": "AboveMoonScreen3",
         "tiles": [
@@ -815,6 +818,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 4,
         "name": "AboveMoonScreen4",
         "tiles": [
@@ -1002,6 +1006,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 5,
         "name": "AboveMoonScreen5",
         "tiles": [
@@ -1189,6 +1194,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 6,
         "name": "AboveMoonScreen6",
         "tiles": [
@@ -1376,6 +1382,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 7,
         "name": "AboveMoonScreen7",
         "tiles": [
@@ -1569,6 +1576,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 8,
         "name": "AboveMoonScreen8",
         "tiles": [
@@ -1767,6 +1775,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 9,
         "name": "AboveMoonScreen9",
         "tiles": [
@@ -1960,6 +1969,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 10,
         "name": "AboveMoonScreen10",
         "tiles": [
@@ -2158,6 +2168,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 11,
         "name": "AboveMoonScreen11",
         "tiles": [
@@ -2345,6 +2356,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 12,
         "name": "AboveMoonScreen12",
         "tiles": [
@@ -2538,6 +2550,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 13,
         "name": "AboveMoonScreen13",
         "tiles": [
@@ -2725,6 +2738,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 14,
         "name": "AboveMoonScreen14",
         "tiles": [
@@ -2912,6 +2926,7 @@
                 "bottom": 100
             }
         ],
+        "edibleWall": [],
         "screenCounter": 15,
         "name": "AboveMoonScreen15",
         "tiles": [
@@ -4218,7 +4233,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -4229,7 +4245,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1054,
                 "sy": 0,
                 "sw": 62,
@@ -6613,7 +6630,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -7155,7 +7173,7 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 0,
@@ -7172,7 +7190,23 @@
                 "speed": 1
             }
         ],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    10,
+                    12
+                ],
+                "otherScreen": 79,
+                "otherTiles": [
+                    30,
+                    33
+                ]
+            }
+        ],
         "screenCounter": 29,
         "name": "BelowMoonScreen13",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -7288,7 +7322,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1054,
                 "sy": 0,
                 "sw": 62,
@@ -7310,7 +7345,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -8410,7 +8446,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -8621,7 +8658,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -12061,7 +12099,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -14194,7 +14233,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -16624,7 +16664,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -19494,7 +19535,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [16, 18]
+                "tileIds": [
+                    16,
+                    18
+                ],
+                "otherScreen": 79,
+                "otherTiles": [
+                    30,
+                    33
+                ]
             }
         ],
         "screenCounter": 64,
@@ -20626,7 +20675,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -20637,7 +20687,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1054,
                 "sy": 0,
                 "sw": 62,
@@ -22189,7 +22240,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -23405,7 +23457,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -24803,7 +24856,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -25282,7 +25336,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": false,
                 "sx": 992,
                 "sy": 0,
                 "sw": 62,
@@ -25315,7 +25370,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": false,
                 "sx": 1116,
                 "sy": 0,
                 "sw": 62,
@@ -33667,7 +33723,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -34149,7 +34206,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -35620,7 +35678,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -37504,7 +37563,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -40655,7 +40715,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -43504,7 +43565,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -50417,7 +50479,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -51092,7 +51155,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -54556,7 +54620,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -58172,7 +58237,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -58565,7 +58631,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -59073,7 +59140,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -59658,7 +59726,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -61766,7 +61835,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -62502,7 +62572,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -63348,7 +63419,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -68795,7 +68867,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -69596,7 +69669,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -72761,7 +72835,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -73585,7 +73660,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -79817,7 +79893,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -80254,7 +80331,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -80558,7 +80636,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
@@ -83128,7 +83207,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 930,
                 "sy": 0,
                 "sw": 62,
