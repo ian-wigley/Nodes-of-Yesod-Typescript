@@ -33,10 +33,10 @@ class Bird extends Enemy {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
-        var triggered = false;
+        let triggered = false;
         this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "bird");
-        for (var i = 0; i < this.m_walls.length; i++) {
-            if (this.m_birdRect.Intersects(this.m_walls[i]) && !triggered) {
+        for (const element of this.m_walls) {
+            if (this.m_birdRect.Intersects(element) && !triggered) {
                 triggered = true;
                 if (this.m_speed > 0) {
                     this.m_x -= 5;
@@ -52,8 +52,8 @@ class Bird extends Enemy {
         }
         triggered = false;
         ////if (this.m_edibleWalls.length > 0 && !triggered) {
-        for (var i = 0; i < this.m_edibleWalls.length; i++) {
-            if (this.m_birdRect.Intersects(this.m_edibleWalls[i]) && !triggered) {
+        for (const element of this.m_edibleWalls) {
+            if (this.m_birdRect.Intersects(element) && !triggered) {
                 triggered = true;
                 if (this.m_speed > 0) {
                     this.m_x -= 5;
