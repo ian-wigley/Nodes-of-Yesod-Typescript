@@ -141,9 +141,12 @@ class ResourceManager {
     /**
      * Method to turn of sections of wall eaten by the mole
      */
-    public TurnOffEdibleWallChunks(num: number, ids?: Array<number>): void {
+    public TurnOffEdibleWallChunks(num: number, ids?: Array<number>, otherNum?: number, otherIds?: Array<number>): void {
         if (ids != undefined) {
             ids.forEach(t => { this.jsonTiles[num].tiles[t]._drawable = false; });
+        }
+        if (otherIds != undefined && otherNum != undefined) {
+            otherIds.forEach(t => { this.jsonTiles[otherNum].tiles[t]._drawable = false; });
         }
     }
 }
