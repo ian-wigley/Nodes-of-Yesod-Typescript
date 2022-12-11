@@ -10,6 +10,8 @@
     private y: number;
     private m_name?: string;
     private m_tileIds?: Array<number>;
+    private m_otherScreen? : number;
+    private m_otherTiles?: Array<number>;
 
     constructor(
         x: number,
@@ -17,7 +19,9 @@
         width: number,
         height: number,
         name?: string,
-        tileIds?: Array<number>
+        tileIds?: Array<number>,
+        otherScreen?: number,
+        otherTiles?: Array<number>,
     ) {
         this.x = x;
         this.y = y;
@@ -29,6 +33,8 @@
         this.m_right = x + width;
         this.m_name = name;
         this.m_tileIds = tileIds;
+        this.m_otherScreen = otherScreen;
+        this.m_otherTiles = otherTiles;
     }
 
     public get left(): number {
@@ -73,16 +79,20 @@
         return this.m_tileIds;
     }
 
+    public get otherScreen(){
+        return this.m_otherScreen;
+    }
+
+    public get otherTiles(){
+        return this.m_otherTiles;
+    }
+
     public Intersects(rectangle: Rectangle): boolean {
         // To-do remove the debug code below
         // let a = rectangle.left < this.x + this.m_width;
         // let b = this.x < (rectangle.left + rectangle.right);
         // let c = rectangle.top < this.y + this.m_height;
         // let d = this.y < (rectangle.top + rectangle.bottom);
-
-        // if (rectangle.Name == "Mole" && a && b && c && d) {
-        //     let ab = 0;
-        // }
 
         if (rectangle.left < this.x + this.Width &&
             this.x < (rectangle.left + rectangle.right) &&
