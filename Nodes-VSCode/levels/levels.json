@@ -8509,7 +8509,7 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 0,
@@ -8531,7 +8531,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    10,
+                    11
+                ],
+                "otherScreen": 32,
+                "otherTiles": [
+                    30,
+                    33
+                ]
+            }
+        ],
         "screenCounter": 33,
         "name": "BelowMoonScreen17",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -13481,7 +13497,7 @@
                 "left": 745,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 0,
@@ -13835,7 +13851,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 992,
                 "sy": 0,
                 "sw": 62,
@@ -13879,7 +13896,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1116,
                 "sy": 0,
                 "sw": 62,
@@ -14040,7 +14058,7 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 745,
@@ -14062,7 +14080,17 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds" : [15, 18],
+                "otherScreen" : 49,
+                "otherTiles" : [29, 33]
+            }
+        ],
         "screenCounter": 50,
         "name": "BelowMoonScreen34",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
