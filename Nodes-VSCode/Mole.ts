@@ -67,8 +67,8 @@ class Mole extends BaseObject {
 
         let triggered = false;
         this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "mole");
-        for (var i = 0; i < this.m_walls.length; i++) {
-            if (this.m_moleRect.Intersects(this.m_walls[i]) && !triggered) {
+        for (const element of this.m_walls) {
+            if (this.m_moleRect.Intersects(element) && !triggered) {
                 triggered = true;
                 if (this.m_facingLeft) {
                     this.m_x += 4;
@@ -79,13 +79,14 @@ class Mole extends BaseObject {
             }
         }
 
-        for (var i = 0; i < this.m_edibleWalls.length; i++) {
-            if (this.m_moleRect.Intersects(this.m_edibleWalls[i]) && !triggered) {
+        for (const element of this.m_edibleWalls) {
+            if (this.m_moleRect.Intersects(element) && !triggered) {
                 triggered = true;
                 // Get the identifier numbers that relate to the tiles to turn off
-                let t = this.m_edibleWalls[i].tileIds;
-
-                this.m_resourceManager.TurnOffEdibleWallChunks(this.m_screenCounter, t);
+                let t = element.tileIds;
+                let u = element.otherScreen;
+                let v = element.otherTiles;
+                this.m_resourceManager.TurnOffEdibleWallChunks(this.m_screenCounter, t, u, v);
 
 
                 // this.m_edibleWalls = [];
