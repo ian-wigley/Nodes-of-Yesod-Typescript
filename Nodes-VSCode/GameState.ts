@@ -1,6 +1,7 @@
-// To-do list
-//
-// Update the levels.json with the screen counter values.
-// Update the levels.json with the correct upper Rock values.
-// Update the levels.json with the correct rectangle definitions throughout.
-// Update the collision logic with that from Monsters.
+export enum gameMode {
+    GAME_ON,
+    GAME_OVER,
+    GAME_PAUSED,
+    DISPLAY_MENU,
+    DISPLAY_HELP,
+}
