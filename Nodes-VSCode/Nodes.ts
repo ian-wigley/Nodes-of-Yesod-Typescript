@@ -1,12 +1,4 @@
-﻿enum gameMode {
-    GAME_ON,
-    GAME_OVER,
-    GAME_PAUSED,
-    DISPLAY_MENU,
-    DISPLAY_HELP,
-}
-
-import Charlie = require("Charlie");
+﻿import Charlie = require("Charlie");
 import Earth = require("Earth");
 import Enemy = require("Enemy");
 import Explosion = require("Explosion");
@@ -17,6 +9,8 @@ import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
 import ScreenInfo = require("ScreenInfo");
 import Star = require("Star");
+import { gameMode } from "./GameState";
+import { moleState } from "./MoleState";
 
 class Nodes {
 
@@ -68,7 +62,7 @@ class Nodes {
     private immune: boolean = false;
 
     private moleAlive: boolean = false;
-    private moleCaught: boolean = false;
+    private molestate: moleState = moleState.Free;
 
     private gameState: gameMode;
     private gamePaused: boolean = false;
@@ -214,7 +208,7 @@ class Nodes {
                 break;
             case "m":
             case "M":
-                if (this.screen.name.includes("BelowMoon")) {
+                if (this.screen.name.includes("BelowMoon") && this.molestate == moleState.Caught) {
                     this.moleAlive = !this.moleAlive;
                     this.mole.X = this.charlie.X;
                     this.mole.Y = this.charlie.Y;
@@ -547,10 +541,12 @@ class Nodes {
     }
 
     private CheckIfMoleIsCaught(): void {
-        if (!this.moleCaught) {
+        if (this.molestate == moleState.Free) {
+        // if (!this.moleCaught) {
             let moley: any = { left: this.mole.X, top: this.mole.X, right: 64, bottom: 64, Name: "Mole" };
             if (this.charlie.BoundingRectangle.Intersects(moley)) {
-                this.moleCaught = true;
+                // this.moleCaught = true;
+                this.molestate = moleState.Caught;
             }
             this.mole.Update();
         }
@@ -568,7 +564,7 @@ class Nodes {
         if (this.gameState == gameMode.GAME_ON) {
             if (this.screen != undefined) {
                 this.screen.tiles.forEach((a: { _drawable?: boolean, sx: number; sy: number; sw: number; sh: number; dx: number; dy: number; dw: number; dh: number; }) => {
-                    if (a._drawable == undefined || a._drawable)  {
+                    if (a._drawable == undefined || a._drawable) {
                         this.ctx.drawImage(this.tiles, a.sx, a.sy, a.sw, a.sh, a.dx, a.dy, a.dw, a.dh)
                     }
                 });
@@ -578,7 +574,8 @@ class Nodes {
                         this.rocket.Draw(this.ctx);
                     }
                     this.earth.Draw(this.ctx);
-                    if (!this.moleCaught) {
+                    if (this.molestate == moleState.Free) {
+                    // if (!this.moleCaught) {
                         this.mole.Draw(this.ctx);
                     }
                 }
@@ -620,7 +617,7 @@ class Nodes {
     private DrawHud(): void {
         if (this.moleAlive) {
             this.
-            mole.Walls = this.screen.tiles;//this.walls;
+                mole.Walls = this.screen.tiles;//this.walls;
             this.mole.EdibleWalls = this.edibleWalls;
             this.mole.ScreenCounter = this.screenCounter;
             this.mole.Draw(this.ctx);
