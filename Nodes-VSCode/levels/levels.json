@@ -3687,7 +3687,7 @@
                 "left": 745,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 0,
@@ -3697,7 +3697,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 745,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    19,
+                    21
+                ],
+                "otherScreen": 19,
+                "otherTiles": [
+                    9,
+                    10
+                ]
+            }
+        ],
         "screenCounter": 18,
         "name": "BelowMoonScreen2",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -3912,7 +3928,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 992,
                 "sy": 0,
                 "sw": 62,
@@ -3934,7 +3951,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1116,
                 "sy": 0,
                 "sw": 62,
@@ -4095,7 +4113,13 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 500
+                "bottom": 340
+            },
+            {
+                "left": 20,
+                "top": 470,
+                "right": 40,
+                "bottom": 50
             },
             {
                 "left": 750,
@@ -4117,7 +4141,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    9,
+                    10
+                ],
+                "otherScreen": 18,
+                "otherTiles": [
+                    19,
+                    21
+                ]
+            }
+        ],
         "screenCounter": 19,
         "name": "BelowMoonScreen3",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -4222,8 +4262,9 @@
                 "dh": 49
             },
             {
-                "_comment": "",
-                "sx": 124,
+                "_comment": "edible",
+                "_drawable": true,
+                "sx": 1054,
                 "sy": 0,
                 "sw": 62,
                 "sh": 49,
@@ -4245,9 +4286,8 @@
                 "dh": 49
             },
             {
-                "_comment": "edible",
-                "_drawable": true,
-                "sx": 1054,
+                "_comment": "",
+                "sx": 124,
                 "sy": 0,
                 "sw": 62,
                 "sh": 49,
@@ -5933,7 +5973,7 @@
                 "left": 745,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 0,
@@ -5949,7 +5989,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 745,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    11,
+                    13
+                ],
+                "otherScreen": 27,
+                "otherTiles": [
+                    28,
+                    30
+                ]
+            }
+        ],
         "screenCounter": 26,
         "name": "BelowMoonScreen10",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -6076,7 +6132,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 992,
                 "sy": 0,
                 "sw": 62,
@@ -6098,7 +6155,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1116,
                 "sy": 0,
                 "sw": 62,
@@ -6259,7 +6317,7 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 745,
@@ -6294,7 +6352,24 @@
                 "speed": 1
             }
         ],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    28,
+                    30
+                ],
+                "otherScreen": 26,
+                "otherTiles": [
+                    11,
+                    13
+                ]
+            }
+
+        ],
         "screenCounter": 27,
         "name": "BelowMoonScreen11",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -6608,7 +6683,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "edible",
+                "_drawable": true,
                 "sx": 1054,
                 "sy": 0,
                 "sw": 62,
@@ -14086,9 +14162,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [15, 18],
-                "otherScreen" : 49,
-                "otherTiles" : [29, 33]
+                "tileIds": [
+                    15,
+                    18
+                ],
+                "otherScreen": 49,
+                "otherTiles": [
+                    29,
+                    33
+                ]
             }
         ],
         "screenCounter": 50,
