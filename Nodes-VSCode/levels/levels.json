@@ -16236,7 +16236,7 @@
                 "left": 745,
                 "top": 470,
                 "right": 40,
-                "bottom": 100
+                "bottom": 50
             },
             {
                 "left": 0,
@@ -16263,7 +16263,7 @@
                 "left": 745,
                 "top": 370,
                 "right": 40,
-                "bottom": 50,
+                "bottom": 100,
                 "tileIds": [
                     20,
                     21
@@ -35861,7 +35861,7 @@
                 "left": 745,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 520
             },
             {
                 "left": 0,
