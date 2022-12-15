@@ -80909,7 +80909,7 @@
                 "bottom": 100,
                 "tileIds" : [16, 18],
                 "otherScreen" : 240,
-                "otherTiles" : [29, 32]
+                "otherTiles" : [18, 22]
             },
             {
                 "left": 745,
@@ -81602,12 +81602,6 @@
     {
         "rectangleList": [
             {
-                "left": 20,
-                "top": 30,
-                "right": 40,
-                "bottom": 440
-            },
-            {
                 "left": 745,
                 "top": 30,
                 "right": 40,
@@ -81640,17 +81634,6 @@
         "tiles": [
             {
                 "_comment": "",
-                "sx": 124,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 30,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
                 "sx": 186,
                 "sy": 0,
                 "sw": 62,
@@ -81662,34 +81645,12 @@
             },
             {
                 "_comment": "",
-                "sx": 0,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 79,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
                 "sx": 62,
                 "sy": 0,
                 "sw": 62,
                 "sh": 49,
                 "dx": 744,
                 "dy": 79,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
-                "sx": 124,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 128,
                 "dw": 62,
                 "dh": 49
             },
@@ -81717,17 +81678,6 @@
             },
             {
                 "_comment": "",
-                "sx": 0,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 177,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
                 "sx": 62,
                 "sy": 0,
                 "sw": 62,
@@ -81737,18 +81687,7 @@
                 "dw": 62,
                 "dh": 49
             },
-            {
-                "_comment": "",
-                "sx": 124,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 226,
-                "dw": 62,
-                "dh": 49
-            },
-            {
+             {
                 "_comment": "",
                 "sx": 186,
                 "sy": 0,
@@ -81756,17 +81695,6 @@
                 "sh": 49,
                 "dx": 744,
                 "dy": 226,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
-                "sx": 0,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 275,
                 "dw": 62,
                 "dh": 49
             },
@@ -81794,17 +81722,6 @@
             },
             {
                 "_comment": "",
-                "sx": 124,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 324,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
                 "sx": 186,
                 "sy": 0,
                 "sw": 62,
@@ -81816,34 +81733,12 @@
             },
             {
                 "_comment": "",
-                "sx": 0,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 373,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
                 "sx": 62,
                 "sy": 0,
                 "sw": 62,
                 "sh": 49,
                 "dx": 744,
                 "dy": 373,
-                "dw": 62,
-                "dh": 49
-            },
-            {
-                "_comment": "",
-                "sx": 124,
-                "sy": 0,
-                "sw": 62,
-                "sh": 49,
-                "dx": 0,
-                "dy": 422,
                 "dw": 62,
                 "dh": 49
             },
@@ -83462,7 +83357,17 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 745,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds" : [21, 23],
+                "otherScreen" : 249,
+                "otherTiles" : [8, 9]
+            }
+        ],
         "screenCounter": 248,
         "name": "BelowMoonScreen232",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -83900,7 +83805,17 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds" : [8, 9],
+                "otherScreen" : 248,
+                "otherTiles" : [21, 23]
+            }
+        ],
         "screenCounter": 249,
         "name": "BelowMoonScreen233",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
