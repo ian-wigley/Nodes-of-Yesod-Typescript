@@ -20,7 +20,7 @@ class Alf extends Enemy {
         this.m_y = y;
         this.m_width = 34;
         this.m_height = 64;
-        this.m_speed = 1;
+        this.m_speed = speed;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 5 * 69;
     }
