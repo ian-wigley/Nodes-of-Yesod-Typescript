@@ -50619,9 +50619,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [18, 20],
-                "otherScreen" : 154,
-                "otherTiles" : [9, 11]
+                "tileIds": [
+                    18,
+                    20
+                ],
+                "otherScreen": 154,
+                "otherTiles": [
+                    9,
+                    11
+                ]
             }
         ],
         "screenCounter": 153,
@@ -50979,9 +50985,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [9, 11],
-                "otherScreen" : 153,
-                "otherTiles" : [18, 20]
+                "tileIds": [
+                    9,
+                    11
+                ],
+                "otherScreen": 153,
+                "otherTiles": [
+                    18,
+                    20
+                ]
             }
         ],
         "screenCounter": 154,
@@ -51323,9 +51335,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [10, 12],
-                "otherScreen" : 156,
-                "otherTiles" : [12, 15]
+                "tileIds": [
+                    10,
+                    12
+                ],
+                "otherScreen": 156,
+                "otherTiles": [
+                    12,
+                    15
+                ]
             }
         ],
         "screenCounter": 155,
@@ -51656,9 +51674,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [12, 15],
-                "otherScreen" : 155,
-                "otherTiles" : [10, 12]
+                "tileIds": [
+                    12,
+                    15
+                ],
+                "otherScreen": 155,
+                "otherTiles": [
+                    10,
+                    12
+                ]
             }
         ],
         "screenCounter": 156,
@@ -54623,9 +54647,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [18, 21],
-                "otherScreen" : 165,
-                "otherTiles" : [17, 19]
+                "tileIds": [
+                    18,
+                    21
+                ],
+                "otherScreen": 165,
+                "otherTiles": [
+                    17,
+                    19
+                ]
             }
         ],
         "screenCounter": 164,
@@ -55073,9 +55103,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [17, 19],
-                "otherScreen" : 164,
-                "otherTiles" : [18, 21]
+                "tileIds": [
+                    17,
+                    19
+                ],
+                "otherScreen": 164,
+                "otherTiles": [
+                    18,
+                    21
+                ]
             }
         ],
         "screenCounter": 165,
@@ -80440,25 +80476,44 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Alf",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [
             {
                 "left": 20,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [16, 19],
-                "otherScreen" : 255,
-                "otherTiles" : [29, 32]
+                "tileIds": [
+                    16,
+                    19
+                ],
+                "otherScreen": 255,
+                "otherTiles": [
+                    29,
+                    32
+                ]
             },
             {
                 "left": 745,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [18, 22],
-                "otherScreen" : 241,
-                "otherTiles" : [16, 18]
+                "tileIds": [
+                    18,
+                    22
+                ],
+                "otherScreen": 241,
+                "otherTiles": [
+                    16,
+                    18
+                ]
             }
         ],
         "screenCounter": 240,
@@ -80907,18 +80962,30 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [16, 18],
-                "otherScreen" : 240,
-                "otherTiles" : [18, 22]
+                "tileIds": [
+                    16,
+                    18
+                ],
+                "otherScreen": 240,
+                "otherTiles": [
+                    18,
+                    22
+                ]
             },
             {
                 "left": 745,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [17, 19],
-                "otherScreen" : 242,
-                "otherTiles" : [8, 9]
+                "tileIds": [
+                    17,
+                    19
+                ],
+                "otherScreen": 242,
+                "otherTiles": [
+                    8,
+                    9
+                ]
             }
         ],
         "screenCounter": 241,
@@ -81315,16 +81382,29 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "WoodLouse",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [
             {
                 "left": 20,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [8, 9],
-                "otherScreen" : 241,
-                "otherTiles" : [17, 19]
+                "tileIds": [
+                    8,
+                    9
+                ],
+                "otherScreen": 241,
+                "otherTiles": [
+                    17,
+                    19
+                ]
             }
         ],
         "screenCounter": 242,
@@ -81687,7 +81767,7 @@
                 "dw": 62,
                 "dh": 49
             },
-             {
+            {
                 "_comment": "",
                 "sx": 186,
                 "sy": 0,
@@ -82577,7 +82657,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "WoodLouse",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 246,
         "name": "BelowMoonScreen230",
@@ -83356,16 +83443,29 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "WoodLouse",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [
             {
                 "left": 745,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [21, 23],
-                "otherScreen" : 249,
-                "otherTiles" : [8, 9]
+                "tileIds": [
+                    21,
+                    23
+                ],
+                "otherScreen": 249,
+                "otherTiles": [
+                    8,
+                    9
+                ]
             }
         ],
         "screenCounter": 248,
@@ -83811,9 +83911,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [8, 9],
-                "otherScreen" : 248,
-                "otherTiles" : [21, 23]
+                "tileIds": [
+                    8,
+                    9
+                ],
+                "otherScreen": 248,
+                "otherTiles": [
+                    21,
+                    23
+                ]
             }
         ],
         "screenCounter": 249,
@@ -86027,16 +86133,35 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Plant",
+                "x": 100,
+                "y": 100,
+                "speed": 1
+            },
+            {
+                "name": "Plant",
+                "x": 300,
+                "y": 100,
+                "speed": 1
+            }
+        ],
         "edibleWall": [
             {
                 "left": 745,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [29, 32],
-                "otherScreen" : 240,
-                "otherTiles" : [16, 19]
+                "tileIds": [
+                    29,
+                    32
+                ],
+                "otherScreen": 240,
+                "otherTiles": [
+                    16,
+                    19
+                ]
             }
         ],
         "screenCounter": 255,
