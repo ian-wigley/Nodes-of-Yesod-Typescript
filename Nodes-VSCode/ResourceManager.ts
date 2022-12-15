@@ -13,7 +13,7 @@ import Rectangle = require("Rectangle");
 import RedSpaceman = require("RedSpaceman");
 import ScreenInfo = require("ScreenInfo");
 import SpringBear = require("SpringBear");
-import WhirlWind = require("WhirlWind");
+import TelePort = require("TelePort");
 import WoodLouse = require("WoodLouse");
 
 
@@ -87,6 +87,9 @@ class ResourceManager {
         }
         if (name == "Plant") {
             return Plant;
+        }
+        if (name == "TelePort") {
+            return TelePort;
         }
         if (name == "WoodLouse") {
             return WoodLouse;
