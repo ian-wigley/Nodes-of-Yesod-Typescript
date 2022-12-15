@@ -37,7 +37,7 @@ class GreenMeanie extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         if (!this.m_facingLeft) {
-        ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }
         else {
             this.m_offsetX += 4 * 64;
