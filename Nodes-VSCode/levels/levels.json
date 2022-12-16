@@ -84431,7 +84431,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Plant",
+                "x": 100,
+                "y": 100,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 251,
         "name": "BelowMoonScreen235",
