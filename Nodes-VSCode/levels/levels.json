@@ -82659,6 +82659,24 @@
         ],
         "enemies": [
             {
+                "name": "TelePort",
+                "x": 150,
+                "y": 200,
+                "speed": 1
+            },
+            {
+                "name": "TelePort",
+                "x": 300,
+                "y": 300,
+                "speed": 1
+            },
+            {
+                "name": "TelePort",
+                "x": 450,
+                "y": 200,
+                "speed": 1
+            },
+            {
                 "name": "WoodLouse",
                 "x": 300,
                 "y": 410,
@@ -83128,7 +83146,26 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "TelePort",
+                "x": 150,
+                "y": 200,
+                "speed": 1
+            },
+            {
+                "name": "TelePort",
+                "x": 300,
+                "y": 300,
+                "speed": 1
+            },
+            {
+                "name": "TelePort",
+                "x": 450,
+                "y": 200,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 247,
         "name": "BelowMoonScreen231",
