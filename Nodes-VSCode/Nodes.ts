@@ -139,7 +139,9 @@ class Nodes {
         this.keyboard = new KeyBoard();
         this.screenInfo = new ScreenInfo(this.canvas.width, this.canvas.height);
 
-        this.resourceManager = new ResourceManager(this.gameSprites, this.enemies, this.walls, this.platforms, this.ctx, this.screenInfo, this.mole);
+        this.resourceManager = new ResourceManager(this.gameSprites, this.screenInfo);
+        this.resourceManager.Init();
+
         this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platforms, this.screenInfo, this.resourceManager);
 
         // Create the Actors
