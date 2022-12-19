@@ -19,28 +19,21 @@ import CockRoach = require("CockRoach");
 
 class ResourceManager {
     private m_sprites: HTMLCanvasElement;
-    private m_walls: Array<Rectangle>;
     private m_enemies: Array<Enemy> = [];
     private m_screen: ScreenInfo;
-    private m_leveldata: LevelData;
     private jsonTiles: any = [];
 
     constructor(
         gameSprites: HTMLCanvasElement,
-        enemies: Enemy[],
-        walls: Rectangle[],
-        platform: Rectangle[],
-        ctx: CanvasRenderingContext2D,
         screenInfo: ScreenInfo,
-        mole: Mole
     ) {
-        this.m_leveldata = new LevelData();
-        this.LoadJSON();
         this.m_sprites = gameSprites;
-        this.m_enemies = enemies;
-        this.m_walls = walls;
-        this.m_enemies = new Array();
         this.m_screen = screenInfo;
+        this.m_enemies = new Array();
+    }
+
+    public Init(): void {
+        this.LoadJSON();
     }
 
     private LoadJSON(): void {
@@ -91,7 +84,7 @@ class ResourceManager {
         if (name == "TelePort") {
             return TelePort;
         }
-        if (name == "WoodLouse") {
+        if (name == "CockRoach") {
             return CockRoach;
         }
     }
@@ -115,7 +108,7 @@ class ResourceManager {
                     break;
                 case 2:
                 case 5:
-                    this.m_enemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, this.m_walls, this.m_screen));
+                    this.m_enemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, rectangles, this.m_screen));
                     break;
                 case 6:
                     this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen));
@@ -133,7 +126,6 @@ class ResourceManager {
         this.m_enemies = [];
     }
     public get EnemyList(): Array<Enemy> { return this.m_enemies; }
-    public get Levels(): number[][] { return this.m_leveldata.Levels; }
 
     // Return the collection of tiles.
     public GetScreenTiles(num: number): Tile {
@@ -153,24 +145,6 @@ class ResourceManager {
     }
 }
 export = ResourceManager;
-
-
-class LevelData {
-    private m_levels: Array<number[]>;
-
-    constructor() {
-        this.m_levels = new Array();
-    }
-
-    public set Levels(Value: Array<number[]>) {
-        this.m_levels = Value;
-    }
-
-    public get Levels(): Array<number[]> {
-        return this.m_levels;
-    }
-}
-
 
 class Tile {
     name: string;
