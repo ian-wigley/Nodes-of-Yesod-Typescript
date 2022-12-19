@@ -14,7 +14,7 @@ import RedSpaceman = require("RedSpaceman");
 import ScreenInfo = require("ScreenInfo");
 import SpringBear = require("SpringBear");
 import TelePort = require("TelePort");
-import WoodLouse = require("WoodLouse");
+import CockRoach = require("CockRoach");
 
 
 class ResourceManager {
@@ -92,19 +92,18 @@ class ResourceManager {
             return TelePort;
         }
         if (name == "WoodLouse") {
-            return WoodLouse;
+            return CockRoach;
         }
     }
 
     public ConfigureEnemies(rectangles: any, enemy: any): void {
         this.m_enemies = [];
-
-        // To-do loop through array
         if (enemy != undefined) {
-            let en = enemy[0];
-            if (en != undefined) {
-                let obj: any = this.GetEnemy(en.name);
-                this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen));
+            for (const en of enemy) {
+                if (en != undefined) {
+                    let obj: any = this.GetEnemy(en.name);
+                    this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen));
+                }
             }
         }
         for (let j = 0; j < 3; j++) {
