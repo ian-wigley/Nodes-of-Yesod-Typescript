@@ -13,7 +13,7 @@ class TelePort extends Enemy {
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "TelePort";
-        this.m_x = 100;//x;
+        this.m_x = x;
         this.m_y = y;
         this.m_width = 34;
         this.m_height = 64;
