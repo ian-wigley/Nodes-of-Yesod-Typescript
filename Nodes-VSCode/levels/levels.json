@@ -13693,7 +13693,7 @@
         ],
         "enemies": [
             {
-                "name": "WoodLouse",
+                "name": "CockRoach",
                 "x": 300,
                 "y": 410,
                 "speed": 1
@@ -18497,7 +18497,7 @@
         ],
         "enemies": [
             {
-                "name": "WoodLouse",
+                "name": "CockRoach",
                 "x": 300,
                 "y": 410,
                 "speed": 1
@@ -81384,7 +81384,7 @@
         ],
         "enemies": [
             {
-                "name": "WoodLouse",
+                "name": "CockRoach",
                 "x": 300,
                 "y": 410,
                 "speed": 1
@@ -82677,7 +82677,7 @@
                 "speed": 1
             },
             {
-                "name": "WoodLouse",
+                "name": "CockRoach",
                 "x": 300,
                 "y": 410,
                 "speed": 1
@@ -83482,7 +83482,7 @@
         ],
         "enemies": [
             {
-                "name": "WoodLouse",
+                "name": "CockRoach",
                 "x": 300,
                 "y": 410,
                 "speed": 1
