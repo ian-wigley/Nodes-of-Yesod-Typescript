@@ -34,11 +34,7 @@ class Charlie extends BaseObject {
     constructor(
         x: number,
         y: number,
-        speed: number,
         texture: HTMLCanvasElement,
-        walls: Array<Rectangle>,
-        edibleWalls: Array<Rectangle>,
-        platforms: Array<Rectangle>,
         screenInfo: ScreenInfo
     ) {
         super(texture, screenInfo);
@@ -47,8 +43,6 @@ class Charlie extends BaseObject {
         this.m_width = 34;//64
         this.m_height = 64;
         this.m_frame = 1;
-        this.m_walls = walls;
-        this.m_edibleWalls = edibleWalls;
         this.plats = new Array<Rectangle>();
         this.testingRect = new Rectangle(0, 0, 0, 0);
     }
@@ -110,7 +104,6 @@ class Charlie extends BaseObject {
             this.m_t = 0;
         }
     }
-
 
     private SomerSaultRight(value: number) {
         if (!this.m_initialised) {
@@ -176,7 +169,7 @@ class Charlie extends BaseObject {
                 this.m_frame = 0;
                 this.m_initialised = false;
                 this.m_y = this.m_startYPosition;
-                //console.log("----- Jump Complete -----");
+                // console.log("----- Jump Complete -----");
                 this.m_jumpingUp = false;
                 this.m_jumpStarted = false;
                 this.m_t = 0;
