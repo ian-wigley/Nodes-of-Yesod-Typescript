@@ -7,27 +7,15 @@ class Mole extends BaseObject {
 
     private m_moleRect!: Rectangle;
     private m_screenCounter: number = 0;
-    private m_belowScreenCounter: number = 0;
-    private m_undergroundScreenCounter: number = 0;
-    private m_levels: number[][];
     private m_underground: boolean;
     private m_resourceManager: ResourceManager;
 
     constructor(
-        x: number,
-        y: number,
-        speed: number,
         texture: HTMLCanvasElement,
-        walls: Array<Rectangle>,
-        edibleWalls: Array<Rectangle>,
-        platforms: Array<Rectangle>,
         screenInfo: ScreenInfo,
         resourceManager: ResourceManager
     ) {
         super(texture, screenInfo);
-        this.m_walls = walls;
-        this.m_edibleWalls = edibleWalls;
-        this.m_levels = [];
         this.m_underground = false;
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 11 * 69;
@@ -87,31 +75,6 @@ class Mole extends BaseObject {
                 let u = element.otherScreen;
                 let v = element.otherTiles;
                 this.m_resourceManager.TurnOffEdibleWallChunks(this.m_screenCounter, t, u, v);
-
-
-                // this.m_edibleWalls = [];
-                // var span = this.m_belowScreenCounter * 10;
-                // for (var i = span; i < span + 13; i++) {
-                //     if (this.m_x < 100) {
-                //         if (this.m_levels[i][1].toString() == "15" || this.m_levels[i][1].toString() == "17") {
-                //             // replace the left edible walls with empty sections
-                //             this.m_levels[i][1] = 4;
-                //             if (this.m_screenCounter > 0) {
-                //                 this.m_levels[(i - 10)][12] = 4;
-                //             }
-                //             else {
-                //                 this.m_levels[(i + 150)][12] = 4;
-                //             }
-                //         }
-                //     }
-                //     else {
-                //         if (this.m_x > 650) {
-                //             if (this.m_levels[i][12].toString() == "16" || this.m_levels[i][12].toString() == "18") {
-                //                 this.m_levels[i][12] = 4;
-                //             }
-                //         }
-                //     }
-                // }
             }
         }
     }
