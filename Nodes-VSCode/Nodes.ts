@@ -20,23 +20,13 @@ class Nodes {
     private height: number = 600;
 
     // Enemies
-    private enemies: Array<Enemy> = [];
-    private walkingEnemies!: Enemy; //: Array<Enemy> = new Array<Enemy>();
-
-    // Platforms & Ledges
-    private platforms: Array<Rectangle> = new Array<Rectangle>();
-
-    // Standard Walls
-    private walls: Array<Rectangle> = new Array<Rectangle>();
+    private walkingEnemies!: Enemy;
 
     // Mole edible
     private edibleWalls: Array<Rectangle> = new Array<Rectangle>();
 
     // Alcheims
     private alchiems: Array<number> = [];
-
-    // Roof rocks
-    private roof: Array<number> = [];
 
     private stars: Array<Star> = [];
 
@@ -82,7 +72,6 @@ class Nodes {
     private numberOfScreensFell: number = 0;
 
     // Objects
-    // private alf: Alf;
     private resourceManager!: ResourceManager;
     private charlie!: Charlie;
     private earth!: Earth;
@@ -91,7 +80,6 @@ class Nodes {
     private rocket!: Rocket;
     private keyboard!: KeyBoard;
     private screenInfo!: ScreenInfo;
-    private star!: Star;
     private gravityStick: number = 0;
     private sineCounter: number = 0;
     // private somersault: boolean = false;
@@ -142,13 +130,11 @@ class Nodes {
         this.resourceManager = new ResourceManager(this.gameSprites, this.screenInfo);
         this.resourceManager.Init();
 
-        this.mole = new Mole(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platforms, this.screenInfo, this.resourceManager);
-
         // Create the Actors
-        this.charlie = new Charlie(150, 320, 3, this.gameSprites, this.walls, this.edibleWalls, this.platforms, this.screenInfo);
+        this.charlie = new Charlie(150, 320, this.gameSprites, this.screenInfo);
+        this.mole = new Mole(this.gameSprites, this.screenInfo, this.resourceManager);
         this.earth = new Earth(this.gameSprites, this.screenInfo);
         this.rocket = new Rocket(this.gameSprites, this.screenInfo);
-        this.star = new Star();
         this.explosion = new Explosion(this.gameSprites, this.screenInfo);
 
         this.stars = new Array<Star>();
@@ -704,9 +690,6 @@ class Nodes {
     private clearAll(): void {
         this.resourceManager.ClearEnemies();
         this.edibleWalls = [];
-        this.walls = [];
-        this.platforms = [];
-        this.walls = [];
         this.alchiems = [];
     }
 }
