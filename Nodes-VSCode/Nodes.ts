@@ -9,6 +9,7 @@ import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
 import ScreenInfo = require("ScreenInfo");
 import Star = require("Star");
+import { charliesState } from "./CharliesState";
 import { gameMode } from "./GameState";
 import { moleState } from "./MoleState";
 
@@ -49,8 +50,9 @@ class Nodes {
     private screen: any;
     private rects: any;
 
-    private immune: boolean = false;
+    private charlieState: charliesState = charliesState.IDLE;
 
+    private immune: boolean = false;
     private moleAlive: boolean = false;
     private molestate: moleState = moleState.Free;
 
@@ -82,7 +84,6 @@ class Nodes {
     private screenInfo!: ScreenInfo;
     private gravityStick: number = 0;
     private sineCounter: number = 0;
-    // private somersault: boolean = false;
 
     private scrollText: string = "NODES OF YESOD REMAKE        CATCH A MOLE,  FIND A HOLE,  JUMP RIGHT DOWN,  AND START TO ROLL.  WHAT YOU DO IS FIND A CLUE,  OF RED, MAGENTA, GREEN OR BLUE.  TAKE SOME TIME,  DESCEND AND CLIMB,  GO AND FIND THE RÿGHT ALCHIEMS.  THE TASK IS PLAIN,  WITH EÿGHT THE SAME,  SEEK THE MONOLITH AND THATS THE GAME.      CTRL TO ABORT GAME      RETURN TO PAUSE THE GAME   ";
 
@@ -233,22 +234,26 @@ class Nodes {
                 break;
             case "a":
             case "A":
-                this.row -= 1;
+                if (this.row > 0) {
+                    this.row -= 1;
+                }
                 this.charlie.Falling = false;
                 break;
             case "d":
             case "D":
-                this.row += 1;
+                this.row = (this.row + 1) % 16;
                 this.charlie.Falling = false;
                 break;
             case "w":
             case "W":
-                this.column -= 16;
+                if (this.column >= 16) {
+                    this.column -= 16;
+                }
                 this.charlie.Falling = false;
                 break;
             case "z":
             case "Z":
-                this.column += 16;
+                this.column = (this.column + 16) % 256;
                 this.charlie.Falling = false;
                 break;
         }
@@ -328,6 +333,7 @@ class Nodes {
         this.Draw();
     }
 
+    // TODO update logic to utilse charlieState enum
     private UpdateCharlie() {
         let charlieValue: number = 0;
 
@@ -530,7 +536,7 @@ class Nodes {
 
     private CheckIfMoleIsCaught(): void {
         if (this.molestate == moleState.Free) {
-        // if (!this.moleCaught) {
+            // if (!this.moleCaught) {
             let moley: any = { left: this.mole.X, top: this.mole.X, right: 64, bottom: 64, Name: "Mole" };
             if (this.charlie.BoundingRectangle.Intersects(moley)) {
                 // this.moleCaught = true;
@@ -563,7 +569,7 @@ class Nodes {
                     }
                     this.earth.Draw(this.ctx);
                     if (this.molestate == moleState.Free) {
-                    // if (!this.moleCaught) {
+                        // if (!this.moleCaught) {
                         this.mole.Draw(this.ctx);
                     }
                 }
