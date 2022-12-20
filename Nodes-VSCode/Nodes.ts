@@ -234,14 +234,16 @@ class Nodes {
                 break;
             case "a":
             case "A":
-                if (this.row > 0) {
+                if (this.screenCounter > 0) {
                     this.row -= 1;
                 }
                 this.charlie.Falling = false;
                 break;
             case "d":
             case "D":
-                this.row = (this.row + 1) % 16;
+                if (this.screenCounter < 256) {
+                    this.row += 1;
+                }
                 this.charlie.Falling = false;
                 break;
             case "w":
