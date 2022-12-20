@@ -66929,7 +66929,20 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Bird",
+                "x": 100,
+                "y": 410,
+                "speed": 1
+            },
+            {
+                "name": "Bird",
+                "x": 400,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 200,
         "name": "BelowMoonScreen184",
@@ -68337,7 +68350,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 205,
         "name": "BelowMoonScreen189",
@@ -68625,7 +68645,20 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            },
+            {
+                "name": "Bird",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 206,
         "name": "BelowMoonScreen190",
@@ -70193,7 +70226,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "GreenMeanie",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 210,
         "name": "BelowMoonScreen194",
@@ -72803,7 +72843,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "CockRoach",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 217,
         "name": "BelowMoonScreen201",
@@ -73680,7 +73727,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Bird",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 219,
         "name": "BelowMoonScreen203",
@@ -74683,7 +74737,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 222,
         "name": "BelowMoonScreen206",
@@ -74993,7 +75054,21 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 210,
+                "speed": 1
+            },
+            {
+                "name": "Fish",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+
+        ],
         "edibleWall": [],
         "screenCounter": 223,
         "name": "BelowMoonScreen207",
@@ -75637,7 +75712,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "CockRoach",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 225,
         "name": "BelowMoonScreen209",
@@ -75976,9 +76058,24 @@
             }
         ],
         "enemies": [
-            {"name":"Plant", "x":300, "y":100, "speed":1},
-            {"name":"Plant", "x":200, "y":200, "speed":1},
-            {"name":"Plant", "x":400, "y":200, "speed":1}
+            {
+                "name": "Plant",
+                "x": 300,
+                "y": 100,
+                "speed": 1
+            },
+            {
+                "name": "Plant",
+                "x": 200,
+                "y": 200,
+                "speed": 1
+            },
+            {
+                "name": "Plant",
+                "x": 400,
+                "y": 200,
+                "speed": 1
+            }
         ],
         "edibleWall": [],
         "screenCounter": 226,
@@ -76688,7 +76785,12 @@
             }
         ],
         "enemies": [
-            {"name":"Plant", "x":300, "y":100, "speed":1}
+            {
+                "name": "Plant",
+                "x": 300,
+                "y": 100,
+                "speed": 1
+            }
         ],
         "edibleWall": [],
         "screenCounter": 228,
