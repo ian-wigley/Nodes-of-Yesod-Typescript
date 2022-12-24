@@ -69322,16 +69322,35 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Plant",
+                "x": 200,
+                "y": 100,
+                "speed": 1
+            },
+            {
+                "name": "Plant",
+                "x": 400,
+                "y": 100,
+                "speed": 1
+            }
+        ],
         "edibleWall": [
             {
                 "left": 20,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [29, 32],
-                "otherScreen" : 223,
-                "otherTiles" : [29, 32]
+                "tileIds": [
+                    29,
+                    32
+                ],
+                "otherScreen": 223,
+                "otherTiles": [
+                    29,
+                    32
+                ]
             }
         ],
         "screenCounter": 208,
@@ -69910,9 +69929,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [22, 25],
-                "otherScreen" : 210,
-                "otherTiles" : [20, 21]
+                "tileIds": [
+                    22,
+                    25
+                ],
+                "otherScreen": 210,
+                "otherTiles": [
+                    20,
+                    21
+                ]
             }
         ],
         "screenCounter": 209,
@@ -70266,9 +70291,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [20, 21],
-                "otherScreen" : 209,
-                "otherTiles" : [22, 25]
+                "tileIds": [
+                    20,
+                    21
+                ],
+                "otherScreen": 209,
+                "otherTiles": [
+                    22,
+                    25
+                ]
             }
         ],
         "screenCounter": 210,
@@ -75103,7 +75134,6 @@
                 "y": 410,
                 "speed": 1
             }
-
         ],
         "edibleWall": [
             {
@@ -75111,9 +75141,15 @@
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
-                "tileIds" : [29, 32],
-                "otherScreen" : 208,
-                "otherTiles" : [29, 32]
+                "tileIds": [
+                    29,
+                    32
+                ],
+                "otherScreen": 208,
+                "otherTiles": [
+                    29,
+                    32
+                ]
             }
         ],
         "screenCounter": 223,
