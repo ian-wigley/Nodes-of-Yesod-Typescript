@@ -25969,7 +25969,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "Caterpillar",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 80,
         "name": "BelowMoonScreen64",
@@ -36056,7 +36063,7 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 340
             },
             {
                 "left": 0,
@@ -36071,7 +36078,14 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [
+            {
+                "name": "CockRoach",
+                "x": 300,
+                "y": 410,
+                "speed": 1
+            }
+        ],
         "edibleWall": [],
         "screenCounter": 112,
         "name": "BelowMoonScreen96",
