@@ -8312,7 +8312,13 @@
                 "left": 20,
                 "top": 30,
                 "right": 40,
-                "bottom": 490
+                "bottom": 340
+            },
+            {
+                "left": 20,
+                "top": 470,
+                "right": 40,
+                "bottom": 50
             },
             {
                 "left": 745,
@@ -8347,6 +8353,21 @@
         ],
         "enemies": [],
         "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    16,
+                    18
+                ],
+                "otherScreen": 47,
+                "otherTiles": [
+                    18,
+                    20
+                ]
+            },
             {
                 "left": 745,
                 "top": 370,
@@ -13000,7 +13021,13 @@
                 "left": 745,
                 "top": 30,
                 "right": 40,
-                "bottom": 500
+                "bottom": 340
+            },
+            {
+                "left": 745,
+                "top": 470,
+                "right": 40,
+                "bottom": 50
             },
             {
                 "left": 0,
@@ -13034,7 +13061,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 745,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    18,
+                    20
+                ],
+                "otherScreen": 47,
+                "otherTiles": [
+                    16,
+                    18
+                ]
+            }
+        ],
         "screenCounter": 47,
         "name": "BelowMoonScreen31",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
