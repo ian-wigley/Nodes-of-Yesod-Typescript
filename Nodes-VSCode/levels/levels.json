@@ -25465,7 +25465,23 @@
                 "speed": 1
             }
         ],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 745,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    30,
+                    33
+                ],
+                "otherScreen": 64,
+                "otherTiles": [
+                    16,
+                    18
+                ]
+            }
+        ],
         "screenCounter": 79,
         "name": "BelowMoonScreen63",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -36129,7 +36145,23 @@
                 "speed": 1
             }
         ],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    30,
+                    33
+                ],
+                "otherScreen": 127,
+                "otherTiles": [
+                    16,
+                    18
+                ]
+            }
+        ],
         "screenCounter": 112,
         "name": "BelowMoonScreen96",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
