@@ -43716,7 +43716,7 @@
             },
             {
                 "left": 745,
-                "top": 440,
+                "top": 470,
                 "right": 40,
                 "bottom": 50
             },
@@ -44028,7 +44028,7 @@
             },
             {
                 "left": 20,
-                "top": 440,
+                "top": 470,
                 "right": 40,
                 "bottom": 50
             },
@@ -44054,7 +44054,7 @@
         "enemies": [],
         "edibleWall": [
             {
-                "left": 745,
+                "left": 20,
                 "top": 370,
                 "right": 40,
                 "bottom": 100,
@@ -49027,7 +49027,7 @@
                 "left": 745,
                 "top": 30,
                 "right": 40,
-                "bottom": 440
+                "bottom": 490
             },
             {
                 "left": 0,
@@ -57525,7 +57525,7 @@
             },
             {
                 "left": 745,
-                "top": 440,
+                "top": 470,
                 "right": 40,
                 "bottom": 50
             },
@@ -57801,22 +57801,10 @@
                 "bottom": 340
             },
             {
-                "left": 20,
-                "top": 440,
-                "right": 40,
-                "bottom": 50
-            },
-            {
                 "left": 745,
                 "top": 30,
                 "right": 40,
                 "bottom": 340
-            },
-            {
-                "left": 745,
-                "top": 440,
-                "right": 40,
-                "bottom": 50
             },
             {
                 "left": 0,
@@ -62370,7 +62358,7 @@
             },
             {
                 "left": 745,
-                "top": 440,
+                "top": 470,
                 "right": 40,
                 "bottom": 50
             },
@@ -63136,7 +63124,7 @@
             },
             {
                 "left": 745,
-                "top": 440,
+                "top": 470,
                 "right": 40,
                 "bottom": 50
             },
@@ -63966,7 +63954,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 745,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    17,
+                    20
+                ],
+                "otherScreen": 190,
+                "otherTiles": [
+                    20,
+                    21
+                ]
+            }
+        ],
         "screenCounter": 189,
         "name": "BelowMoonScreen173",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
@@ -64338,7 +64342,23 @@
             }
         ],
         "enemies": [],
-        "edibleWall": [],
+        "edibleWall": [
+            {
+                "left": 20,
+                "top": 370,
+                "right": 40,
+                "bottom": 100,
+                "tileIds": [
+                    20,
+                    21
+                ],
+                "otherScreen": 189,
+                "otherTiles": [
+                    17,
+                    20
+                ]
+            }
+        ],
         "screenCounter": 190,
         "name": "BelowMoonScreen174",
         "comment": "sx, sy.. start x, y : dx, dy.. destination x, y ..",
