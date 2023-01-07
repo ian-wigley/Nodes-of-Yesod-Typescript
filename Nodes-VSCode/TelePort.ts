@@ -3,13 +3,16 @@ import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
 class TelePort extends Enemy {
+    private m_warpTo?: number;
+
     constructor(
         x: number,
         y: number,
         speed: number,
         gameSprites: HTMLCanvasElement,
         wall: Array<Rectangle>,
-        screenInfo: ScreenInfo
+        screenInfo: ScreenInfo,
+        warpTo?: number
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "TelePort";
@@ -18,6 +21,8 @@ class TelePort extends Enemy {
         this.m_width = 34;
         this.m_height = 64;
         this.m_speed = speed;
+        this.m_warpTo = warpTo;
+
         this.m_offsetX = 11 * 64;
         this.m_offsetY = 7 * 69;
     }
