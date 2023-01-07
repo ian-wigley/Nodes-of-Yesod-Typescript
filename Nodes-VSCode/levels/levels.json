@@ -83368,20 +83368,22 @@
                 "name": "TelePort",
                 "x": 150,
                 "y": 200,
-                "speed": 1,
+                "speed": 0,
                 "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 300,
                 "y": 300,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 450,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "CockRoach",
@@ -83858,19 +83860,22 @@
                 "name": "TelePort",
                 "x": 150,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 300,
                 "y": 300,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 450,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             }
         ],
         "edibleWall": [],
@@ -85635,19 +85640,22 @@
                 "name": "TelePort",
                 "x": 150,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 300,
                 "y": 300,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 450,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             }
         ],
         "edibleWall": [],
@@ -86101,19 +86109,22 @@
                 "name": "TelePort",
                 "x": 150,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 300,
                 "y": 300,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "TelePort",
                 "x": 450,
                 "y": 200,
-                "speed": 1
+                "speed": 0,
+                "warpToScreen": 18
             },
             {
                 "name": "Fish",
