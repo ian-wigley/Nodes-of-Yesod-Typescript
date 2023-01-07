@@ -95,7 +95,7 @@ class ResourceManager {
             for (const en of enemy) {
                 if (en != undefined) {
                     let obj: any = this.GetEnemy(en.name);
-                    this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen));
+                    this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen, en.warpToScreen));
                 }
             }
         }
