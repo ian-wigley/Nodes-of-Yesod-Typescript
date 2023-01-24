@@ -36771,7 +36771,7 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [{"name":"GreenMeanie", "x":300, "y":410, "speed":1}],
         "edibleWall": [],
         "screenCounter": 114,
         "name": "BelowMoonScreen98",
