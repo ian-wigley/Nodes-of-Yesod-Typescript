@@ -27781,7 +27781,7 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [{"name":"GreenMeanie", "x":300, "y":410, "speed":1}],
         "edibleWall": [],
         "screenCounter": 86,
         "name": "BelowMoonScreen70",
@@ -29892,7 +29892,7 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [{"name":"Plant", "x":300, "y":100, "speed":1}],
         "edibleWall": [],
         "screenCounter": 91,
         "name": "BelowMoonScreen75",
