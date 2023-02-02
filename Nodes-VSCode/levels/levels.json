@@ -28599,7 +28599,7 @@
                 "bottom": 50
             }
         ],
-        "enemies": [],
+        "enemies": [{"name":"Plant", "x":300, "y":100, "speed":1}],
         "edibleWall": [],
         "screenCounter": 88,
         "name": "BelowMoonScreen72",
@@ -29433,7 +29433,7 @@
                 "bottom": 49
             }
         ],
-        "enemies": [],
+        "enemies": [{"name":"Plant", "x":300, "y":100, "speed":1}],
         "edibleWall": [],
         "screenCounter": 90,
         "name": "BelowMoonScreen74",
