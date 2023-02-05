@@ -105,7 +105,7 @@ class Nodes {
         this.originalMinutes = Math.floor(new Date().getMinutes());
     }
 
-    private rect(x: number, y: number, w: number, h: number): void {
+    private Rect(x: number, y: number, w: number, h: number): void {
         this.ctx.beginPath();
         this.ctx.rect(x, y, w, h);
         this.ctx.closePath();
@@ -119,7 +119,11 @@ class Nodes {
     }
 
     private Initialize(): void {
-        this.gameSprites = <HTMLCanvasElement>document.getElementById("GameSprites");
+        if (this.debug) {
+            this.gameSprites = <HTMLCanvasElement>document.getElementById("GameSpritesDebug");
+        } else {
+            this.gameSprites = <HTMLCanvasElement>document.getElementById("GameSprites");
+        }
         this.panel = <HTMLCanvasElement>document.getElementById("Panel");
         this.tiles = <HTMLCanvasElement>document.getElementById("GameTiles");
         this.frontScreen = <HTMLCanvasElement>document.getElementById("FrontScreen");
@@ -551,7 +555,7 @@ class Nodes {
     private Draw(): void {
 
         this.ctx.fillStyle = "black";
-        this.rect(0, 0, this.width, this.height);
+        this.Rect(0, 0, this.width, this.height);
         this.ctx.beginPath();
 
         if (this.gameState == gameMode.GAME_OVER) { this.DisplayGameOver(); }
