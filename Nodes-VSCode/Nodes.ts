@@ -616,8 +616,7 @@ class Nodes {
 
     private DrawHud(): void {
         if (this.moleAlive) {
-            this.
-                mole.Walls = this.screen.tiles;//this.walls;
+            this.mole.Walls = this.screen.tiles;
             this.mole.EdibleWalls = this.edibleWalls;
             this.mole.ScreenCounter = this.screenCounter;
             this.mole.Draw(this.ctx);
