@@ -152,10 +152,10 @@ class Nodes {
             this.mole.Debug = true;
         }
 
-        this.AddHitListener(this.canvas);
+        this.AddHitListener();
     }
 
-    private AddHitListener(element: HTMLElement) {
+    private AddHitListener() {
         window.addEventListener("keydown", (event) => {
             this.onKeyPress(event);
             return null;
@@ -291,7 +291,7 @@ class Nodes {
 
         requestAnimationFrame(this.Update.bind(this));
 
-        if (this.gameState == gameMode.GAME_ON || this.gameState == gameMode.GAME_PAUSED) {
+        if (this.gameState == gameMode.GAME_ON) {
             this.UpdateCharlie();
             this.UpdateHorizontalScreens();
             this.UpdateVerticalScreens();
@@ -561,7 +561,7 @@ class Nodes {
         if (this.gameState == gameMode.GAME_OVER) { this.DisplayGameOver(); }
         if (this.gameState == gameMode.DISPLAY_MENU) { this.DisplayMainMenu(); }
         if (this.gameState == gameMode.DISPLAY_HELP) { this.DisplayMenuInformation(); }
-        if (this.gameState == gameMode.GAME_ON) {
+        if (this.gameState == gameMode.GAME_ON || this.gameState == gameMode.GAME_PAUSED) {
             if (this.screen != undefined) {
                 this.screen.tiles.forEach((a: { _drawable?: boolean, sx: number; sy: number; sw: number; sh: number; dx: number; dy: number; dw: number; dh: number; }) => {
                     if (a._drawable == undefined || a._drawable) {
