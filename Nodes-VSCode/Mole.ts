@@ -9,6 +9,7 @@ class Mole extends BaseObject {
     private m_screenCounter: number = 0;
     private m_underground: boolean;
     private m_resourceManager: ResourceManager;
+    private m_moleScreen: number = 0;
 
     constructor(
         texture: HTMLCanvasElement,
@@ -23,6 +24,7 @@ class Mole extends BaseObject {
         this.m_height = 40;
         this.m_name = "Mole";
         this.m_resourceManager = resourceManager;
+        this.m_moleScreen = Math.floor(Math.random() * 15);
     }
 
     public Update(): void {
@@ -107,6 +109,7 @@ class Mole extends BaseObject {
     public get Y(): number { return this.m_y; }
     public set Y(value: number) { this.m_y = value; }
     public set ScreenCounter(value: number) { this.m_screenCounter = value; }
+    public get MoleScreen(): number { return 0; } //this.m_moleScreen; }
     public set Underground(value: boolean) { this.m_underground = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
