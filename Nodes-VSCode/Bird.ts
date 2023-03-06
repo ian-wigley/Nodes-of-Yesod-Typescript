@@ -7,11 +7,11 @@ class Bird extends Enemy {
     private m_birdRect!: Rectangle;
 
     constructor(
-        x: number, 
-        y: number, 
-        speed: number, 
-        gameSprites: HTMLCanvasElement, 
-        wall: Array<Rectangle>, 
+        x: number,
+        y: number,
+        speed: number,
+        gameSprites: HTMLCanvasElement,
+        wall: Array<Rectangle>,
         screenInfo: ScreenInfo
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
@@ -34,7 +34,7 @@ class Bird extends Enemy {
             this.m_animTimer = 0;
         }
         let triggered = false;
-        this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "bird");
+        this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height - 10, "bird");
         for (const element of this.m_walls) {
             if (this.m_birdRect.Intersects(element) && !triggered) {
                 triggered = true;
@@ -51,7 +51,6 @@ class Bird extends Enemy {
             }
         }
         triggered = false;
-        ////if (this.m_edibleWalls.length > 0 && !triggered) {
         for (const element of this.m_edibleWalls) {
             if (this.m_birdRect.Intersects(element) && !triggered) {
                 triggered = true;
@@ -74,9 +73,7 @@ class Bird extends Enemy {
         else if (this.m_x < 0) {
             this.m_x = 800;
         }
-
     }
-
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         if (!this.m_facingLeft) {
