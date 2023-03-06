@@ -335,6 +335,7 @@ class Nodes {
                 this.UpdateCharlieSeated();
                 this.UpdateCharlieImmune();
             }
+            this.UpdateHeartBeatTimer();
         }
         this.Draw();
     }
@@ -541,11 +542,9 @@ class Nodes {
     }
 
     private CheckIfMoleIsCaught(): void {
-        if (this.molestate == moleState.Free) {
-            // if (!this.moleCaught) {
+        if (this.molestate == moleState.Free && this.mole.MoleScreen == this.screenCounter) {
             let moley: any = { left: this.mole.X, top: this.mole.X, right: 64, bottom: 64, Name: "Mole" };
             if (this.charlie.BoundingRectangle.Intersects(moley)) {
-                // this.moleCaught = true;
                 this.molestate = moleState.Caught;
             }
             this.mole.Update();
@@ -574,7 +573,7 @@ class Nodes {
                         this.rocket.Draw(this.ctx);
                     }
                     this.earth.Draw(this.ctx);
-                    if (this.molestate == moleState.Free) {
+                    if (this.molestate == moleState.Free && this.mole.MoleScreen == this.screenCounter) {
                         // if (!this.moleCaught) {
                         this.mole.Draw(this.ctx);
                     }
@@ -609,7 +608,6 @@ class Nodes {
                 this.DisplayDebugText()
             }
 
-            this.UpdateHeartBeatTimer();
             this.DisplayTimer();
         }
     }
