@@ -21,7 +21,7 @@ class Plant extends Enemy {
         this.m_animTimer += 0.1;
         this.m_offsetX = (this.m_frame + 11) * 64;
         if (this.m_animTimer > 2.4) {
-            this.m_frame = (this.m_frame + 1) % 4;
+            this.m_frame = (this.m_frame + 1) % 8;
             this.m_animTimer = 0;
         }
     }
