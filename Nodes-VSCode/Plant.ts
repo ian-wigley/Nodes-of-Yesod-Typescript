@@ -20,7 +20,7 @@ class Plant extends Enemy {
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_offsetX = (this.m_frame + 11) * 64;
-        if (this.m_animTimer > 0.4) {
+        if (this.m_animTimer > 2.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
