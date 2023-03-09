@@ -95,7 +95,9 @@ class ResourceManager {
             for (const en of enemy) {
                 if (en != undefined) {
                     let obj: any = this.GetEnemy(en.name);
-                    this.m_enemies.push(new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen, en.warpToScreen));
+                    let enemy: Enemy = new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen, en.warpToScreen);
+                    enemy.Debug = true;
+                    this.m_enemies.push(enemy);
                 }
             }
         }
@@ -104,11 +106,11 @@ class ResourceManager {
             switch (floatingEnemies) {
                 case 1:
                 case 4:
-                    this.m_enemies.push(new SpringBear((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, rectangles, this.m_screen));
+                    this.m_enemies.push(new SpringBear(Math.max(200, this.Random(600)), this.Random(360), 1, this.m_sprites, rectangles, this.m_screen));
                     break;
                 case 2:
                 case 5:
-                    this.m_enemies.push(new BlueThingy((Math.max(200, Math.random() * 600)), (Math.random() * 360), 1, this.m_sprites, rectangles, this.m_screen));
+                    this.m_enemies.push(new BlueThingy(Math.max(200, this.Random(600)), this.Random(360), 1, this.m_sprites, rectangles, this.m_screen));
                     break;
                 case 6:
                     this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen));
@@ -119,9 +121,14 @@ class ResourceManager {
         }
     }
 
+    private Random(value: number): number {
+        return (Math.random() * value);
+    }
+
     public AddToEnemyList(value: Enemy): void {
         this.m_enemies.push(value);
     }
+
     public ClearEnemies(): void {
         this.m_enemies = [];
     }
