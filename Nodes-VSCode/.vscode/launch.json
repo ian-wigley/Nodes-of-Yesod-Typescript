@@ -6,15 +6,28 @@
     "configurations": [
       {
         "type": "chrome",
+        "name": "Chrome",
         "request": "launch",
-        "name": "Launch browser against localhost",
         "url": "http://localhost:8000/index.html",
         "userDataDir": true,
-        "runtimeArgs": ["--incognito"],
+        "runtimeArgs": [
+          "--incognito"
+        ],
         "webRoot": "${workspaceFolder}",
         "preLaunchTask": "tsc: build - tsconfig.json",
-        "outFiles": ["${workspaceFolder}/out/**/*.js"],
+        "outFiles": [
+          "${workspaceFolder}/out/**/*.js"
+        ],
         "runtimeExecutable": "stable"
+      },
+      {
+        "type": "firefox",
+        "name": "Firefox",
+        "request": "launch",
+        "url": "http://localhost:6000",
+        "reAttach": true,
+        "webRoot": "${workspaceFolder}",
+        "profile": "defualt-release-1"
       }
     ]
   }
