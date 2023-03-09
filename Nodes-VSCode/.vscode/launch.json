@@ -21,13 +21,12 @@
         "runtimeExecutable": "stable"
       },
       {
-        "type": "firefox",
         "name": "Firefox",
+        "type": "firefox",
         "request": "launch",
-        "url": "http://localhost:6000",
         "reAttach": true,
-        "webRoot": "${workspaceFolder}",
-        "profile": "defualt-release-1"
+        "url": "http://localhost/index.html",
+        "webRoot": "${workspaceFolder}"
       }
     ]
   }
