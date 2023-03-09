@@ -82,6 +82,12 @@ class Bird extends Enemy {
         else {
             ctx.drawImage(this.m_texture, (this.m_frame + 8) * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }
+        if (this.m_debug) {
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "green";
+            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
+            ctx.stroke();
+        }
     }
 }
 
