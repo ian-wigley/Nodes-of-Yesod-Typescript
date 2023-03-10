@@ -89,7 +89,8 @@ class ResourceManager {
         }
     }
 
-    public ConfigureEnemies(rectangles: any, enemy: any): void {
+    public ConfigureEnemies(rectangles: any, enemy: any, edibleWalls: any): void {
+        // Configure the walking enemies
         this.m_enemies = [];
         if (enemy != undefined) {
             for (const en of enemy) {
@@ -97,10 +98,12 @@ class ResourceManager {
                     let obj: any = this.GetEnemy(en.name);
                     let enemy: Enemy = new obj(en.x, en.y, en.speed, this.m_sprites, rectangles, this.m_screen, en.warpToScreen);
                     enemy.Debug = true;
+                    enemy.EdibleWalls = edibleWalls;
                     this.m_enemies.push(enemy);
                 }
             }
         }
+        // Configure the floating enemies
         for (let j = 0; j < 3; j++) {
             let floatingEnemies = Math.ceil(Math.random() * 6);
             switch (floatingEnemies) {
@@ -145,6 +148,8 @@ class ResourceManager {
     public TurnOffEdibleWallChunks(num: number, ids?: Array<number>, otherNum?: number, otherIds?: Array<number>): void {
         if (ids != undefined) {
             ids.forEach(t => { this.jsonTiles[num].tiles[t]._drawable = false; });
+            // Clear down the edible wall section for each current enemy onscreen.
+            this.m_enemies.forEach(e => { e.EdibleWalls = []; });
         }
         if (otherIds != undefined && otherNum != undefined) {
             otherIds.forEach(t => { this.jsonTiles[otherNum].tiles[t]._drawable = false; });
