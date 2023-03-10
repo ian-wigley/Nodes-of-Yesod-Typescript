@@ -300,7 +300,9 @@ class Nodes {
             this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
             if (this.screenChange && this.screen.name.includes("BelowMoon")) {
                 this.walkingEnemies = this.screen.enemies;
-                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies);
+                this.edibleWalls = this.screen.edibleWall;
+                this.rects = this.screen.rectangleList;
+                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
                 this.screenChange = false;
             }
 
@@ -383,8 +385,10 @@ class Nodes {
                 // Recalculate the screen counter & get the screen & walking enemies
                 this.UpdateScreenCounter();
                 this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
+                this.rects = this.screen.rectangleList;
+                this.edibleWalls = this.screen.edibleWall;
                 this.walkingEnemies = this.screen.enemies;
-                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies);
+                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
             }
 
             // To-do Fix ! It gets triggered throughout the entire somersault
@@ -700,6 +704,7 @@ class Nodes {
         this.resourceManager.ClearEnemies();
         this.edibleWalls = [];
         this.alchiems = [];
+        this.rects = [];
     }
 }
 export = Nodes;
