@@ -4,8 +4,6 @@ import ScreenInfo = require("ScreenInfo");
 
 class Bird extends Enemy {
 
-    private m_birdRect!: Rectangle;
-
     constructor(
         x: number,
         y: number,
@@ -33,46 +31,8 @@ class Bird extends Enemy {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
-        let triggered = false;
-        this.m_birdRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height - 10, "bird");
-        for (const element of this.m_walls) {
-            if (this.m_birdRect.Intersects(element) && !triggered) {
-                triggered = true;
-                if (this.m_speed > 0) {
-                    this.m_x -= 5;
-                    this.m_speed *= -1;
-                    this.m_facingLeft = true;
-                }
-                else {
-                    this.m_x += 5;
-                    this.m_speed *= -1;
-                    this.m_facingLeft = false;
-                }
-            }
-        }
-        triggered = false;
-        for (const element of this.m_edibleWalls) {
-            if (this.m_birdRect.Intersects(element) && !triggered) {
-                triggered = true;
-                if (this.m_speed > 0) {
-                    this.m_x -= 5;
-                    this.m_speed *= -1;
-                    this.m_facingLeft = true;
-                }
-                else {
-                    this.m_x += 5;
-                    this.m_speed *= -1;
-                    this.m_facingLeft = false;
-                }
-            }
-        }
-
-        if (this.m_x >= 801) {
-            this.m_x = 0;
-        }
-        else if (this.m_x < 0) {
-            this.m_x = 800;
-        }
+        this.m_rectangle = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height - 10, "bird");
+        this.CheckWallCollisions();
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
@@ -91,4 +51,4 @@ class Bird extends Enemy {
     }
 }
 
-export = Bird; 
+export = Bird;
