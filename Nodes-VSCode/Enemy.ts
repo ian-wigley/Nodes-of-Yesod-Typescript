@@ -12,13 +12,14 @@ class Enemy extends BaseObject {
     protected m_timeSinceLastFrame: number;
     protected m_millisecondsPerFrame: number;
     protected m_turning: boolean;
+    protected m_rectangle!: Rectangle;
 
     constructor(
-        x: number, 
-        y: number, 
-        speedX: number, 
-        texture: HTMLCanvasElement, 
-        walls: Array<Rectangle>, 
+        x: number,
+        y: number,
+        speedX: number,
+        texture: HTMLCanvasElement,
+        walls: Array<Rectangle>,
         screenInfo: ScreenInfo
     ) {
         super(texture, screenInfo);
@@ -39,6 +40,54 @@ class Enemy extends BaseObject {
     }
 
     public Update(): void { /* TODO document why this method 'Update' is empty */ }
+
+    protected CheckWallCollisions():void{
+        let triggered = false;
+        for (const element of this.m_walls) {
+            if (this.m_rectangle.Intersects(element) && !triggered) {
+                triggered = true;
+                if (this.m_speed > 0) {
+                    this.TurnLeft();
+                }
+                else {
+                    this.TurnRight();
+                }
+            }
+        }
+        triggered = false;
+        for (const element of this.m_edibleWalls) {
+            if (this.m_rectangle.Intersects(element) && !triggered) {
+                triggered = true;
+                if (this.m_speed > 0) {
+                    this.TurnLeft();
+                }
+                else {
+                    this.TurnRight();
+                }
+            }
+        }
+
+        // If there are no walls
+        if (this.m_x >= 801) {
+            this.TurnLeft();
+        }
+        else if (this.m_x < 0) {
+            this.TurnRight();
+        }
+    }
+
+    protected TurnRight(): void {
+        this.m_x += 5;
+        this.m_speed *= -1;
+        this.m_facingLeft = false;
+    }
+
+    protected TurnLeft(): void {
+        this.m_x -= 5;
+        this.m_speed *= -1;
+        this.m_facingLeft = true;
+    }
+
 
     public get Name(): string { return this.m_name; }
     // public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
