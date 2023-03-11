@@ -5,6 +5,22 @@
     "version": "0.2.0",
     "configurations": [
       {
+        "type": "msedge",
+        "name": "Edge",
+        "request": "launch",
+        "url": "http://localhost:8000/index.html",
+        "userDataDir": true,
+        "runtimeArgs": [
+          "--incognito"
+        ],
+        "webRoot": "${workspaceFolder}",
+        "preLaunchTask": "tsc: build - tsconfig.json",
+        "outFiles": [
+          "${workspaceFolder}/out/**/*.js"
+        ],
+        "runtimeExecutable": "stable"
+      },
+      {
         "type": "chrome",
         "name": "Chrome",
         "request": "launch",
