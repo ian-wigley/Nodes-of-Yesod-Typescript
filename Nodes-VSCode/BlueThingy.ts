@@ -18,7 +18,7 @@ class BlueThingy extends Enemy {
         this.m_name = "BlueThingy";
         this.m_offsetX = 12 * 64;
         this.m_offsetY = 6 * 69;
-        this.m_width = 34;//64
+        this.m_width = 34;
         this.m_height = 64;
     }
 
@@ -39,26 +39,52 @@ class BlueThingy extends Enemy {
             this.m_speedX *= -1;
         }
 
-
-        var triggered = false;
-        this.m_blueThingRect = new Rectangle(this.m_x + 10, this.m_y, 64, 64, "bluethingy");
-        for (var i = 0; i < this.m_walls.length; i++) {
-            if (this.m_blueThingRect.Intersects(this.m_walls[i]) && !triggered) {
+        let triggered = false;
+        this.m_rectangle = new Rectangle(this.m_x + 10, this.m_y, 64, 64, this.m_name);
+        this.m_walls.forEach((platform: Rectangle) => {
+            let v = this.m_rectangle.Intersects(platform) && !triggered;
+            if (v == true) {
                 triggered = true;
                 if (this.m_speedX > 0) {
                     this.m_x -= 5;
+                    this.m_y -= 5;
                     this.m_speedX *= -1;
+                    this.m_speedY *= -1;
                 }
                 else {
                     this.m_x += 5;
+                    this.m_y += 5;
                     this.m_speedX *= -1;
+                    this.m_speedY *= -1;
                 }
             }
-        }
+        });
+
+        // var triggered = false;
+        // this.m_blueThingRect = new Rectangle(this.m_x + 10, this.m_y, 64, 64, "bluethingy");
+        // for (var i = 0; i < this.m_walls.length; i++) {
+        //     if (this.m_blueThingRect.Intersects(this.m_walls[i]) && !triggered) {
+        //         triggered = true;
+        //         if (this.m_speedX > 0) {
+        //             this.m_x -= 5;
+        //             this.m_speedX *= -1;
+        //         }
+        //         else {
+        //             this.m_x += 5;
+        //             this.m_speedX *= -1;
+        //         }
+        //     }
+        // }
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        if (this.m_debug) {
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "green";
+            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
+            ctx.stroke();
+        }
     }
 }
 
