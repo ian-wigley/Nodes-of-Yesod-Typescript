@@ -56,7 +56,7 @@ class Mole extends BaseObject {
         }
 
         let triggered = false;
-        this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "mole");
+        this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, this.m_name);
         for (const element of this.m_walls) {
             if (this.m_moleRect.Intersects(element) && !triggered) {
                 triggered = true;
