@@ -39,8 +39,6 @@ class Caterpillar extends Enemy {
         ctx.drawImage(this.m_texture, this.m_frame * 64, 16 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
     }
 
-    // public set Ledges(value: Array<Rectangle>) { this.m_platforms = value; }
-    // public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
 }
 
-export = Caterpillar;  
+export = Caterpillar;
