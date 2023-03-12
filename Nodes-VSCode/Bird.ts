@@ -31,7 +31,7 @@ class Bird extends Enemy {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
-        this.m_rectangle = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height - 10, "bird");
+        this.m_rectangle = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height - 10, this.m_name);
         this.CheckWallCollisions();
     }
 
