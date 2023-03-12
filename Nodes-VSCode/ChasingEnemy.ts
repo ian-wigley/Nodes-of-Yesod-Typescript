@@ -15,7 +15,7 @@ class ChasingEnemy extends Enemy {
         this.m_name = "ChasingEnemy";
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 10 * 69;
-        this.m_width = 34;//64
+        this.m_width = 34;
         this.m_height = 64;
         this.m_debug = false;
     }
