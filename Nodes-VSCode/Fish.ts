@@ -4,11 +4,11 @@ import ScreenInfo = require("ScreenInfo");
 
 class Fish extends Enemy {
     constructor(
-        x: number, 
-        y: number, 
-        speed: number, 
-        gameSprites: HTMLCanvasElement, 
-        wall: Array<Rectangle>, 
+        x: number,
+        y: number,
+        speed: number,
+        gameSprites: HTMLCanvasElement,
+        wall: Array<Rectangle>,
         screenInfo: ScreenInfo
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
