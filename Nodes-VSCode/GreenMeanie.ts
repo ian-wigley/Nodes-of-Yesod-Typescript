@@ -3,6 +3,7 @@ import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
 class GreenMeanie extends Enemy {
+
     constructor(
         x: number,
         y: number,
