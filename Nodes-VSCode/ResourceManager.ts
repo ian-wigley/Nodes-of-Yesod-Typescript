@@ -109,14 +109,20 @@ class ResourceManager {
             switch (floatingEnemies) {
                 case 1:
                 case 4:
-                    this.m_enemies.push(new SpringBear(Math.max(200, this.Random(600)), this.Random(360), 1, this.m_sprites, rectangles, this.m_screen));
+                    let springBear: SpringBear = new SpringBear(Math.max(200, this.Random(600)), this.Random(360), 1, this.m_sprites, rectangles, this.m_screen);
+                    springBear.Debug = true;
+                    this.m_enemies.push(springBear);
                     break;
                 case 2:
                 case 5:
-                    this.m_enemies.push(new BlueThingy(Math.max(200, this.Random(600)), this.Random(360), 1, this.m_sprites, rectangles, this.m_screen));
+                    let blueThingy: BlueThingy = new BlueThingy(Math.max(200, this.Random(600)), this.Random(360), 1, this.m_sprites, rectangles, this.m_screen);
+                    blueThingy.Debug = true;
+                    this.m_enemies.push(blueThingy);
                     break;
                 case 6:
-                    this.m_enemies.push(new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen));
+                    let chasingEnemy: ChasingEnemy = new ChasingEnemy(300, 300, 1, this.m_sprites, rectangles, this.m_screen);
+                    chasingEnemy.Debug = true;
+                    this.m_enemies.push(chasingEnemy);
                     break;
                 default:
                     break;
