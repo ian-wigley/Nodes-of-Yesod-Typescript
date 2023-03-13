@@ -41,7 +41,7 @@ class Enemy extends BaseObject {
 
     public Update(): void { /* TODO document why this method 'Update' is empty */ }
 
-    protected CheckWallCollisions():void{
+    protected CheckWallCollisions(): void {
         let triggered = false;
         for (const element of this.m_walls) {
             if (this.m_rectangle.Intersects(element) && !triggered) {
@@ -88,10 +88,17 @@ class Enemy extends BaseObject {
         this.m_facingLeft = true;
     }
 
-
     public get Name(): string { return this.m_name; }
-    // public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
-    // public set Ledges(value: Array<Rectangle>) { this.m_platforms = value; }
+
+    protected DrawDebugRectangle(ctx: CanvasRenderingContext2D): void {
+        if (this.m_debug) {
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "green";
+            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
+            ctx.stroke();
+        }
+    }
+
 }
 
 export = Enemy;
