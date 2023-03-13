@@ -14,6 +14,8 @@ class CockRoach extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "WoodLouse";
         this.m_facingLeft = true;
+        this.m_width = 34;
+        this.m_height = 64;
     }
 
     public Update(): void {
@@ -41,6 +43,7 @@ class CockRoach extends Enemy {
         else {
             ctx.drawImage(this.m_texture, (this.m_frame + 4) * 64, 7 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
         }
+        this.DrawDebugRectangle(ctx);
     }
 }
 export = CockRoach;
