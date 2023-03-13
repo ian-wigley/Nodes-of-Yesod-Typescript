@@ -15,6 +15,8 @@ class RedSpaceman extends Enemy {
         this.m_name = "RedSpaceman";
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 0 * 69;
+        this.m_width = 34;
+        this.m_height = 64;
     }
 
     public Update(): void {
@@ -28,6 +30,7 @@ class RedSpaceman extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.m_texture, this.m_frame * 64, 8 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        this.DrawDebugRectangle(ctx);
     }
 }
 export = RedSpaceman;
