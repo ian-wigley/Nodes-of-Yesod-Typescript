@@ -77,12 +77,7 @@ class SpringBear extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        if (this.m_debug) {
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "green";
-            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
-            ctx.stroke();
-        }
+        this.DrawDebugRectangle(ctx);
     }
 }
 
