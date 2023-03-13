@@ -115,4 +115,4 @@ class Mole extends BaseObject {
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
 
 }
-export = Mole; 
+export = Mole;
