@@ -15,6 +15,8 @@ class Fish extends Enemy {
         this.m_name = "Fish";
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 8 * 69;
+        this.m_width = 34;
+        this.m_height = 64;
     }
 
     public Update(): void {
@@ -27,6 +29,7 @@ class Fish extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        this.DrawDebugRectangle(ctx);
     }
 }
 
