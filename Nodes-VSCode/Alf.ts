@@ -4,8 +4,6 @@ import ScreenInfo = require("ScreenInfo");
 
 class Alf extends Enemy {
 
-    private m_alfRect!: Rectangle;
-
     constructor(
         x: number,
         y: number,
@@ -41,9 +39,9 @@ class Alf extends Enemy {
             this.m_facingLeft = false;
         }
         let triggered = false;
-        this.m_alfRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, "alf");
+        this.m_rectangle = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, this.m_name);
         for (const element of this.m_walls) {
-            if (this.m_alfRect.Intersects(element) && !triggered) {
+            if (this.m_rectangle.Intersects(element) && !triggered) {
                 triggered = true;
                 if (this.m_speed > 0) {
                     this.m_x -= 5;
@@ -69,4 +67,4 @@ class Alf extends Enemy {
     }
 }
 
-export = Alf;  
+export = Alf;
