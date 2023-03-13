@@ -15,6 +15,8 @@ class Fire extends Enemy {
         this.m_name = "Fire";
         this.m_offsetX = 6 * 64;
         this.m_offsetY = 10 * 69;
+        this.m_width = 34;
+        this.m_height = 64;
     }
 
     public Update(): void {
@@ -28,6 +30,7 @@ class Fire extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        this.DrawDebugRectangle(ctx);
     }
 }
 
