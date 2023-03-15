@@ -3,6 +3,9 @@ import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
 class Plant extends Enemy {
+
+    private m_spawnTimer: number = 0;
+
     constructor(
         x: number,
         y: number,
@@ -17,14 +20,20 @@ class Plant extends Enemy {
         this.m_offsetY = 10 * 69;
         this.m_width = 34;
         this.m_height = 64;
+        this.m_spawnTimer = Math.floor(Math.random() * 10);
     }
 
     public Update(): void {
-        this.m_animTimer += 0.1;
         this.m_offsetX = (this.m_frame + 11) * 64;
-        if (this.m_animTimer > 2.4) {
-            this.m_frame = (this.m_frame + 1) % 8;
-            this.m_animTimer = 0;
+        if (this.m_spawnTimer == 0) {
+            this.m_animTimer += 0.1;
+            if (this.m_animTimer > 2.4) {
+                this.m_frame = (this.m_frame + 1) % 8;
+                this.m_animTimer = 0;
+            }
+        }
+        else {
+            this.m_spawnTimer -= 1;
         }
     }
 
