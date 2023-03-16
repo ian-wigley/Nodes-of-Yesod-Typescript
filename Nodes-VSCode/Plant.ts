@@ -20,12 +20,12 @@ class Plant extends Enemy {
         this.m_offsetY = 10 * 69;
         this.m_width = 34;
         this.m_height = 64;
-        this.m_spawnTimer = Math.floor(Math.random() * 10);
+        this.m_spawnTimer = Math.floor(Math.random() * 100);
     }
 
     public Update(): void {
-        this.m_offsetX = (this.m_frame + 11) * 64;
         if (this.m_spawnTimer == 0) {
+            this.m_offsetX = (this.m_frame + 11) * 64;
             this.m_animTimer += 0.1;
             if (this.m_animTimer > 2.4) {
                 this.m_frame = (this.m_frame + 1) % 8;
