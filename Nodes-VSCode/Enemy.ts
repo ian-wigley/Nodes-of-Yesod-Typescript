@@ -44,27 +44,11 @@ class Enemy extends BaseObject {
     protected CheckWallCollisions(): void {
         let triggered = false;
         for (const element of this.m_walls) {
-            if (this.m_rectangle.Intersects(element) && !triggered) {
-                triggered = true;
-                if (this.m_speed > 0) {
-                    this.TurnLeft();
-                }
-                else {
-                    this.TurnRight();
-                }
-            }
+            triggered = this.CheckIntersection(element, triggered);
         }
         triggered = false;
         for (const element of this.m_edibleWalls) {
-            if (this.m_rectangle.Intersects(element) && !triggered) {
-                triggered = true;
-                if (this.m_speed > 0) {
-                    this.TurnLeft();
-                }
-                else {
-                    this.TurnRight();
-                }
-            }
+            triggered = this.CheckIntersection(element, triggered);
         }
 
         // If there are no walls
@@ -74,6 +58,19 @@ class Enemy extends BaseObject {
         else if (this.m_x < 0) {
             this.TurnRight();
         }
+    }
+
+    protected CheckIntersection(element: any, triggered: boolean): boolean {
+        if (this.m_rectangle.Intersects(element) && !triggered) {
+            triggered = true;
+            if (this.m_speed > 0) {
+                this.TurnLeft();
+            }
+            else {
+                this.TurnRight();
+            }
+        }
+        return triggered;
     }
 
     protected TurnRight(): void {
