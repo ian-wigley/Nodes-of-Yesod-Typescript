@@ -3,19 +3,17 @@ import BlueThingy = require("BlueThingy");
 import Bird = require("Bird");
 import Caterpillar = require("Caterpillar");
 import ChasingEnemy = require("ChasingEnemy");
+import CockRoach = require("CockRoach");
 import Enemy = require("Enemy");
 import GreenMeanie = require("GreenMeanie");
 import Fire = require("Fire");
 import Fish = require("Fish");
-import Mole = require("Mole");
 import Plant = require("Plant");
-import Rectangle = require("Rectangle");
 import RedSpaceman = require("RedSpaceman");
 import ScreenInfo = require("ScreenInfo");
 import SpringBear = require("SpringBear");
 import TelePort = require("TelePort");
-import CockRoach = require("CockRoach");
-
+import Tile = require("Tile");
 
 class ResourceManager {
     private m_sprites: HTMLCanvasElement;
@@ -72,6 +70,12 @@ class ResourceManager {
         if (name == "Caterpillar") {
             return Caterpillar;
         }
+        if (name == "CockRoach") {
+            return CockRoach;
+        }
+        if (name == "Fire") {
+            return Fire;
+        }
         if (name == "Fish") {
             return Fish;
         }
@@ -81,11 +85,11 @@ class ResourceManager {
         if (name == "Plant") {
             return Plant;
         }
+        if (name == "RedSpaceman") {
+            return RedSpaceman;
+        }
         if (name == "TelePort") {
             return TelePort;
-        }
-        if (name == "CockRoach") {
-            return CockRoach;
         }
     }
 
@@ -163,31 +167,3 @@ class ResourceManager {
     }
 }
 export = ResourceManager;
-
-class Tile {
-    name: string;
-    sx: number;
-    sy: number;
-    sw: number;
-    sh: number;
-    dx: number;
-    dy: number;
-    dw: number;
-    dh: number;
-    tiles = [{ "sx": 0, "sy": 0, "sw": 0, "sh": 0, "dx": 0, "dy": 0, "dw": 0, "dh": 0 }];
-    constructor() {
-        this.name = "";
-        this.sx = 0;
-        this.sy = 0;
-        this.sw = 0;
-        this.sh = 0;
-        this.dx = 0;
-        this.dy = 0;
-        this.dw = 0;
-        this.dh = 0;
-        this.tiles = [{ "sx": 0, "sy": 0, "sw": 0, "sh": 0, "dx": 0, "dy": 0, "dw": 0, "dh": 0 }];
-    }
-    public TileDetails(): any {
-        return this.tiles;
-    }
-}
