@@ -12,6 +12,7 @@ import Star = require("Star");
 import { charliesState } from "./CharliesState";
 import { gameMode } from "./GameState";
 import { moleState } from "./MoleState";
+import Tile = require("./Tile");
 
 class Nodes {
 
@@ -21,7 +22,7 @@ class Nodes {
     private height: number = 600;
 
     // Enemies
-    private walkingEnemies!: Enemy;
+    private walkingEnemies!: Array<Enemy>;
 
     // Mole edible
     private edibleWalls: Array<Rectangle> = new Array<Rectangle>();
@@ -47,12 +48,14 @@ class Nodes {
 
     private screenCounter: number = 0;
 
-    private screen: any;
+    // private screen: any;
+    private screen: Tile;
     private rects: any;
 
     private charlieState: charliesState = charliesState.IDLE;
 
     private immune: boolean = false;
+
     private moleAlive: boolean = false;
     private molestate: moleState = moleState.Free;
 
@@ -103,6 +106,7 @@ class Nodes {
         this.ctx = ctx;
         this.gameState = gameMode.DISPLAY_MENU;
         this.originalMinutes = Math.floor(new Date().getMinutes());
+        this.screen = new Tile();
     }
 
     private Rect(x: number, y: number, w: number, h: number): void {
@@ -205,6 +209,9 @@ class Nodes {
                     this.moleAlive = !this.moleAlive;
                     this.mole.X = this.charlie.X;
                     this.mole.Y = this.charlie.Y;
+                    this.mole.Walls = this.rects;
+                    this.mole.EdibleWalls = this.edibleWalls;
+                    this.mole.ScreenCounter = this.screenCounter;
                 }
                 break;
             case "p":
@@ -599,6 +606,10 @@ class Nodes {
             this.DrawHud();
             this.charlie.Draw(this.ctx);
 
+            if (this.moleAlive) {
+                this.mole.Draw(this.ctx);
+            }
+
             this.resourceManager.EnemyList.forEach((enemy) => {
                 enemy.Draw(this.ctx);
             });
@@ -618,11 +629,6 @@ class Nodes {
 
     private DrawHud(): void {
         if (this.moleAlive) {
-            this.mole.Walls = this.screen.tiles;
-            this.mole.EdibleWalls = this.edibleWalls;
-            this.mole.ScreenCounter = this.screenCounter;
-            this.mole.Draw(this.ctx);
-
             // Draw Moles image on the panel
             this.ctx.drawImage(this.gameSprites, 15 * 64, 12 * 69, 68, 68, 50, 520, 64, 64);
         }
