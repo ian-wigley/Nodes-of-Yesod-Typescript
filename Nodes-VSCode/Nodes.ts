@@ -9,10 +9,10 @@ import ResourceManager = require("ResourceManager");
 import Rocket = require("Rocket");
 import ScreenInfo = require("ScreenInfo");
 import Star = require("Star");
+import Tile = require("./Tile");
 import { charliesState } from "./CharliesState";
 import { gameMode } from "./GameState";
 import { moleState } from "./MoleState";
-import Tile = require("./Tile");
 
 class Nodes {
 
@@ -205,7 +205,10 @@ class Nodes {
                 break;
             case "m":
             case "M":
-                if (this.screen.name.includes("BelowMoon") && this.molestate == moleState.Caught) {
+                if (this.screen.name.includes("BelowMoon") &&
+                    this.molestate != moleState.Active &&
+                    // this.molestate == moleState.NonActive &&
+                    !this.charlie.Falling) {
                     this.moleAlive = !this.moleAlive;
                     this.mole.X = this.charlie.X;
                     this.mole.Y = this.charlie.Y;
@@ -600,7 +603,7 @@ class Nodes {
             }
             else { alert("No Tiles defined for screen : " + this.screenCounter); }
 
-            this.ctx.drawImage(this.gameSprites, (this.heartBeatTimer + 9) * 64, 15 * 69, 68, 68, 420, 520, 64, 64);
+            this.ctx.drawImage(this.gameSprites, (this.heartBeatTimer + 9) * 64, 16 * 69, 68, 68, 420, 520, 64, 64);
             this.ctx.drawImage(this.panel, 50, 530);
 
             this.DrawHud();
