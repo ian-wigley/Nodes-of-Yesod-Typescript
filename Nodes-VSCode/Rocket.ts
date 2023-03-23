@@ -12,7 +12,7 @@ class Rocket extends BaseObject {
         super(texture, screenInfo);
         this.m_y = 100;
         this.m_offsetX = 17 * 64;
-        this.m_offsetY = 11 * 68;
+        this.m_offsetY = 12 * 68;
     }
 
     public Update(): void {
