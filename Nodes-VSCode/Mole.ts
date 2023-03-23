@@ -19,7 +19,7 @@ class Mole extends BaseObject {
         super(texture, screenInfo);
         this.m_underground = false;
         this.m_offsetX = 0 * 64;
-        this.m_offsetY = 11 * 69;
+        this.m_offsetY = 12 * 69;
         this.m_width = 40;
         this.m_height = 40;
         this.m_name = "Mole";
