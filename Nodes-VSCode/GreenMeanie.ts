@@ -15,7 +15,7 @@ class GreenMeanie extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "GreenMeanie";
         this.m_offsetX = 11 * 64;
-        this.m_offsetY = 7 * 69;
+        this.m_offsetY = 8 * 69;
         this.m_width = 34;
         this.m_height = 64;
     }
