@@ -38,7 +38,7 @@ class Caterpillar extends Enemy {
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(this.m_texture, this.m_frame * 64, 16 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
+        ctx.drawImage(this.m_texture, this.m_frame * 64, 17 * 69, 68, 68, this.m_x, this.m_y, 64, 64);
         this.DrawDebugRectangle(ctx);
     }
 
