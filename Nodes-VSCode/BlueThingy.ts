@@ -17,7 +17,7 @@ class BlueThingy extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "BlueThingy";
         this.m_offsetX = 12 * 64;
-        this.m_offsetY = 6 * 69;
+        this.m_offsetY = 7 * 69;
         this.m_width = 34;
         this.m_height = 64;
     }
