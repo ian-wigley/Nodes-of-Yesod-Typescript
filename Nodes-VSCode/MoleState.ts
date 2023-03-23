@@ -1,4 +1,8 @@
 export enum moleState {
+    // Above moon surface
     Free,
-    Caught
+    Caught,
+    // Below moon surface
+    Active,
+    NonActive
 }
