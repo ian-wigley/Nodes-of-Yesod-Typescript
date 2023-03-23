@@ -14,7 +14,7 @@ class Fish extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "Fish";
         this.m_offsetX = 0 * 64;
-        this.m_offsetY = 8 * 69;
+        this.m_offsetY = 9 * 69;
         this.m_width = 34;
         this.m_height = 64;
     }
