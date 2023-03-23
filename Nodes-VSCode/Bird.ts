@@ -21,7 +21,7 @@ class Bird extends Enemy {
         this.m_speed = 1;
         this.m_facingLeft = false;
         this.m_offsetX = 4 * 64;
-        this.m_offsetY = 9 * 69;
+        this.m_offsetY = 10 * 69;
     }
 
     public Update(): void {
