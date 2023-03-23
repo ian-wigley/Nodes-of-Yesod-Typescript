@@ -15,7 +15,7 @@ class SpringBear extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "SpringBear";
         this.m_offsetX = 15 * 64;
-        this.m_offsetY = 5 * 69;
+        this.m_offsetY = 6 * 69;
         this.m_width = 34;
         this.m_height = 64;
     }
