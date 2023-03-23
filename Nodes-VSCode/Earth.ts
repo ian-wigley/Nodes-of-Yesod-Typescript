@@ -13,7 +13,7 @@ class Earth extends BaseObject {
         this.m_width = 64;
         this.m_height = 64;
         this.m_offsetX = 0 * 64;
-        this.m_offsetY = 14 * 69;
+        this.m_offsetY = 15 * 69;
     }
 
     public Update(value: number = 0): void {
