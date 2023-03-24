@@ -289,7 +289,7 @@ class Charlie extends BaseObject {
     /**
      * This method wil return a velocity of either 0 if a collision is found,
      * else the original value passed to the method.
-     * 
+     *
      * @param speed - Falling speed
      */
     public GetVelocityY(speed: number): number {
@@ -350,40 +350,30 @@ class Charlie extends BaseObject {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
-        if (!this.m_direction && this.m_jumpingUp) {//m_jump) {
+        if (!this.m_direction && this.m_jumpingUp) {
             ctx.drawImage(this.m_texture, this.m_frame * 64 + (11 * 64), this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-
         // Draw Charlie facing right
         if (this.m_direction && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-
-        if (!this.m_direction && this.m_jumpingUp) {//.m_jump) {
+        if (!this.m_direction && this.m_jumpingUp) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-
-        if (this.m_direction && !this.m_somerSaultJump) {// || this.mDirection && this.m_somerSaultJump) {
+        if (this.m_direction && !this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
-        }
-
-        if (this.m_direction && this.m_sittingDown) {
-            ctx.drawImage(this.m_texture, /*this.m_frame*/ 15 * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
         if (!this.m_direction && this.m_sittingDown) {
-            ctx.drawImage(this.m_texture, /*this.m_frame*/ 1 * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+            ctx.drawImage(this.m_texture, 0, 4 * 69, 64, 64, this.m_x, this.m_y, 64, 64);
+        }
+        if (this.m_direction && this.m_sittingDown) {
+            ctx.drawImage(this.m_texture, 1 * 64, 4 * 69, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
-        // ctx.fill();
-
         if (this.m_debug) {
-            // ctx.beginPath();
             ctx.lineWidth = 1;
             ctx.strokeStyle = "green";
-            // ctx.rect(this.m_x + 10, this.m_y, this.m_width, this.m_height);
-            // ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
             ctx.rect(this.testingRect.left, this.testingRect.top, this.testingRect.Width, this.testingRect.Height);
-
             ctx.stroke();
             ctx.font = "12px Arial";
             ctx.fillStyle = "yellow";
@@ -424,9 +414,7 @@ class Charlie extends BaseObject {
     public get BelowMoonSurface(): boolean { return this.m_belowSurface; }
     public get SittingDown(): boolean { return this.m_sittingDown; }
     public set SittingDown(value: boolean) { this.m_sittingDown = value; }
-
     public set SeatingFrame(value: number) { this.m_offsetY = value; }
-
     public get Falling(): boolean { return this.m_falling; }
     public set Falling(value: boolean) { this.m_falling = value; }
     public get Walking(): boolean { return this.m_walkingOnFloor; }
@@ -436,7 +424,6 @@ class Charlie extends BaseObject {
     public get Direction(): boolean { return this.m_direction; }
     //public get Jump(): boolean { return this.m_jump; }
     //public set Jump(value: boolean) { this.m_jump = value; }
-
     public get JumpingUp(): boolean { return this.m_jumpingUp; }
     public set JumpingUp(value: boolean) { this.m_jumpingUp = value; }
 
