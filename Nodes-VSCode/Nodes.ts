@@ -221,6 +221,7 @@ class Nodes {
             case "P":
                 this.gamePaused = !this.gamePaused;
                 this.gameState = this.gamePaused ? gameMode.GAME_PAUSED : gameMode.GAME_ON;
+                this.charlie.SittingDown = this.gamePaused;
                 break;
             case "x":
             case "X":
@@ -633,10 +634,10 @@ class Nodes {
     private DrawHud(): void {
         if (this.moleAlive) {
             // Draw Moles image on the panel
-            this.ctx.drawImage(this.gameSprites, 15 * 64, 12 * 69, 68, 68, 50, 520, 64, 64);
+            this.ctx.drawImage(this.gameSprites, 15 * 64, 13 * 69, 68, 68, 50, 520, 64, 64);
         }
         else {
-            this.ctx.drawImage(this.gameSprites, 16 * 64, 12 * 69, 68, 68, 50, 520, 64, 64);
+            this.ctx.drawImage(this.gameSprites, 16 * 64, 13 * 69, 68, 68, 50, 520, 64, 64);
         }
     }
 
