@@ -14,8 +14,8 @@ class GreenMeanie extends Enemy {
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "GreenMeanie";
-        this.m_offsetX = 11 * 64;
-        this.m_offsetY = 8 * 69;
+        this.m_offsetX = 0;
+        this.m_offsetY = 19 * 69;
         this.m_width = 34;
         this.m_height = 64;
     }
@@ -23,7 +23,7 @@ class GreenMeanie extends Enemy {
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_x += this.m_speed;
-        this.m_offsetX = (this.m_frame + 11) * 64;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
