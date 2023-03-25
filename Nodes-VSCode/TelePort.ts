@@ -23,7 +23,7 @@ class TelePort extends Enemy {
         this.m_speed = speed;
         this.m_warpTo = warpTo;
         this.m_offsetX = 11 * 64;
-        this.m_offsetY = 7 * 69;
+        this.m_offsetY = 18 * 69;
     }
 
     public Update(): void {
