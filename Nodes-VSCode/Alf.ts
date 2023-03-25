@@ -41,6 +41,7 @@ class Alf extends Enemy {
         else {
             ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY + 69, 68, 68, this.m_x, this.m_y, 64, 64);
         }
+        this.DrawDebugRectangle(ctx);
     }
 }
 
