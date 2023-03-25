@@ -27,6 +27,7 @@ class Bird extends Enemy {
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_x += this.m_speed;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
@@ -37,17 +38,13 @@ class Bird extends Enemy {
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         if (!this.m_facingLeft) {
+            // TODO update the code below
             ctx.drawImage(this.m_texture, (this.m_frame + 4) * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }
         else {
             ctx.drawImage(this.m_texture, (this.m_frame + 8) * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        }
-        if (this.m_debug) {
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "green";
-            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
-            ctx.stroke();
-        }
+       }
+       this.DrawDebugRectangle(ctx);
     }
 }
 
