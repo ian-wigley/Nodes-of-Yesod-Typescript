@@ -87,15 +87,6 @@ class Enemy extends BaseObject {
 
     public get Name(): string { return this.m_name; }
 
-    protected DrawDebugRectangle(ctx: CanvasRenderingContext2D): void {
-        if (this.m_debug) {
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "green";
-            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
-            ctx.stroke();
-        }
-    }
-
 }
 
 export = Enemy;
