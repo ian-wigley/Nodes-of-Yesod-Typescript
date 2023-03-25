@@ -219,9 +219,12 @@ class Nodes {
                 break;
             case "p":
             case "P":
-                this.gamePaused = !this.gamePaused;
-                this.gameState = this.gamePaused ? gameMode.GAME_PAUSED : gameMode.GAME_ON;
-                this.charlie.SittingDown = this.gamePaused;
+                if (!this.charlie.Falling &&
+                    !this.charlie.JumpingUp) {
+                    this.gamePaused = !this.gamePaused;
+                    this.gameState = this.gamePaused ? gameMode.GAME_PAUSED : gameMode.GAME_ON;
+                    this.charlie.SittingDown = this.gamePaused;
+                }
                 break;
             case "x":
             case "X":
