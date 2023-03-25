@@ -21,6 +21,7 @@ class Fish extends Enemy {
 
     public Update(): void {
         this.m_animTimer += 0.1;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
@@ -28,7 +29,14 @@ class Fish extends Enemy {
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        if (!this.m_facingLeft) {
+            ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+//            ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
+        else {
+            this.m_offsetX += 8 * 64;
+            ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
+        }
         this.DrawDebugRectangle(ctx);
     }
 }
