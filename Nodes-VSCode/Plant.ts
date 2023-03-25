@@ -17,7 +17,7 @@ class Plant extends Enemy {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "Plant";
         this.m_offsetX = 0 * 64;
-        this.m_offsetY = 11 * 69;
+        this.m_offsetY = 14 * 69;
         this.m_width = 34;
         this.m_height = 64;
         this.m_spawnTimer = Math.floor(Math.random() * 100);
@@ -25,7 +25,7 @@ class Plant extends Enemy {
 
     public Update(): void {
         if (this.m_spawnTimer == 0) {
-            this.m_offsetX = (this.m_frame + 11) * 64;
+            this.m_offsetX = this.m_frame * 64;
             this.m_animTimer += 0.1;
             if (this.m_animTimer > 2.4) {
                 this.m_frame = (this.m_frame + 1) % 8;
