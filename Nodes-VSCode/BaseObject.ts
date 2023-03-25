@@ -41,15 +41,22 @@ class BaseObject {
         this.m_name = "";
     }
 
-    public Update(value: number): void {
-    }
+    public Update(value: number): void { /* TODO document why this method 'Update' is empty */ }
 
     public Reset(): void {
         this.m_x = 400;
         this.m_y = 50;
     }
 
-    public Draw(ctx: CanvasRenderingContext2D): void {
+    public Draw(ctx: CanvasRenderingContext2D): void { /* TODO document why this method 'Update' is empty */ }
+
+    protected DrawDebugRectangle(ctx: CanvasRenderingContext2D): void {
+        if (this.m_debug) {
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "green";
+            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
+            ctx.stroke();
+        }
     }
 
     public set Debug(value: boolean) { this.m_debug = value; }
