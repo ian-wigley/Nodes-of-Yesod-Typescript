@@ -82,7 +82,6 @@ class Mole extends BaseObject {
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
 
         if (!this.m_underground) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
@@ -93,15 +92,7 @@ class Mole extends BaseObject {
         else {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY + 69, 68, 68, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_debug) {
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "green";
-            ctx.rect(this.BoundingRectangle.left, this.BoundingRectangle.top, this.BoundingRectangle.Width, this.BoundingRectangle.Height);
-            ctx.stroke();
-            ctx.font = "12px Arial";
-            ctx.fillStyle = "yellow";
-            ctx.fillText("Mole x : " + this.m_x, 10, 128);
-        }
+        this.DrawDebugRectangle(ctx);
     }
 
     public get X(): number { return this.m_x; }
