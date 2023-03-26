@@ -1,15 +1,19 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nodes of Yesod Typescript</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
 
     <style>
+        @font-face {
+            font-family: SpaceAge;
+            src: url('space age.ttf');
+        }
 
-        @font-face { font-family: SpaceAge; src: url('space age.ttf'); } 
-        
         /* * {cursor: none;} */
 
         body {
@@ -30,12 +34,13 @@
             height: 600px;
         }
 
-        #img {
+        img {
             display: none;
         }
     </style>
 
 </head>
+
 <body>
     <div id="container">
         <canvas id="canvas" width="800" height="600"></canvas>
@@ -46,8 +51,9 @@
     <img id="GameTiles" src="images/tiles.png" alt="Game Tiles" />
     <img id="Panel" src="images/panel.png" alt="Game Panel" />
     <img id="Instructions" src="images/instructions.png" alt="Game Instructions" />
-    
+
     <script data-main="out/main.js" src="out/require.js"></script>
 
 </body>
+
 </html>
