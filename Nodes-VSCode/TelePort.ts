@@ -1,8 +1,8 @@
-﻿import Enemy = require("Enemy");
+﻿import NonDirectionalEnemy = require("NonDirectionalEnemy");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
-class TelePort extends Enemy {
+class TelePort extends NonDirectionalEnemy {
     private m_warpTo?: number;
 
     constructor(
@@ -22,22 +22,17 @@ class TelePort extends Enemy {
         this.m_height = 64;
         this.m_speed = speed;
         this.m_warpTo = warpTo;
-        this.m_offsetX = 11 * 64;
-        this.m_offsetY = 18 * 69;
+        this.m_offsetX = 0;
+        this.m_offsetY = 24 * 69;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
-        this.m_offsetX = (this.m_frame + 8) * 64;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 3;
             this.m_animTimer = 0;
         }
-    }
-
-    public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        this.DrawDebugRectangle(ctx);
     }
 }
 export = TelePort;
