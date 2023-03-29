@@ -1,9 +1,8 @@
-﻿import Enemy = require("Enemy");
+﻿import DirectionalEnemy = require("DirectionalEnemy");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
-class Caterpillar extends Enemy {
-
+class Caterpillar extends DirectionalEnemy {
     constructor(
         x: number,
         y: number,
@@ -16,6 +15,7 @@ class Caterpillar extends Enemy {
         this.m_name = "Caterpillar";
         this.m_offsetX = 0 * 64;
         this.m_offsetY = 17 * 69;
+        this.m_imageIndex = 8 * 64;
         this.m_width = 34;
         this.m_height = 64;
     }
@@ -37,18 +37,6 @@ class Caterpillar extends Enemy {
             this.m_facingLeft = false;
         }
     }
-
-    public Draw(ctx: CanvasRenderingContext2D): void {
-        if (!this.m_facingLeft) {
-            ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        }
-        else {
-            this.m_offsetX += 8 * 64;
-            ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        }
-        this.DrawDebugRectangle(ctx);
-    }
-
 }
 
 export = Caterpillar;
