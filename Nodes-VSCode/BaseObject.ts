@@ -41,8 +41,6 @@ class BaseObject {
         this.m_name = "";
     }
 
-    public Update(value: number): void { /* TODO document why this method 'Update' is empty */ }
-
     public Reset(): void {
         this.m_x = 400;
         this.m_y = 50;
