@@ -13,6 +13,8 @@ class Enemy extends BaseObject {
     protected m_millisecondsPerFrame: number;
     protected m_turning: boolean;
     protected m_rectangle!: Rectangle;
+    // Index into sprite sheet
+    protected m_imageIndex: number;
 
     constructor(
         x: number,
@@ -31,6 +33,7 @@ class Enemy extends BaseObject {
         this.m_frame = 0;
         this.m_offsetX = 0;
         this.m_offsetY = 0;
+        this.m_imageIndex = 0;
         this.m_walls = walls;
         this.m_sheetSize = 8;
         this.m_timeSinceLastFrame = 0;
