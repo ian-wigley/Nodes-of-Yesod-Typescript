@@ -1,8 +1,8 @@
-﻿import Enemy = require("Enemy");
+﻿import NonDirectionalEnemy = require("NonDirectionalEnemy");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
-class SpringBear extends Enemy {
+class SpringBear extends NonDirectionalEnemy {
 
     constructor(
         x: number,
@@ -14,20 +14,21 @@ class SpringBear extends Enemy {
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "SpringBear";
-        this.m_offsetX = 15 * 64;
-        this.m_offsetY = 6 * 69;
+        this.m_offsetX = 0;
+        this.m_offsetY = 20 * 69;
         this.m_width = 34;
         this.m_height = 64;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
+        this.m_x += this.m_speedX;
+        this.m_y += this.m_speedY;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
-        this.m_x += this.m_speedX;
-        this.m_y += this.m_speedY;
 
         if (this.m_y > this.m_screen.Bottom || this.m_y < this.m_screen.Top) {
             this.m_speedY *= -1;
@@ -73,11 +74,6 @@ class SpringBear extends Enemy {
         //         }
         //     }
         // }
-    }
-
-    public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        this.DrawDebugRectangle(ctx);
     }
 }
 
