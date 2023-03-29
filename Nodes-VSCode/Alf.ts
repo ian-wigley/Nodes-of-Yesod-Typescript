@@ -1,8 +1,8 @@
-﻿import Enemy = require("Enemy");
-import Rectangle = require("Rectangle");
+﻿import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
+import DirectionalEnemy = require("./DirectionalEnemy");
 
-class Alf extends Enemy {
+class Alf extends DirectionalEnemy {
 
     constructor(
         x: number,
@@ -19,29 +19,21 @@ class Alf extends Enemy {
         this.m_width = 34;
         this.m_height = 64;
         this.m_speed = speed;
-        this.m_offsetX = 0 * 64;
-        this.m_offsetY = 5 * 69;
+        this.m_offsetX = 0;
+        this.m_offsetY = 6 * 69;
+        this.m_imageIndex = 14 * 64;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_x += this.m_speed;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 1.4) {
             this.m_frame = (this.m_frame + 1) % 7;
             this.m_animTimer = 0;
         }
         this.m_rectangle = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, this.m_name);
         this.CheckWallCollisions();
-    }
-
-    public Draw(ctx: CanvasRenderingContext2D): void {
-        if (!this.m_facingLeft) {
-            ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        }
-        else {
-            ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY + 69, 68, 68, this.m_x, this.m_y, 64, 64);
-        }
-        this.DrawDebugRectangle(ctx);
     }
 }
 
