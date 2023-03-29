@@ -1,8 +1,8 @@
-﻿import Enemy = require("Enemy");
+﻿import NonDirectionalEnemy = require("NonDirectionalEnemy");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 
-class Fire extends Enemy {
+class Fire extends NonDirectionalEnemy {
     constructor(
         x: number,
         y: number,
@@ -21,16 +21,12 @@ class Fire extends Enemy {
 
     public Update(): void {
         this.m_animTimer += 0.1;
+        this.m_offsetX = this.m_frame * 64;
         // this.m_x += this.m_speed;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
         }
-    }
-
-    public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(this.m_texture, this.m_frame * 64 + this.m_offsetX, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
-        this.DrawDebugRectangle(ctx);
     }
 }
 
