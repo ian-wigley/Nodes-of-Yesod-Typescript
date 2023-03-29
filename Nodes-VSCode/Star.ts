@@ -5,11 +5,7 @@
     private starLayer2X: number = Math.floor(Math.random() * 800);
     private starLayer2Y: number = Math.floor(Math.random() * 250);
 
-    constructor() {
-    }
-
-    public Update(): void {
-    }
+    public Update(): void { /* TODO document why this method 'Update' is empty */ }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
         ctx.fillStyle = "#565555";
@@ -24,4 +20,4 @@
     }
 }
 
-export = Star; 
+export = Star;
