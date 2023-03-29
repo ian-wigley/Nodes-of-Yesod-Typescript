@@ -4,10 +4,10 @@ import ScreenInfo = require("ScreenInfo");
 class Earth extends BaseObject {
 
     constructor(
-        texture: HTMLCanvasElement,
+        gameSprites: HTMLCanvasElement,
         screenInfo: ScreenInfo
     ) {
-        super(texture, screenInfo);
+        super(gameSprites, screenInfo);
         this.m_x = 600;
         this.m_y = 20;
         this.m_width = 64;
@@ -16,8 +16,9 @@ class Earth extends BaseObject {
         this.m_offsetY = 15 * 69;
     }
 
-    public Update(value: number = 0): void {
+    public Update(): void {
         this.m_animTimer += 0.1;
+        this.m_offsetX = this.m_frame * 64;
         if (this.m_animTimer > 10.4) {
             this.m_frame = (this.m_frame + 1) % 15;
             this.m_animTimer = 0;
@@ -25,9 +26,7 @@ class Earth extends BaseObject {
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
-        ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
-        ctx.fill();
+        ctx.drawImage(this.m_texture, this.m_offsetX, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         if (this.m_debug) {
             ctx.font = "12px Arial";
             ctx.fillStyle = "yellow";
