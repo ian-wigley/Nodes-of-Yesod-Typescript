@@ -54,7 +54,10 @@ class Mole extends BaseObject {
         if (value == 3 && this.m_y < this.m_screen.Bottom) {
             this.m_y += 4;
         }
+        this.CheckWallCollisions();
+    }
 
+    private CheckWallCollisions():void{
         let triggered = false;
         this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, this.m_name);
         for (const element of this.m_walls) {
