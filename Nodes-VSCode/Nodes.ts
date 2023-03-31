@@ -13,6 +13,7 @@ import Tile = require("./Tile");
 import { charliesState } from "./CharliesState";
 import { gameMode } from "./GameState";
 import { moleState } from "./MoleState";
+import { direction } from "./Direction";
 
 class Nodes {
 
@@ -358,28 +359,26 @@ class Nodes {
 
     // TODO update logic to utilse charlieState enum
     private UpdateCharlie() {
-        let charlieValue: number = 0;
+        let charlieValue: number = charliesState.IDLE;
 
         if (!this.charlie.SittingDown) {
             charlieValue = this.UpdateCharlieWithUserInput(charlieValue);
         }
 
-        if (this.charlie.Somersault && !this.charlie.Direction) {
+        if (this.charlie.Somersault && this.charlie.Direction == direction.FACE_LEFT) {
             charlieValue = 1;
         }
 
-        if (this.charlie.Somersault && this.charlie.Direction) {
+        if (this.charlie.Somersault && this.charlie.Direction == direction.FACE_RIGHT) {
             charlieValue = 2;
         }
 
-        // if (!this.charlie.Somersault && this.charlie.Jump && !this.charlie.Direction) {
-        if (!this.charlie.Somersault && this.charlie.JumpingUp && !this.charlie.Direction) {
-            charlieValue = 3;
+        if (!this.charlie.Somersault && this.charlie.JumpingUp && this.charlie.Direction == direction.FACE_LEFT) {
+            charlieValue = charliesState.JUMP_UP;
         }
 
-        // if (!this.charlie.Somersault && this.charlie.Jump && this.charlie.Direction) {
-        if (!this.charlie.Somersault && this.charlie.JumpingUp && this.charlie.Direction) {
-            charlieValue = 4;
+        if (!this.charlie.Somersault && this.charlie.JumpingUp && this.charlie.Direction == direction.FACE_RIGHT) {
+            charlieValue = charliesState.JUMP_UP;
         }
 
         this.charlie.Update(charlieValue);
