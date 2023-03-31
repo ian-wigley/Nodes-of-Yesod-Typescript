@@ -157,12 +157,18 @@ class ResourceManager {
      */
     public TurnOffEdibleWallChunks(num: number, ids?: Array<number>, otherNum?: number, otherIds?: Array<number>): void {
         if (ids != undefined) {
-            ids.forEach(t => { this.jsonTiles[num].tiles[t]._drawable = false; });
+            ids.forEach(t => {
+                this.jsonTiles[num].tiles[t]._drawable = false;
+                this.jsonTiles[num].edibleWall = [];
+            });
             // Clear down the edible wall section for each current enemy onscreen.
             this.m_enemies.forEach(e => { e.EdibleWalls = []; });
         }
         if (otherIds != undefined && otherNum != undefined) {
-            otherIds.forEach(t => { this.jsonTiles[otherNum].tiles[t]._drawable = false; });
+            otherIds.forEach(t => {
+                this.jsonTiles[otherNum].tiles[t]._drawable = false;
+                this.jsonTiles[otherNum].edibleWall = [];
+            });
         }
     }
 }
