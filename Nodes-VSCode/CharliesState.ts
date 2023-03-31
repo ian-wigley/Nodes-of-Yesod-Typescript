@@ -5,7 +5,8 @@ export enum charliesState {
     WALK_LEFT,
     WALK_RIGHT,
     JUMP_UP,
-    DISPLAY_HELP,
     SOMERSAULT_LEFT,
     SOMERSAULT_RIGHT,
+    SEATED,
+    DISPLAY_HELP,
 }
