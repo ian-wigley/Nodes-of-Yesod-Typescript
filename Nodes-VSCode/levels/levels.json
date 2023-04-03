@@ -6573,6 +6573,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -10796,6 +10797,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 124,
                 "sy": 49,
                 "sw": 62,
@@ -13963,6 +13965,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 0,
                 "sy": 49,
                 "sw": 62,
@@ -15637,6 +15640,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -17051,6 +17055,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 124,
                 "sy": 49,
                 "sw": 62,
@@ -18684,7 +18689,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -18794,8 +18800,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
-                "sx": 5394,
+                "_comment": "hmmm",
+                "sx": 539,
                 "sy": 0,
                 "sw": 62,
                 "sh": 49,
@@ -22096,7 +22102,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 62,
                 "sy": 49,
                 "sw": 62,
@@ -26087,6 +26094,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -27489,7 +27497,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -27920,7 +27929,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -28815,7 +28825,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -30097,7 +30108,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -31462,7 +31474,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -34442,7 +34455,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -36201,6 +36215,7 @@
             },
             {
                 "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 62,
                 "sy": 49,
                 "sw": 62,
@@ -36910,7 +36925,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 124,
                 "sy": 49,
                 "sw": 62,
@@ -39245,7 +39261,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -39914,7 +39931,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -40821,7 +40839,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -42577,7 +42596,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -50451,7 +50471,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 62,
                 "sy": 49,
                 "sw": 62,
@@ -54089,7 +54110,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -61755,7 +61777,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 0,
                 "sy": 49,
                 "sw": 62,
@@ -69492,7 +69515,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 124,
                 "sy": 49,
                 "sw": 62,
@@ -69996,7 +70020,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -72366,7 +72391,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 62,
                 "sy": 49,
                 "sw": 62,
@@ -73113,7 +73139,8 @@
                 "dh": 49
             },
             {
-                "_comment": "",
+                "_comment": "Alchiem",
+                "_drawable": true,
                 "sx": 186,
                 "sy": 49,
                 "sw": 62,
@@ -74260,7 +74287,7 @@
                 "bottom": 100,
                 "tileIds": [
                     18,
-                    21
+                    22
                 ],
                 "otherScreen": 220,
                 "otherTiles": [
