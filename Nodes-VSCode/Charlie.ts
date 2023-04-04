@@ -5,32 +5,29 @@ import { direction } from "./Direction";
 
 class Charlie extends BaseObject {
 
-    private m_somerSaultJump: boolean = false;
-
     private m_facing: direction = direction.FACE_RIGHT;
 
+    private m_somerSaultJump: boolean = false;
     private m_falling: boolean = false;
-    private m_startFrame: number = 16;
     private m_initialised: boolean = false;
-    private m_screenCounter = 0;
     private m_walkingOnFloor: boolean = false;
-
     private m_belowSurface: boolean = false;
     private m_jump: boolean = false;
     private m_sittingDown: boolean = false;
-
-    private m_amplitude: number = 185;//125
-    private m_shift: number = 0;
-    private m_t: number = 0;//6;
-    private m_increment = 10 * Math.PI / 180;//12
-
-    private plats: Array<Rectangle>;
+    private m_jumpStarted: boolean = false;
+    private m_jumpingUp: boolean = false;
 
     //https://csanyk.com/2012/10/game-maker-wave-motion-tutorial/
     private m_landingVal: number = 0;
+    private m_startFrame: number = 16;
     private m_startYPosition: number = 0;
-    private m_jumpStarted: boolean = false;
-    private m_jumpingUp: boolean = false;
+    private m_screenCounter: number = 0;
+    private m_amplitude: number = 185;//125
+    private m_shift: number = 0;
+    private m_t: number = 0;//6;
+    private m_increment: number = 10 * Math.PI / 180;//12
+
+    private plats: Array<Rectangle>;
 
     private testingRect: Rectangle;
 
@@ -171,7 +168,7 @@ class Charlie extends BaseObject {
         }
     }
 
-    private SomerSaultLeft() {
+    private SomerSaultLeft(): void {
         if (!this.m_initialised) {
             this.m_offsetY = 138;
             this.m_facing = direction.FACE_LEFT;
@@ -179,24 +176,20 @@ class Charlie extends BaseObject {
             this.m_initialised = true;
             this.m_jumpStarted = true;
             this.m_amplitude = 125;
-            console.log("----SomerSaultJump------");
+            // console.log("----SomerSaultJump------");
         }
         if (this.m_frame > 0) {
             if (this.m_animTimer > 0.2) {
                 this.m_frame -= 1;
                 this.m_animTimer = 0;
                 this.m_t += this.m_increment;
-                console.log("this.m_t = " + this.m_t);
-                console.log("this.m_increment = " + this.m_increment);
                 this.m_shift = this.m_amplitude * Math.sin(this.m_t);
-                console.log("this.m_shift = " + this.m_shift);
-                this.m_y = this.m_startYPosition - this.m_shift;
-                console.log("this.m_startYPosition = " + this.m_startYPosition);
-                console.log("this.m_y = " + this.m_y);
-                console.log(this.m_y);
-                console.log("----------");
+                //this.m_y = this.m_startYPosition - this.m_shift;
+                let test = this.m_startYPosition - this.m_shift;
+                this.m_y = this.m_startYPosition - this.GetVelocityY(this.m_shift);
             }
-            this.m_x -= 4;
+            // this.m_x -= 4;
+            this.m_x -= this.GetVelocityX(4);
         }
         if (this.m_frame == 0 && this.m_somerSaultJump) {
             this.m_somerSaultJump = false;
@@ -210,7 +203,7 @@ class Charlie extends BaseObject {
         }
     }
 
-    private SomerSaultRight() {
+    private SomerSaultRight(): void {
         if (!this.m_initialised) {
             this.m_offsetY = 68;
             this.m_facing = direction.FACE_RIGHT;
@@ -227,8 +220,8 @@ class Charlie extends BaseObject {
                 this.m_shift = this.m_amplitude * Math.sin(this.m_t);
                 this.m_y = this.m_startYPosition - this.m_shift;
             }
-            this.m_x += 5;
-            //console.log(this.m_y);
+            // this.m_x += 5;
+            this.m_x += this.GetVelocityX(4);
         }
         if (this.m_frame == 16 && this.m_somerSaultJump) {
             this.m_somerSaultJump = false;
@@ -258,7 +251,6 @@ class Charlie extends BaseObject {
                 }
             }
             else if (speed < 0) {
-                pixels = 0;
                 for (let increment: number = 0; increment > speed; increment--) {
                     pixelMovement = this.CheckForHorizontalIntersections(--pixels);
                 }
@@ -302,7 +294,6 @@ class Charlie extends BaseObject {
                 }
             }
             else if (speed < 0) {
-                pixels = 0;
                 for (let increment: number = 0; increment > speed; increment--) {
                     pixelMovement = this.CheckForVerticalIntersections(--pixels);
                 }
