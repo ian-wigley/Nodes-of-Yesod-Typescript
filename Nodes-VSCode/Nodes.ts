@@ -359,7 +359,7 @@ class Nodes {
 
     // TODO update logic to utilse charlieState enum
     private UpdateCharlie() {
-        let charlieValue: number = charliesState.IDLE;
+        let charlieValue: charliesState = charliesState.IDLE;
 
         if (!this.charlie.SittingDown) {
             charlieValue = this.UpdateCharlieWithUserInput(charlieValue);
@@ -382,6 +382,53 @@ class Nodes {
         }
 
         this.charlie.Update(charlieValue);
+    }
+
+    private UpdateCharlieWithUserInput(charlieValue: number): number {
+        if (this.keyboard.left) {
+            if (!this.moleAlive && !this.charlie.Falling) {
+                charlieValue = charliesState.WALK_LEFT;
+            }
+            else if (this.moleAlive && !this.charlie.Falling) {
+                this.mole.UpdatePosition(0);
+                this.mole.Update();
+            }
+        }
+
+        if (this.keyboard.right) {
+            if (!this.moleAlive && !this.charlie.Falling) {
+                charlieValue = charliesState.WALK_RIGHT;
+            }
+            else if (this.moleAlive && !this.charlie.Falling) {
+                this.mole.UpdatePosition(1);
+                this.mole.Update();
+            }
+        }
+
+        if (this.keyboard.left && this.keyboard.jump || this.keyboard.right && this.keyboard.jump) {
+            this.charlie.JumpVal = this.charlie.Y;
+            this.charlie.Somersault = true;
+            this.charlie.Falling = true;
+        }
+
+        // Normal jump !
+        if (!this.keyboard.left && !this.keyboard.right && this.keyboard.jump && this.screen.name.includes("BelowMoon") && !this.charlie.Somersault) {
+            this.charlie.JumpVal = this.charlie.Y;
+            this.charlie.JumpingUp = true;
+        }
+
+        if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
+            this.mole.UpdatePosition(2);
+        }
+
+        if (this.keyboard.down && this.moleAlive && !this.charlie.Falling) {
+            this.mole.UpdatePosition(3);
+        }
+
+        if (this.moleAlive) {
+            this.mole.Update();
+        }
+        return charlieValue;
     }
 
     /**
@@ -509,53 +556,6 @@ class Nodes {
             this.charlie.X = 10;
             this.screenChange = true;
         }
-    }
-
-    private UpdateCharlieWithUserInput(charlieValue: number): number {
-        if (this.keyboard.left) {
-            if (!this.moleAlive && !this.charlie.Falling) {
-                charlieValue = 1;
-            }
-            else if (this.moleAlive && !this.charlie.Falling) {
-                this.mole.UpdatePosition(0);
-                this.mole.Update();
-            }
-        }
-
-        if (this.keyboard.right) {
-            if (!this.moleAlive && !this.charlie.Falling) {
-                charlieValue = 2;
-            }
-            else if (this.moleAlive && !this.charlie.Falling) {
-                this.mole.UpdatePosition(1);
-                this.mole.Update();
-            }
-        }
-
-        if (this.keyboard.left && this.keyboard.jump || this.keyboard.right && this.keyboard.jump) {
-            this.charlie.JumpVal = this.charlie.Y;
-            this.charlie.Somersault = true;
-            this.charlie.Falling = true;
-        }
-
-        // Normal jump !
-        if (!this.keyboard.left && !this.keyboard.right && this.keyboard.jump && this.screen.name.includes("BelowMoon") && !this.charlie.Somersault) {
-            this.charlie.JumpVal = this.charlie.Y;
-            this.charlie.JumpingUp = true;
-        }
-
-        if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
-            this.mole.UpdatePosition(2);
-        }
-
-        if (this.keyboard.down && this.moleAlive && !this.charlie.Falling) {
-            this.mole.UpdatePosition(3);
-        }
-
-        if (this.moleAlive) {
-            this.mole.Update();
-        }
-        return charlieValue;
     }
 
     private CheckIfMoleIsCaught(): void {
