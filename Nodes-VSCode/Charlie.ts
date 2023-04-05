@@ -60,13 +60,13 @@ class Charlie extends BaseObject {
 
     private UpdateWalking(value: number): void {
         // Walk Left
-        if (value == 1 && !this.m_somerSaultJump) {
+        if (value == charliesState.WALK_LEFT  && !this.m_somerSaultJump) {
             this.m_x += this.GetVelocityX(-2);
             this.m_facing = direction.FACE_LEFT;
             this.UpdateWalkingAnimation();
         }
         // Walk Right
-        else if (value == 2 && !this.m_somerSaultJump) {
+        else if (value == charliesState.WALK_RIGHT && !this.m_somerSaultJump) {
             this.m_x += this.GetVelocityX(2);
             this.m_facing = direction.FACE_RIGHT;
             this.UpdateWalkingAnimation();
