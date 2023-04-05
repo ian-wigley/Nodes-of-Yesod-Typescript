@@ -366,11 +366,11 @@ class Nodes {
         }
 
         if (this.charlie.Somersault && this.charlie.Direction == direction.FACE_LEFT) {
-            charlieValue = 1;
+            charlieValue = charliesState.SOMERSAULT_LEFT;
         }
 
         if (this.charlie.Somersault && this.charlie.Direction == direction.FACE_RIGHT) {
-            charlieValue = 2;
+            charlieValue = charliesState.SOMERSAULT_RIGHT;
         }
 
         if (!this.charlie.Somersault && this.charlie.JumpingUp && this.charlie.Direction == direction.FACE_LEFT) {

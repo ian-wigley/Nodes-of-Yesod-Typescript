@@ -2,6 +2,7 @@
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 import { direction } from "./Direction";
+import { charliesState } from "./CharliesState";
 
 class Charlie extends BaseObject {
 
@@ -160,10 +161,10 @@ class Charlie extends BaseObject {
     }
 
     private UpdateSomersault(value: number): void {
-        if (value == 1 && this.m_somerSaultJump) {
+        if (value == charliesState.SOMERSAULT_LEFT && this.m_somerSaultJump) {
             this.SomerSaultLeft();
         }
-        if (value == 2 && this.m_somerSaultJump) {
+        if (value == charliesState.SOMERSAULT_RIGHT && this.m_somerSaultJump) {
             this.SomerSaultRight();
         }
     }
