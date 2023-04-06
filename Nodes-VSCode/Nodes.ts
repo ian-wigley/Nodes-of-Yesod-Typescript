@@ -216,6 +216,7 @@ class Nodes {
                     this.mole.Walls = this.rects;
                     this.mole.EdibleWalls = this.edibleWalls;
                     this.mole.ScreenCounter = this.screenCounter;
+                    this.mole.Direction = this.charlie.Direction;
                 }
                 break;
             case "p":
@@ -357,12 +358,12 @@ class Nodes {
         this.Draw();
     }
 
-    // TODO update logic to utilse charlieState enum
-    private UpdateCharlie() {
+    private UpdateCharlie(): void {
         let charlieValue: charliesState = charliesState.IDLE;
 
         if (!this.charlie.SittingDown) {
             charlieValue = this.UpdateCharlieWithUserInput(charlieValue);
+            this.UpdateMoleWithUserInput();
         }
 
         if (this.charlie.Somersault && this.charlie.Direction == direction.FACE_LEFT) {
@@ -389,19 +390,11 @@ class Nodes {
             if (!this.moleAlive && !this.charlie.Falling) {
                 charlieValue = charliesState.WALK_LEFT;
             }
-            else if (this.moleAlive && !this.charlie.Falling) {
-                this.mole.UpdatePosition(0);
-                this.mole.Update();
-            }
         }
 
         if (this.keyboard.right) {
             if (!this.moleAlive && !this.charlie.Falling) {
                 charlieValue = charliesState.WALK_RIGHT;
-            }
-            else if (this.moleAlive && !this.charlie.Falling) {
-                this.mole.UpdatePosition(1);
-                this.mole.Update();
             }
         }
 
@@ -417,6 +410,24 @@ class Nodes {
             this.charlie.JumpingUp = true;
         }
 
+        return charlieValue;
+    }
+
+    private UpdateMoleWithUserInput(): void {
+        if (this.keyboard.left) {
+            if (this.moleAlive && !this.charlie.Falling) {
+                this.mole.UpdatePosition(0);
+                this.mole.Update();
+            }
+        }
+
+        if (this.keyboard.right) {
+            if (this.moleAlive && !this.charlie.Falling) {
+                this.mole.UpdatePosition(1);
+                this.mole.Update();
+            }
+        }
+
         if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
             this.mole.UpdatePosition(2);
         }
@@ -428,7 +439,6 @@ class Nodes {
         if (this.moleAlive) {
             this.mole.Update();
         }
-        return charlieValue;
     }
 
     /**
