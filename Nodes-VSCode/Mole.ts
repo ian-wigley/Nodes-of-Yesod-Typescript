@@ -2,6 +2,7 @@
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
 import ResourceManager = require("./ResourceManager");
+import { direction } from "./Direction";
 
 class Mole extends BaseObject {
 
@@ -10,6 +11,7 @@ class Mole extends BaseObject {
     private m_underground: boolean;
     private m_resourceManager: ResourceManager;
     private m_moleScreen: number = 0;
+    private m_direction = direction.FACE_RIGHT;
 
     constructor(
         texture: HTMLCanvasElement,
@@ -18,7 +20,7 @@ class Mole extends BaseObject {
     ) {
         super(texture, screenInfo);
         this.m_underground = false;
-        this.m_offsetX = 0 * 64;
+        this.m_offsetX = 0;
         this.m_offsetY = 12 * 69;
         this.m_width = 40;
         this.m_height = 40;
@@ -42,11 +44,11 @@ class Mole extends BaseObject {
     public UpdatePosition(value: number): void {
         if (value == 0 && this.m_x > this.m_screen.Left) {
             this.m_x -= 4;
-            this.m_facingLeft = true;
+            this.m_direction = direction.FACE_LEFT;
         }
         if (value == 1 && this.m_x < this.m_screen.Right) {
             this.m_x += 4;
-            this.m_facingLeft = false;
+            this.m_direction = direction.FACE_RIGHT;
         }
         if (value == 2 && this.m_y > this.m_screen.Top) {
             this.m_y -= 4;
@@ -63,7 +65,7 @@ class Mole extends BaseObject {
         for (const element of this.m_walls) {
             if (this.m_moleRect.Intersects(element) && !triggered) {
                 triggered = true;
-                if (this.m_facingLeft) {
+                if (this.m_direction == direction.FACE_LEFT) {
                     this.m_x += 4;
                 }
                 else {
@@ -89,7 +91,7 @@ class Mole extends BaseObject {
         if (!this.m_underground) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }
-        else if (!this.m_facingLeft) {
+        else if (this.m_direction == direction.FACE_RIGHT) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 68, 68, this.m_x, this.m_y, 64, 64);
         }
         else {
@@ -107,6 +109,6 @@ class Mole extends BaseObject {
     public set Underground(value: boolean) { this.m_underground = value; }
     public set Walls(value: Array<Rectangle>) { this.m_walls = value; }
     public set EdibleWalls(value: Array<Rectangle>) { this.m_edibleWalls = value; }
-
+    public set Direction(value: direction) { this.m_direction = value; }
 }
 export = Mole;
