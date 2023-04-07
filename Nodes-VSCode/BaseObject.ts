@@ -1,5 +1,6 @@
 ﻿import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
+import { direction } from "./Direction";
 
 class BaseObject {
 
@@ -18,7 +19,7 @@ class BaseObject {
     protected m_charlieY: number = 0;
     protected m_speedX: number = 1.0;
     protected m_speedY: number = 1.0;
-    protected m_facingLeft: boolean;
+    protected m_direction = direction.FACE_RIGHT;
     protected m_debug: boolean = false;
     protected m_name: string;
     protected m_screen: ScreenInfo;
@@ -37,7 +38,6 @@ class BaseObject {
         this.m_offsetX = 0;
         this.m_offsetY = 0;
         this.m_animTimer = 0;
-        this.m_facingLeft = false;
         this.m_name = "";
     }
 
