@@ -1,6 +1,7 @@
 ﻿import DirectionalEnemy = require("DirectionalEnemy");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
+import { direction } from "./Direction";
 
 class CockRoach extends DirectionalEnemy {
     constructor(
@@ -16,7 +17,6 @@ class CockRoach extends DirectionalEnemy {
         this.m_offsetX = 0;
         this.m_offsetY = 18 * 69;
         this.m_imageIndex = 4 * 64;
-        this.m_facingLeft = true;
         this.m_width = 34;
         this.m_height = 64;
     }
@@ -32,11 +32,11 @@ class CockRoach extends DirectionalEnemy {
 
         if (this.m_x >= 700) {
             this.m_speed *= -1;
-            this.m_facingLeft = true;
+            this.m_direction = direction.FACE_LEFT;
         }
         else if (this.m_x < 0) {
             this.m_speed *= -1;
-            this.m_facingLeft = false;
+            this.m_direction = direction.FACE_RIGHT;
         }
     }
 
