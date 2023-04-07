@@ -11,7 +11,6 @@ class Mole extends BaseObject {
     private m_underground: boolean;
     private m_resourceManager: ResourceManager;
     private m_moleScreen: number = 0;
-    private m_direction = direction.FACE_RIGHT;
 
     constructor(
         texture: HTMLCanvasElement,
