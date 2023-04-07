@@ -1,6 +1,7 @@
 ﻿import DirectionalEnemy = require("DirectionalEnemy");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
+import { direction } from "./Direction";
 
 class Caterpillar extends DirectionalEnemy {
     constructor(
@@ -30,11 +31,11 @@ class Caterpillar extends DirectionalEnemy {
         }
         if (this.m_x >= 700) {
             this.m_speed *= -1;
-            this.m_facingLeft = true;
+            this.m_direction = direction.FACE_LEFT;
         }
         else if (this.m_x < 0) {
             this.m_speed *= -1;
-            this.m_facingLeft = false;
+            this.m_direction = direction.FACE_RIGHT;
         }
     }
 }
