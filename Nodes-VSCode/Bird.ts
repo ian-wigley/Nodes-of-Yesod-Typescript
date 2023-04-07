@@ -16,10 +16,9 @@ class Bird extends DirectionalEnemy {
         this.m_name = "Bird";
         this.m_x = 180;
         this.m_y = y;
-        this.m_width = 34;//64
+        this.m_width = 34;
         this.m_height = 64;
         this.m_speed = 1;
-        this.m_facingLeft = false;
         this.m_offsetX = 0;
         this.m_offsetY = 10 * 69;
         this.m_imageIndex = 4 * 64;
