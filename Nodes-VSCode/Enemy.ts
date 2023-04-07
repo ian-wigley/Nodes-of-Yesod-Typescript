@@ -1,6 +1,7 @@
 ﻿import BaseObject = require("BaseObject");
 import Rectangle = require("Rectangle");
 import ScreenInfo = require("ScreenInfo");
+import { direction } from "./Direction";
 
 class Enemy extends BaseObject {
 
@@ -79,13 +80,13 @@ class Enemy extends BaseObject {
     protected TurnRight(): void {
         this.m_x += 5;
         this.m_speed *= -1;
-        this.m_facingLeft = false;
+        this.m_direction = direction.FACE_RIGHT;
     }
 
     protected TurnLeft(): void {
         this.m_x -= 5;
         this.m_speed *= -1;
-        this.m_facingLeft = true;
+        this.m_direction = direction.FACE_LEFT;
     }
 
     public get Name(): string { return this.m_name; }
