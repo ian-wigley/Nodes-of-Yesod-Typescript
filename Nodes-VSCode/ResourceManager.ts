@@ -54,7 +54,7 @@ class ResourceManager {
             }
 
             rawFile.onloadend = function () {
-                console.log(tempData);
+                // console.log(tempData);
                 tempData = [];
             }
         };
