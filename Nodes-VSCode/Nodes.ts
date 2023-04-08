@@ -49,9 +49,8 @@ class Nodes {
 
     private screenCounter: number = 0;
 
-    // private screen: any;
     private screen: Tile;
-    private rects: any;
+    private rects: Array<Rectangle> = new Array<Rectangle>();
 
     private charlieState: charliesState = charliesState.IDLE;
 
@@ -318,6 +317,7 @@ class Nodes {
                 this.walkingEnemies = this.screen.enemies;
                 this.edibleWalls = this.screen.edibleWall;
                 this.rects = this.screen.rectangleList;
+                this.edibleWalls.forEach(ed => { this.rects.push(ed); });
                 this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
                 this.screenChange = false;
             }
