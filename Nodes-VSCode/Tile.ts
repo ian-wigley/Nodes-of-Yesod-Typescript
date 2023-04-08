@@ -15,7 +15,7 @@ class Tile {
     dw: number;
     dh: number;
     tiles = [{ "sx": 0, "sy": 0, "sw": 0, "sh": 0, "dx": 0, "dy": 0, "dw": 0, "dh": 0 }];
-    rectangleList = [{ "left": 0, "top": 0, "right": 0, "bottom": 0 }];
+    rectangleList: Array<Rectangle>;
     enemies: Array<Enemy>;
     edibleWall: Array<Rectangle>;
 
@@ -30,7 +30,7 @@ class Tile {
         this.dw = 0;
         this.dh = 0;
         this.tiles = [{ "sx": 0, "sy": 0, "sw": 0, "sh": 0, "dx": 0, "dy": 0, "dw": 0, "dh": 0 }];
-        this.rectangleList = [{ "left": 0, "top": 0, "right": 0, "bottom": 0 }];
+        this.rectangleList = [];
         this.enemies = [];
         this.edibleWall = [];
     }
