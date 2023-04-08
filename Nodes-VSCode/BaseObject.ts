@@ -19,7 +19,9 @@ class BaseObject {
     protected m_charlieY: number = 0;
     protected m_speedX: number = 1.0;
     protected m_speedY: number = 1.0;
-    protected m_direction = direction.FACE_RIGHT;
+    protected m_wide: number = 64;
+    protected m_high: number = 69;
+    protected m_direction: direction = direction.FACE_RIGHT;
     protected m_debug: boolean = false;
     protected m_name: string;
     protected m_screen: ScreenInfo;
