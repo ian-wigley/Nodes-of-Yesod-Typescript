@@ -34,5 +34,7 @@ class Tile {
         this.enemies = [];
         this.edibleWall = [];
     }
+
+    public rectList(): Array<Rectangle> { return this.rectangleList; }
 }
 export = Tile;
