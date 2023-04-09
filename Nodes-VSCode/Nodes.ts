@@ -92,7 +92,7 @@ class Nodes {
 
     private debug: boolean = true;
     private upScreen: boolean = false;
-    private screenChange: boolean = false;
+    private screenChange: boolean = true;
 
     private row: number = 0;
     private column: number = 0;
@@ -244,6 +244,7 @@ class Nodes {
                 this.screenCounter = 0;
                 this.charlie.Falling = false;
                 this.clearAll();
+                this.screenChange = true;
                 break;
             case "F2":
                 this.debug = !this.debug;
@@ -256,6 +257,7 @@ class Nodes {
                 if (this.screenCounter > 0) {
                     this.row -= 1;
                 }
+                this.screenChange = true;
                 this.charlie.Falling = false;
                 break;
             case "d":
@@ -263,6 +265,7 @@ class Nodes {
                 if (this.screenCounter < 256) {
                     this.row += 1;
                 }
+                this.screenChange = true;
                 this.charlie.Falling = false;
                 break;
             case "w":
@@ -270,11 +273,13 @@ class Nodes {
                 if (this.column >= 16) {
                     this.column -= 16;
                 }
+                this.screenChange = true;
                 this.charlie.Falling = false;
                 break;
             case "z":
             case "Z":
                 this.column = (this.column + 16) % 256;
+                this.screenChange = true;
                 this.charlie.Falling = false;
                 break;
         }
@@ -302,6 +307,25 @@ class Nodes {
         }
     }
 
+    private InintialiseScreen(): void {
+        this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
+    }
+
+    private ChangeScreen(): void {
+        this.UpdateScreenCounter();
+        this.InintialiseScreen();
+        this.rects = this.screen.rectangleList;
+        this.charlie.Plats = this.rects;
+        if (this.screen.name.includes("BelowMoon")) {
+            this.walkingEnemies = this.screen.enemies;
+            this.edibleWalls = this.screen.edibleWall;
+            this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
+            // TODO implement the logic
+            this.edibleWalls.forEach(ed => { this.rects.push(ed); });
+        }
+        this.screenChange = false;
+    }
+
     private Update(): void {
 
         requestAnimationFrame(this.Update.bind(this));
@@ -310,52 +334,39 @@ class Nodes {
             this.UpdateCharlie();
             this.UpdateHorizontalScreens();
             this.UpdateVerticalScreens();
-            this.UpdateScreenCounter();
-
-            this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
-            if (this.screenChange && this.screen.name.includes("BelowMoon")) {
-                this.walkingEnemies = this.screen.enemies;
-                this.edibleWalls = this.screen.edibleWall;
-                this.rects = this.screen.rectangleList;
-                this.edibleWalls.forEach(ed => { this.rects.push(ed); });
-                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
-                this.screenChange = false;
+            if (this.screenChange) {
+                this.ChangeScreen();
             }
 
-            if (this.screen != undefined) {
-                this.rects = this.screen.rectangleList;
-                this.walkingEnemies = this.screen.enemies;
-                this.edibleWalls = this.screen.edibleWall;
-                // To-do rename this !!
-                this.charlie.Plats = this.rects;
-
-                if (this.screen.name.includes("AboveMoon")) {
-                    if (this.charlie.Falling) {
-                        this.charlie.Y += this.charlie.GetVelocityY(2);
-                        // Charlie is falling through a hole in the moon surface.
-                        if (this.charlie.Y > 400) {
-                            this.mole.Underground = true;
-                        }
-                    }
-                    this.earth.Update();
-                    this.CheckIfMoleIsCaught();
-                }
-                else if (this.screen.name.includes("BelowMoon")) {
-                    this.UpdateVerticalScreens();
-                    this.UpdateEnemies();
-                    if (this.explosion.Active) {
-                        this.explosion.Update();
-                    }
-                }
-
-                this.rocket.Update();
-                this.UpdateGameTimer();
-                this.UpdateCharlieSeated();
-                this.UpdateCharlieImmune();
+            if (this.screen.name.includes("AboveMoon")) {
+                this.UpdateCharlieFalling();
+                this.earth.Update();
+                this.CheckIfMoleIsCaught();
             }
+            else if (this.screen.name.includes("BelowMoon")) {
+                this.UpdateEnemies();
+                if (this.explosion.Active) {
+                    this.explosion.Update();
+                }
+            }
+
+            this.rocket.Update();
+            this.UpdateGameTimer();
+            this.UpdateCharlieSeated();
+            this.UpdateCharlieImmune();
             this.UpdateHeartBeatTimer();
         }
         this.Draw();
+    }
+
+    private UpdateCharlieFalling(): void {
+        if (this.charlie.Falling) {
+            this.charlie.Y += this.charlie.GetVelocityY(2);
+            // Charlie is falling through a hole in the moon surface.
+            if (this.charlie.Y > 400) {
+                this.mole.Underground = true;
+            }
+        }
     }
 
     private UpdateCharlie(): void {
@@ -414,35 +425,68 @@ class Nodes {
     }
 
     private UpdateMoleWithUserInput(): void {
+        let updateEdibleWalls: boolean = false;
         if (this.keyboard.left) {
             if (this.moleAlive && !this.charlie.Falling) {
-                this.mole.UpdatePosition(0);
+                updateEdibleWalls = this.mole.UpdatePosition(0);
                 this.mole.Update();
             }
         }
 
         if (this.keyboard.right) {
             if (this.moleAlive && !this.charlie.Falling) {
-                this.mole.UpdatePosition(1);
+                updateEdibleWalls = this.mole.UpdatePosition(1);
                 this.mole.Update();
             }
         }
 
         if (this.keyboard.up && this.moleAlive && !this.charlie.Falling) {
-            this.mole.UpdatePosition(2);
+            updateEdibleWalls = this.mole.UpdatePosition(2);
         }
 
         if (this.keyboard.down && this.moleAlive && !this.charlie.Falling) {
-            this.mole.UpdatePosition(3);
+            updateEdibleWalls = this.mole.UpdatePosition(3);
         }
 
-        if (this.moleAlive) {
-            this.mole.Update();
+        if (this.moleAlive) { this.mole.Update(); }
+
+        if (updateEdibleWalls) {
+            this.InintialiseScreen();
+            this.rects = this.screen.rectangleList;
+            this.charlie.Plats = this.rects;
+            this.edibleWalls = this.screen.edibleWall;
+            // updateEdibleWalls = false;
         }
     }
 
     /**
-     * Update the screen depending upon Charlie's X position.
+ * Update the screen depending upon Charlie's X position.
+ */
+    private UpdateHorizontalScreens(): void {
+        if (this.charlie.X < 5) {
+            if (this.row > 0) {
+                this.row = (this.row - 1) % 15;
+            }
+            else {
+                this.row = 15;
+            }
+            this.charlie.X = 680;
+            this.screenChange = true;
+        }
+        if (this.charlie.X > 750) {
+            if (this.row < 15) {
+                this.row += 1;
+            }
+            else {
+                this.row = 0;
+            }
+            this.charlie.X = 10;
+            this.screenChange = true;
+        }
+    }
+
+    /**
+     * Update the screen depending upon Charlie's Y position.
     */
     private UpdateVerticalScreens(): void {
         if (this.charlie.Falling) {
@@ -452,13 +496,7 @@ class Nodes {
                 this.charlie.Walking = false;
                 this.column += 16;
                 this.clearAll();
-                // Recalculate the screen counter & get the screen & walking enemies
-                this.UpdateScreenCounter();
-                this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
-                this.rects = this.screen.rectangleList;
-                this.edibleWalls = this.screen.edibleWall;
-                this.walkingEnemies = this.screen.enemies;
-                this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
+                this.screenChange = true;
             }
 
             // To-do Fix ! It gets triggered throughout the entire somersault
@@ -540,32 +578,6 @@ class Nodes {
         this.seconds = Math.floor((this.currentTime - this.startTime.getTime()) / 1000) % 60;
         let mins = new Date().getMinutes();
         this.minutes = Math.floor(mins - this.originalMinutes);
-    }
-
-    /**
-     * Update the screen depending upon Charlie's X position.
-     */
-    private UpdateHorizontalScreens(): void {
-        if (this.charlie.X < 5) {
-            if (this.row > 0) {
-                this.row = (this.row - 1) % 15;
-            }
-            else {
-                this.row = 15;
-            }
-            this.charlie.X = 680;
-            this.screenChange = true;
-        }
-        if (this.charlie.X > 750) {
-            if (this.row < 15) {
-                this.row += 1;
-            }
-            else {
-                this.row = 0;
-            }
-            this.charlie.X = 10;
-            this.screenChange = true;
-        }
     }
 
     private CheckIfMoleIsCaught(): void {
