@@ -40,7 +40,7 @@ class Mole extends BaseObject {
         }
     }
 
-    public UpdatePosition(value: number): void {
+    public UpdatePosition(value: number): boolean {
         if (value == 0 && this.m_x > this.m_screen.Left) {
             this.m_x -= 4;
             this.m_direction = direction.FACE_LEFT;
@@ -55,10 +55,10 @@ class Mole extends BaseObject {
         if (value == 3 && this.m_y < this.m_screen.Bottom) {
             this.m_y += 4;
         }
-        this.CheckWallCollisions();
+        return this.CheckWallCollisions();
     }
 
-    private CheckWallCollisions():void{
+    private CheckWallCollisions(): boolean {
         let triggered = false;
         this.m_moleRect = new Rectangle(this.m_x + 10, this.m_y, this.m_width, this.m_height, this.m_name);
         for (const element of this.m_walls) {
@@ -72,7 +72,7 @@ class Mole extends BaseObject {
                 }
             }
         }
-
+        triggered = false;
         for (const element of this.m_edibleWalls) {
             if (this.m_moleRect.Intersects(element) && !triggered) {
                 triggered = true;
@@ -83,6 +83,7 @@ class Mole extends BaseObject {
                 this.m_resourceManager.TurnOffEdibleWallChunks(this.m_screenCounter, t, u, v);
             }
         }
+        return triggered;
     }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
