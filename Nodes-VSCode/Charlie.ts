@@ -6,8 +6,6 @@ import { charliesState } from "./CharliesState";
 
 class Charlie extends BaseObject {
 
-    private m_facing: direction = direction.FACE_RIGHT;
-
     private m_somerSaultJump: boolean = false;
     private m_falling: boolean = false;
     private m_initialised: boolean = false;
@@ -29,7 +27,6 @@ class Charlie extends BaseObject {
     private m_increment: number = 10 * Math.PI / 180;//12
 
     private plats: Array<Rectangle>;
-
     private testingRect: Rectangle;
 
     constructor(
@@ -46,10 +43,9 @@ class Charlie extends BaseObject {
         this.m_frame = 1;
         this.plats = new Array<Rectangle>();
         this.testingRect = new Rectangle(0, 0, 0, 0);
+        this.m_direction = direction.FACE_RIGHT;
     }
 
-    // Values:
-    // 0 - nothing ! 1 - left ! 2 - right ! 3 - standard jump
     public Update(value: number): void {
         this.m_animTimer += 0.1;
         this.m_landingVal = !this.m_belowSurface ? 320 : this.m_y;
@@ -60,15 +56,15 @@ class Charlie extends BaseObject {
 
     private UpdateWalking(value: number): void {
         // Walk Left
-        if (value == charliesState.WALK_LEFT  && !this.m_somerSaultJump) {
+        if (value == charliesState.WALK_LEFT && !this.m_somerSaultJump) {
             this.m_x += this.GetVelocityX(-2);
-            this.m_facing = direction.FACE_LEFT;
+            this.m_direction = direction.FACE_LEFT;
             this.UpdateWalkingAnimation();
         }
         // Walk Right
         else if (value == charliesState.WALK_RIGHT && !this.m_somerSaultJump) {
             this.m_x += this.GetVelocityX(2);
-            this.m_facing = direction.FACE_RIGHT;
+            this.m_direction = direction.FACE_RIGHT;
             this.UpdateWalkingAnimation();
         }
     }
@@ -92,7 +88,7 @@ class Charlie extends BaseObject {
     }
 
     private JumpLeft(value: number) {
-        if (value == 5 && this.m_jumpingUp && this.m_facing == direction.FACE_LEFT) {
+        if (value == 5 && this.m_jumpingUp && this.m_direction == direction.FACE_LEFT) {
             // Facing left
             if (!this.m_initialised) {
                 this.m_offsetY = 206;
@@ -126,8 +122,7 @@ class Charlie extends BaseObject {
     }
 
     private JumpRight(value: number) {
-        if (value == 5 && this.m_jumpingUp && this.m_facing == direction.FACE_RIGHT) {
-            // if (value == 4 && this.m_jumpingUp) {
+        if (value == 5 && this.m_jumpingUp && this.m_direction == direction.FACE_RIGHT) {
             if (!this.m_initialised) {
                 this.m_offsetY = 206;
                 this.m_frame = 0;
@@ -172,7 +167,7 @@ class Charlie extends BaseObject {
     private SomerSaultLeft(): void {
         if (!this.m_initialised) {
             this.m_offsetY = 138;
-            this.m_facing = direction.FACE_LEFT;
+            this.m_direction = direction.FACE_LEFT;
             this.m_frame = 16;
             this.m_initialised = true;
             this.m_jumpStarted = true;
@@ -207,7 +202,7 @@ class Charlie extends BaseObject {
     private SomerSaultRight(): void {
         if (!this.m_initialised) {
             this.m_offsetY = 68;
-            this.m_facing = direction.FACE_RIGHT;
+            this.m_direction = direction.FACE_RIGHT;
             this.m_frame = 0;
             this.m_initialised = true;
             this.m_jumpStarted = true;
@@ -219,9 +214,8 @@ class Charlie extends BaseObject {
                 this.m_animTimer = 0;
                 this.m_t += this.m_increment;
                 this.m_shift = this.m_amplitude * Math.sin(this.m_t);
-                this.m_y = this.m_startYPosition - this.m_shift;
+                this.m_y = Math.floor(this.m_startYPosition - this.m_shift);
             }
-            // this.m_x += 5;
             this.m_x += this.GetVelocityX(4);
         }
         if (this.m_frame == 16 && this.m_somerSaultJump) {
@@ -232,7 +226,6 @@ class Charlie extends BaseObject {
             this.m_y = this.m_startYPosition;
             this.m_jumpStarted = false;
             this.m_t = 0;
-            //console.log("----- Jump Complete -----");
         }
     }
 
@@ -281,7 +274,7 @@ class Charlie extends BaseObject {
 
     /**
      * This method wil return a velocity of either 0 if a collision is found,
-     * else the original value passed to the method.
+     * else return the original value passed to the method.
      *
      * @param speed - Falling speed
      */
@@ -308,11 +301,6 @@ class Charlie extends BaseObject {
         this.testingRect = charlieRectangle;
         let blocker: number = 1;
         this.plats.forEach((platform: Rectangle) => {
-            let v = charlieRectangle.Intersects(platform);
-            if (v == true) {
-                let stop = true;
-            }
-
             if (blocker != 0 && charlieRectangle.Intersects(platform)) {
                 blocker = 0;
                 this.m_falling = false;
@@ -322,43 +310,43 @@ class Charlie extends BaseObject {
     }
 
     private UpdateBoundingRectangle(increment: number): Rectangle {
-        return new Rectangle(this.m_x + increment, this.m_y, this.m_width, this.m_height);
+        if (this.m_direction == direction.FACE_RIGHT) {
+            return new Rectangle(this.m_x + 10, this.m_y, this.m_width + 10, this.m_height);
+        }
+        else {
+            return new Rectangle(this.m_x + increment, this.m_y, this.m_width + 10, this.m_height);
+        }
     }
-
-    // private UpdateVerticalBoundingRectangle(increment: number): Rectangle {
-    //     return new Rectangle(this.m_x, this.m_y + increment + 10, this.m_width, this.m_height);
-    // }
 
     public Draw(ctx: CanvasRenderingContext2D): void {
 
         ctx.beginPath();
 
         // Draw Charlie facing left
-        if (this.m_facing == direction.FACE_LEFT && !this.m_somerSaultJump) {
+        if (this.m_direction == direction.FACE_LEFT && !this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64 + (11 * 64), this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_facing == direction.FACE_LEFT && this.m_somerSaultJump) {
+        if (this.m_direction == direction.FACE_LEFT && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_facing == direction.FACE_LEFT && this.m_jumpingUp) {
-            // ctx.drawImage(this.m_texture, this.m_frame * 64 + (11 * 64), this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
+        if (this.m_direction == direction.FACE_LEFT && this.m_jumpingUp) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_facing == direction.FACE_LEFT && this.m_sittingDown) {
+        if (this.m_direction == direction.FACE_LEFT && this.m_sittingDown) {
             ctx.drawImage(this.m_texture, 0, 4 * 69, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
         // Draw Charlie facing right
-        if (this.m_facing == direction.FACE_RIGHT && !this.m_somerSaultJump) {
+        if (this.m_direction == direction.FACE_RIGHT && !this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_facing == direction.FACE_RIGHT && this.m_somerSaultJump) {
+        if (this.m_direction == direction.FACE_RIGHT && this.m_somerSaultJump) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_facing == direction.FACE_RIGHT && this.m_jumpingUp) {
+        if (this.m_direction == direction.FACE_RIGHT && this.m_jumpingUp) {
             ctx.drawImage(this.m_texture, this.m_frame * 64, this.m_offsetY, 64, 64, this.m_x, this.m_y, 64, 64);
         }
-        if (this.m_facing == direction.FACE_RIGHT && this.m_sittingDown) {
+        if (this.m_direction == direction.FACE_RIGHT && this.m_sittingDown) {
             ctx.drawImage(this.m_texture, 64, 4 * 69, 64, 64, this.m_x, this.m_y, 64, 64);
         }
 
@@ -379,15 +367,15 @@ class Charlie extends BaseObject {
         }
     }
 
-    public NewCollisions(colliders: any): void {
-        let drop = true;
-        colliders.forEach((collider: Rectangle) => {
-            if (this.BoundingRectangle.Intersects(collider)) {
-                drop = false;
-            }
-        });
-        this.m_falling = drop ? true : false;
-    }
+    // public NewCollisions(colliders: any): void {
+    //     let drop = true;
+    //     colliders.forEach((collider: Rectangle) => {
+    //         if (this.BoundingRectangle.Intersects(collider)) {
+    //             drop = false;
+    //         }
+    //     });
+    //     this.m_falling = drop ? true : false;
+    // }
 
     public get X(): number { return this.m_x; }
     public set X(value: number) { this.m_x = value; }
@@ -414,7 +402,7 @@ class Charlie extends BaseObject {
     public set Somersault(value: boolean) { this.m_somerSaultJump = value; }
     public get Somersault(): boolean { return this.m_somerSaultJump; }
 
-    public get Direction(): direction { return this.m_facing; }
+    public get Direction(): direction { return this.m_direction; }
 
     //public get Jump(): boolean { return this.m_jump; }
     //public set Jump(value: boolean) { this.m_jump = value; }
