@@ -314,13 +314,13 @@ class Nodes {
     private ChangeScreen(): void {
         this.UpdateScreenCounter();
         this.InintialiseScreen();
-        this.rects = this.screen.rectangleList;
+        let clone = [...this.screen.rectangleList];
+        this.rects = clone;
         this.charlie.Plats = this.rects;
         if (this.screen.name.includes("BelowMoon")) {
             this.walkingEnemies = this.screen.enemies;
             this.edibleWalls = this.screen.edibleWall;
             this.resourceManager.ConfigureEnemies(this.rects, this.walkingEnemies, this.edibleWalls);
-            // TODO implement the logic
             this.edibleWalls.forEach(ed => { this.rects.push(ed); });
         }
         this.screenChange = false;
@@ -455,7 +455,6 @@ class Nodes {
             this.rects = this.screen.rectangleList;
             this.charlie.Plats = this.rects;
             this.edibleWalls = this.screen.edibleWall;
-            // updateEdibleWalls = false;
         }
     }
 
@@ -500,18 +499,18 @@ class Nodes {
             }
 
             // To-do Fix ! It gets triggered throughout the entire somersault
-            if (this.charlie.Y <= 15 && !this.upScreen) {
-                // this.charlie.Y = 400;
-                this.column -= 16;
-                this.upScreen = true;
-                // this.clearAll();
-            }
-
-            // if (this.charlie.Y <= 15 && this.column > 15) {
-            //     this.charlie.Y = 400;
+            // if (this.charlie.Y <= 15 && !this.upScreen) {
+            //     // this.charlie.Y = 400;
             //     this.column -= 16;
-            //     this.clearAll();
+            //     this.upScreen = true;
+            //     // this.clearAll();
             // }
+
+            // // if (this.charlie.Y <= 15 && this.column > 15) {
+            // //     this.charlie.Y = 400;
+            // //     this.column -= 16;
+            // //     this.clearAll();
+            // // }
         }
     }
 
@@ -613,7 +612,6 @@ class Nodes {
                     }
                     this.earth.Draw(this.ctx);
                     if (this.molestate == moleState.Free && this.mole.MoleScreen == this.screenCounter) {
-                        // if (!this.moleCaught) {
                         this.mole.Draw(this.ctx);
                     }
                 }
