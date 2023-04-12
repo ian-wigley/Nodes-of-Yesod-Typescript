@@ -1,5 +1,6 @@
 ﻿require(["out\\Nodes.js"], function (Nodes: new () => any) {
-    var nodesOfYesod = new Nodes();
+    let nodesOfYesod = new Nodes();
+    nodesOfYesod.Initialize();
     nodesOfYesod.Run();
 });
 
