@@ -118,11 +118,12 @@ class Nodes {
     }
 
     public Run(): void {
-        this.Initialize();
+        requestAnimationFrame(this.Run.bind(this));
         this.Update();
+        this.Draw();
     }
 
-    private Initialize(): void {
+    public Initialize(): void {
         if (this.debug) {
             this.gameSprites = <HTMLCanvasElement>document.getElementById("GameSpritesDebug");
         } else {
@@ -307,13 +308,13 @@ class Nodes {
         }
     }
 
-    private InintialiseScreen(): void {
+    private InitialiseScreen(): void {
         this.screen = this.resourceManager.GetScreenTiles(this.screenCounter);
     }
 
     private ChangeScreen(): void {
         this.UpdateScreenCounter();
-        this.InintialiseScreen();
+        this.InitialiseScreen();
         let clone = [...this.screen.rectangleList];
         this.rects = clone;
         this.charlie.Plats = this.rects;
@@ -327,9 +328,6 @@ class Nodes {
     }
 
     private Update(): void {
-
-        requestAnimationFrame(this.Update.bind(this));
-
         if (this.gameState == gameMode.GAME_ON) {
             this.UpdateCharlie();
             this.UpdateHorizontalScreens();
@@ -356,7 +354,6 @@ class Nodes {
             this.UpdateCharlieImmune();
             this.UpdateHeartBeatTimer();
         }
-        this.Draw();
     }
 
     private UpdateCharlieFalling(): void {
@@ -451,7 +448,7 @@ class Nodes {
         if (this.moleAlive) { this.mole.Update(); }
 
         if (updateEdibleWalls) {
-            this.InintialiseScreen();
+            this.InitialiseScreen();
             this.rects = this.screen.rectangleList;
             this.charlie.Plats = this.rects;
             this.edibleWalls = this.screen.edibleWall;
@@ -459,8 +456,8 @@ class Nodes {
     }
 
     /**
- * Update the screen depending upon Charlie's X position.
- */
+    * Update the screen depending upon Charlie's X position.
+    */
     private UpdateHorizontalScreens(): void {
         if (this.charlie.X < 5) {
             if (this.row > 0) {
