@@ -17,17 +17,17 @@ class Alf extends DirectionalEnemy {
         this.m_x = x;
         this.m_y = y;
         this.m_width = 34;
-        this.m_height = 64;
+        this.m_height = this.m_high;
         this.m_speed = speed;
         this.m_offsetX = 0;
-        this.m_offsetY = 6 * 69;
-        this.m_imageIndex = 14 * 64;
+        this.m_offsetY = 6 * this.m_high;
+        this.m_imageIndex = 14 * this.m_wide;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_x += this.m_speed;
-        this.m_offsetX = this.m_frame * 64;
+        this.m_offsetX = this.m_frame * this.m_wide;
         if (this.m_animTimer > 1.4) {
             this.m_frame = (this.m_frame + 1) % 7;
             this.m_animTimer = 0;
