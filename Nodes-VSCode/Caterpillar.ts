@@ -14,17 +14,17 @@ class Caterpillar extends DirectionalEnemy {
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "Caterpillar";
-        this.m_offsetX = 0 * 64;
-        this.m_offsetY = 17 * 69;
-        this.m_imageIndex = 8 * 64;
+        this.m_offsetX = 0;
+        this.m_offsetY = 17 * this.m_high;
+        this.m_imageIndex = 8 * this.m_wide;
         this.m_width = 34;
-        this.m_height = 64;
+        this.m_height = this.m_high;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_x += this.m_speed;
-        this.m_offsetX = this.m_frame * 64;
+        this.m_offsetX = this.m_frame * this.m_wide;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 7;
             this.m_animTimer = 0;
