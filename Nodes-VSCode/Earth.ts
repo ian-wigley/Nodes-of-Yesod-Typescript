@@ -10,15 +10,15 @@ class Earth extends BaseObject {
         super(gameSprites, screenInfo);
         this.m_x = 600;
         this.m_y = 20;
-        this.m_width = 64;
-        this.m_height = 64;
-        this.m_offsetX = 0 * 64;
-        this.m_offsetY = 15 * 69;
+        this.m_width = this.m_wide;
+        this.m_height = this.m_high;
+        this.m_offsetX = 0;
+        this.m_offsetY = 15 * this.m_high;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
-        this.m_offsetX = this.m_frame * 64;
+        this.m_offsetX = this.m_frame * this.m_wide;
         if (this.m_animTimer > 10.4) {
             this.m_frame = (this.m_frame + 1) % 15;
             this.m_animTimer = 0;
