@@ -14,17 +14,17 @@ class CockRoach extends DirectionalEnemy {
     ) {
         super(x, y, speed, gameSprites, wall, screenInfo);
         this.m_name = "CockRoach";
-        this.m_offsetX = 0;
-        this.m_offsetY = 18 * 69;
-        this.m_imageIndex = 4 * 64;
         this.m_width = 34;
-        this.m_height = 64;
+        this.m_height = this.m_high;
+        this.m_offsetX = 0;
+        this.m_offsetY = 18 * this.m_high;
+        this.m_imageIndex = 4 * this.m_wide;
     }
 
     public Update(): void {
         this.m_animTimer += 0.1;
         this.m_x -= this.m_speed;
-        this.m_offsetX = this.m_frame * 64;
+        this.m_offsetX = this.m_frame * this.m_wide;
         if (this.m_animTimer > 0.4) {
             this.m_frame = (this.m_frame + 1) % 4;
             this.m_animTimer = 0;
