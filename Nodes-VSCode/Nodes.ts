@@ -189,13 +189,13 @@ class Nodes {
                 this.upScreen = false;
                 break;
             case "ArrowLeft":
-                this.keyboard.left = true;
+                if (!this.charlie.Falling) { this.keyboard.left = true; }
                 break;
             case "ArrowUp":
                 this.keyboard.up = true;
                 break;
             case "ArrowRight":
-                this.keyboard.right = true;
+                if (!this.charlie.Falling) { this.keyboard.right = true; }
                 break;
             case "ArrowDown":
                 this.keyboard.down = true;
